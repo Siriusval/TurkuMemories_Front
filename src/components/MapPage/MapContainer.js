@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import { MapCanvas } from './MapCanvas'
 import { InfoSegment } from './InfoSegment'
 
-//const markers = api.getA
+import apis from '../../api/index'
 
 export class MapContainer extends Component {
   // componentDidMount() {
@@ -36,11 +36,11 @@ export class MapContainer extends Component {
   }
 
   fetchMemories() {
-    fetch('http://localhost:4500/memories')
-      .then(data => data.json())
-      .then(data => {
-        this.setState({ memories: data })
-        console.log(data)
+    apis.memories
+      .getAllMemories()
+      .then(res => {
+        this.setState({ memories: res.data })
+        console.log(res)
       })
       .catch(err => console.error({ err }))
   }

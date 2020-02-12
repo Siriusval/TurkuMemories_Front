@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import {
   Menu,
   Input,
   Icon,
   Dropdown,
+  Button,
 } from 'semantic-ui-react'
 
 const tagThemeOptions = [
@@ -125,6 +127,19 @@ export class FilterBar extends Component {
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>
+
+          <Menu.Menu position="right">
+            <Menu.Item as={Link} to="addMemory">
+              <Button
+                icon
+                labelPosition="left"
+                color="teal"
+              >
+                <Icon name="add" />
+                Add Memory
+              </Button>
+            </Menu.Item>
+          </Menu.Menu>
         </Menu>
       </div>
     )

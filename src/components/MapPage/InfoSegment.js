@@ -18,8 +18,8 @@ export class InfoSegment extends Component {
   render() {
     return (
       <Segment style={segmentStyle} raised>
-        {this.props.memories.map(memory => (
-          <MemoryCard memory={memory} />
+        {this.props.memories.map((memory, index) => (
+          <MemoryCard key={index} memory={memory} />
         ))}
       </Segment>
     )

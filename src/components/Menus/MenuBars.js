@@ -3,7 +3,7 @@ import { NavigationBar } from './NavigationBar'
 import { FilterBar } from './FilterBar'
 
 const menuStyle = {
-  position: 'absolute',
+  position: 'relative',
   width: '100%',
   height: 'auto',
   top: 0,

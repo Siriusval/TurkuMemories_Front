@@ -1,32 +1,38 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://localhost:4500/api',
 })
+
+/*
+axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+*/
+
+//https://restfulapi.net/resource-naming/
 
 /* --- MEMORIES MANAGEMENT ---
  *  api : /memories
  */
 
-const basePathMemories = '/memories'
+const basePathMemories = '/memory-management'
 
 export const createMemory = payload =>
-  api.post(`${basePathMemories}/memory`, payload)
+  api.post(`${basePathMemories}/memories`, payload)
 
 export const getMemoryById = id =>
-  api.get(`${basePathMemories}/memory/${id}`)
+  api.get(`${basePathMemories}/memories/${id}`)
 
 export const updateMemoryById = (id, payload) =>
-  api.put(`${basePathMemories}/memory/${id}`, payload)
+  api.put(`${basePathMemories}/memories/${id}`, payload)
 
 export const deleteMemoryById = id =>
-  api.delete(`${basePathMemories}/memory/${id}`)
+  api.delete(`${basePathMemories}/memories/${id}`)
 
 export const getAllMemories = () =>
   api.get(`${basePathMemories}/memories`)
 
 export const getMemoriesByTag = tag =>
-  api.get(`${basePathMemories}/memory/${tag}`)
+  api.get(`${basePathMemories}/memories/${tag}`)
 
 export const createMemoryReport = payload =>
   api.post(`${basePathMemories}/report`, payload)

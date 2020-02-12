@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Menu,
   Dropdown,
@@ -13,11 +14,13 @@ const languageOptions = [
   { key: 'FI', text: 'FI', value: 'FI' },
   { key: 'SWE', text: 'SWE', value: 'SWE' },
 ]
+
 export class NavigationBar extends Component {
   state = { activeItem: 'Home', activeLanguage: 'EN' }
 
-  handleItemClick = (e, { name }) =>
+  handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name })
+  }
 
   handleChangeLanguage = (e, { key }) =>
     this.setState({ activeLanguage: key })
@@ -26,33 +29,39 @@ export class NavigationBar extends Component {
     const { activeItem } = this.state
     return (
       <Menu secondary pointing>
-        <MenuItem>
+        <MenuItem as={Link} to="/">
           <Image
             src="/images/mtm_font_only.svg"
             size="small"
           />
         </MenuItem>
         <Menu.Item
+          as={Link}
+          to="/"
           key="1"
           active={activeItem === 'Home'}
           name="Home"
           content="Home"
           onClick={this.handleItemClick}
-        />
+        ></Menu.Item>
         <Menu.Item
+          as={Link}
+          to="myMemories"
           key="2"
           active={activeItem === 'My Memories'}
           name="My Memories"
           content="My Memories"
           onClick={this.handleItemClick}
-        />
+        ></Menu.Item>
         <Menu.Item
+          as={Link}
+          to="about"
           key="3"
           active={activeItem === 'About Us'}
           name="About Us"
           content="About Us"
           onClick={this.handleItemClick}
-        />
+        ></Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
             <LoginModal />

@@ -2,6 +2,7 @@
   "name": "my-turku-memories-react",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:4500",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
@@ -24,6 +25,10 @@
     "server": "json-server --watch db.json --port 4500",
     "eject": "react-scripts eject",
     "prod": "node server.js"
+  },
+  "engines": {
+    "node": "12.14.0",
+    "npm": "6.13.4"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,3 +1,10 @@
+/**
+ * AddMemory Page
+ * Opened when 'Add memory" but in navbar clicked
+ * Displays a form for the user
+ *
+ * Ideas : https://www.blablacar.fr/offer-seats/1
+ */
 import React, { Component } from 'react'
 import {
   Header,
@@ -7,24 +14,25 @@ import {
   Button,
   Grid,
 } from 'semantic-ui-react'
-
 import { Map, TileLayer } from 'react-leaflet'
+import { PageTemplate } from '../PageTemplate'
 
-//https://www.blablacar.fr/offer-seats/1
-
-export class AddMemory extends Component {
+export class AddMemoryPage extends Component {
+  /**
+   * center : where the map is centered
+   */
   state = {
     center: [60.455, 22.26],
-    pageStyle: { width: '80%', margin: '20px auto' },
   }
+
   render() {
     return (
-      <div style={this.state.pageStyle}>
+      <PageTemplate>
+        {/* --- TITLE --- */}
         <Header as="h2" textAlign="left">
           Add a new Memory
         </Header>
         <Form>
-          {/* --- TITLE --- */}
           <Grid columns={2}>
             {/* --- COLUMN 1 --- */}
             <Grid.Column>
@@ -37,11 +45,14 @@ export class AddMemory extends Component {
                   style={{ background: '#f9fafb' }}
                   textAlign="left"
                 >
+                  {/* Title */}
                   <Form.Input
                     fluid
                     label="Title"
                     placeholder="Example : Visit, Sunday Walk..."
                   />
+
+                  {/* Description */}
                   <Form.TextArea
                     label="Description"
                     placeholder="Tell us more about it..."
@@ -72,9 +83,12 @@ export class AddMemory extends Component {
             {/* --- COLUMN 2 --- */}
             <Grid.Column stretched>
               <Segment>
+                {/* --- TITLE --- */}
                 <Header as="h3" textAlign="left">
                   Indicate position of the memory
                 </Header>
+
+                {/* --- MAP --- */}
                 <Map
                   center={this.state.center}
                   zoom={13.5}
@@ -93,12 +107,13 @@ export class AddMemory extends Component {
               </Segment>
             </Grid.Column>
 
+            {/* --- SUBMIT BUTTON --- */}
             <Grid.Row centered>
               <Form.Button>Continue</Form.Button>
             </Grid.Row>
           </Grid>
         </Form>
-      </div>
+      </PageTemplate>
     )
   }
 }

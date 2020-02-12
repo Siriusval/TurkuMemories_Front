@@ -1,3 +1,6 @@
+/**
+ * Render react App in index.html file
+ */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'

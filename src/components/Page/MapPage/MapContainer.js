@@ -1,11 +1,17 @@
-//https://blog.logrocket.com/how-to-use-react-leaflet/
-//https://www.azavea.com/blog/2016/12/05/getting-started-with-react-and-leaflet/
-//https://cherniavskii.com/using-leaflet-in-react-apps/
+/**
+ * Map container component
+ * Contain all the component in Map Page
+ * aka. map canvas and overlay
+ *
+ * Ressources :
+ * https://blog.logrocket.com/how-to-use-react-leaflet/
+ * https://www.azavea.com/blog/2016/12/05/getting-started-with-react-and-leaflet/
+ * https://cherniavskii.com/using-leaflet-in-react-apps/
+ */
 import React, { Component } from 'react'
 import { MapCanvas } from './MapCanvas'
-import { InfoSegment } from './InfoSegment'
-
-import apis from '../../api/index'
+import { InfoSegment } from './overlay/InfoSegment'
+import apis from '../../../api/index'
 
 export class MapContainer extends Component {
   // componentDidMount() {
@@ -31,10 +37,16 @@ export class MapContainer extends Component {
   //   return <div id="map"></div>
   // }
 
+  /**
+   * After component created
+   */
   componentDidMount() {
     this.fetchMemories()
   }
 
+  /**
+   * Call API to get memories
+   */
   fetchMemories() {
     apis.memories
       .getAllMemories()
@@ -45,6 +57,9 @@ export class MapContainer extends Component {
       .catch(err => console.error({ err }))
   }
 
+  /**
+   * memories : contain memories list
+   */
   state = {
     memories: [],
   }

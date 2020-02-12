@@ -1,28 +1,49 @@
+/**
+ * Child of LoginModal
+ * Render'SignInContent' form in Modal
+ */
 import React, { Component } from 'react'
-
 import {
+  Button,
   Header,
   Modal,
   Icon,
   Form,
   Container,
-  Button,
 } from 'semantic-ui-react'
 
-export class SignUpContent extends Component {
+export class SignInContent extends Component {
   render() {
     return (
       <Modal.Content>
-        {/* 
-                <Image
-                wrapped
-                size="medium"
-                src="/images/avatar/large/rachel.png"
-                /> */}
-
         <Modal.Description>
-          <Header textAlign="center">Register</Header>
+          <Container textAlign="center">
+            <Header>Login</Header>
 
+            {/* --- BUTTONS --- */}
+            {/* Facebook */}
+            <Button
+              icon
+              labelPosition="left"
+              color="facebook"
+            >
+              <Icon name="facebook" />
+              Facebook
+            </Button>
+
+            {/* Google */}
+            <Button
+              icon
+              labelPosition="left"
+              color="google plus"
+            >
+              <Icon name="google" />
+              Google
+            </Button>
+            <br />
+          </Container>
+
+          {/* --- FORM --- */}
           <Form>
             <Form.Group grouped>
               {/* Email */}
@@ -36,17 +57,7 @@ export class SignUpContent extends Component {
                 <input />
               </Form.Input>
               <br />
-              {/* Username */}
-              <Form.Input
-                iconPosition="left"
-                label="Username"
-                placeholder="Username"
-                required
-              >
-                <Icon name="user" />
-                <input />
-              </Form.Input>
-              <br />
+
               {/* Password */}
               <Form.Input
                 iconPosition="left"
@@ -59,17 +70,21 @@ export class SignUpContent extends Component {
                 <input />
               </Form.Input>
 
+              {/* --- LINKS --- */}
               <Container textAlign="center">
-                <Form.Button>Register</Form.Button>
+                <Form.Button>Log In</Form.Button>
+                <Button className="tertiary">
+                  Forgotten your password ?
+                </Button>
                 <br />
-                Already have an account ?{' '}
+                Not registered yet ?{' '}
                 <Button
                   className="tertiary"
                   onClick={e =>
-                    this.props.callbackFn(e, 'SignIn')
+                    this.props.callbackFn(e, 'SignUp')
                   }
                 >
-                  Sign In
+                  Sign Up
                 </Button>
               </Container>
             </Form.Group>

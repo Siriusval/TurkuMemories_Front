@@ -1,7 +1,16 @@
+/**
+ * InfoSegment displaying most recent memories
+ * or memory details when clicked
+ *
+ * Contain MemoryCard components as childrens
+ */
 import React, { Component } from 'react'
 import { Segment } from 'semantic-ui-react'
 import { MemoryCard } from './MemoryCard'
 
+/**
+ * Style css of container
+ */
 const segmentStyle = {
   zIndex: 1,
   position: 'absolute',

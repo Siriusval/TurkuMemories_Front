@@ -66,3 +66,16 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Additional files
+
+### Heroku
+
+.slugignore : .gitignore equivalent for Heroku repo  
+Procfile : command to build app in Heroku server
+server.js : server.js to run app in Heroku server
+
+### Json-server
+
+db.json : contain testing data that can be fetched
+routes.json : config api route for json-server

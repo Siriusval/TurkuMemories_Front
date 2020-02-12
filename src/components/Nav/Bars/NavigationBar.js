@@ -1,3 +1,7 @@
+/**
+ * Navigation Bar, children of MenuContainer
+ * Shows tabs that allows us to reach pages of the website
+ */
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import {
@@ -5,10 +9,14 @@ import {
   Dropdown,
   MenuItem,
   Image,
+  Button,
+  Icon,
 } from 'semantic-ui-react'
+import { LoginModal } from '../LoginModal/LoginModal'
 
-import LoginModal from './LoginModal/LoginModal'
-
+/**
+ * Language options for dropdown item
+ */
 const languageOptions = [
   { key: 'EN', text: 'EN', value: 'EN' },
   { key: 'FI', text: 'FI', value: 'FI' },
@@ -16,25 +24,29 @@ const languageOptions = [
 ]
 
 export class NavigationBar extends Component {
-  state = { activeItem: 'Home', activeLanguage: 'EN' }
-
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name })
-  }
-
-  handleChangeLanguage = (e, { key }) =>
-    this.setState({ activeLanguage: key })
-
   render() {
-    const { activeItem } = this.state
+    const activeItem = this.props.menuState.activeItem
+    const activeLanguage = this.props.menuState
+      .activeLanguage
+
     return (
       <Menu secondary pointing>
-        <MenuItem as={Link} to="/">
+        {/* --- LOGO --- */}
+        <MenuItem
+          as={Link}
+          to="/"
+          key="0"
+          name="Home"
+          onClick={this.props.handleItemClick}
+          style={{ padding: ' 8px 0px 0px 8px' }}
+        >
           <Image
             src="/images/mtm_font_only.svg"
             size="small"
           />
         </MenuItem>
+
+        {/* --- HOME --- */}
         <Menu.Item
           as={Link}
           to="/"
@@ -42,8 +54,10 @@ export class NavigationBar extends Component {
           active={activeItem === 'Home'}
           name="Home"
           content="Home"
-          onClick={this.handleItemClick}
+          onClick={this.props.handleItemClick}
         ></Menu.Item>
+
+        {/* --- MY MEMORIES --- */}
         <Menu.Item
           as={Link}
           to="myMemories"
@@ -51,8 +65,10 @@ export class NavigationBar extends Component {
           active={activeItem === 'My Memories'}
           name="My Memories"
           content="My Memories"
-          onClick={this.handleItemClick}
+          onClick={this.props.handleItemClick}
         ></Menu.Item>
+
+        {/* --- ABOUT US --- */}
         <Menu.Item
           as={Link}
           to="about"
@@ -60,12 +76,29 @@ export class NavigationBar extends Component {
           active={activeItem === 'About Us'}
           name="About Us"
           content="About Us"
-          onClick={this.handleItemClick}
+          onClick={this.props.handleItemClick}
         ></Menu.Item>
+
         <Menu.Menu position="right">
+          {/* --- ADD MEMORY --- */}
+          <Menu.Item
+            as={Link}
+            to="addMemory"
+            name="Add Memory"
+            onClick={this.props.handleItemClick}
+          >
+            <Button icon labelPosition="left" color="teal">
+              <Icon name="add" />
+              Add Memory
+            </Button>
+          </Menu.Item>
+
+          {/* --- LOGIN --- */}
           <Menu.Item>
             <LoginModal />
           </Menu.Item>
+
+          {/* --- LANGUAGE --- */}
           <Menu.Item>
             <Dropdown
               button
@@ -73,9 +106,9 @@ export class NavigationBar extends Component {
               floating
               labeled
               icon="world"
-              value={this.state.activeLanguage}
+              value={activeLanguage}
               options={languageOptions}
-              onChange={this.handleChangeLanguage}
+              onClick={this.props.handleChangeLanguage}
             />
           </Menu.Item>
         </Menu.Menu>

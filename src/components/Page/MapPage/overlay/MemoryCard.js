@@ -1,5 +1,8 @@
+/**
+ * MemoryCard displaying memory informations
+ * One per memory
+ */
 import React, { Component } from 'react'
-
 import { Card } from 'semantic-ui-react'
 
 export class MemoryCard extends Component {

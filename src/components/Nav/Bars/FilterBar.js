@@ -1,14 +1,18 @@
+/**
+ * Filter Bar, children of MenuContainer
+ * Shows options to search or filters memories
+ */
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-
 import {
   Menu,
   Input,
   Icon,
   Dropdown,
-  Button,
 } from 'semantic-ui-react'
 
+/**
+ * Theme choices for dropdown item
+ */
 const tagThemeOptions = [
   {
     key: 'Theme 1',
@@ -30,6 +34,9 @@ const tagThemeOptions = [
   },
 ]
 
+/**
+ * Events choices for dropdown item
+ */
 const tagEventOptions = [
   {
     key: 'Event 1',
@@ -50,13 +57,13 @@ const tagEventOptions = [
     label: { color: 'purple', empty: true, circular: true },
   },
 ]
+
 export class FilterBar extends Component {
-  state = {}
-  handleThemeChange
   render() {
     return (
       <div>
         <Menu secondary>
+          {/* --- SEARCHBAR --- */}
           <Menu.Item>
             <Input
               icon={<Icon name="search" circular link />}
@@ -64,6 +71,8 @@ export class FilterBar extends Component {
               placeholder="Search..."
             />
           </Menu.Item>
+
+          {/* --- FILTER THEME --- */}
           <Menu.Item>
             <Dropdown
               text="Theme"
@@ -96,6 +105,7 @@ export class FilterBar extends Component {
             </Dropdown>
           </Menu.Item>
 
+          {/* --- FILTER EVENT --- */}
           <Menu.Item>
             <Dropdown
               text="Event"
@@ -127,19 +137,6 @@ export class FilterBar extends Component {
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>
-
-          <Menu.Menu position="right">
-            <Menu.Item as={Link} to="addMemory">
-              <Button
-                icon
-                labelPosition="left"
-                color="teal"
-              >
-                <Icon name="add" />
-                Add Memory
-              </Button>
-            </Menu.Item>
-          </Menu.Menu>
         </Menu>
       </div>
     )

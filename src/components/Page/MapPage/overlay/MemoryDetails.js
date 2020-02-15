@@ -5,11 +5,11 @@ import {
   Image,
   Grid,
 } from 'semantic-ui-react'
-import { Memory } from '../../../../classes/memory'
+
 import Moment from 'react-moment'
 export class MemoryDetails extends Component {
   render() {
-    const memory = new Memory(this.props.memory)
+    const memory = this.props.memory
     return (
       <div>
         <Button

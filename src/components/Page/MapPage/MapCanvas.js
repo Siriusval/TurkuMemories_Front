@@ -6,19 +6,21 @@
  */
 import React, { Component } from 'react'
 import { Map, TileLayer, Marker } from 'react-leaflet'
-import { Memory } from '../../../classes/memory'
 
 //offset position to center in left part of the screen
 const lngOffset = -0.008
 const latOffset = +0.001
 
 export class MapCanvas extends Component {
-  /**
-   * Where map is centered
-   */
-  state = {
-    center: [60.455, 22.26],
-    zoom: 14,
+  constructor(props) {
+    super(props)
+    /**
+     * Where map is centered
+     */
+    this.state = {
+      center: [60.455, 22.26],
+      zoom: 14,
+    }
   }
 
   applyOffset = coordinates => {
@@ -30,8 +32,12 @@ export class MapCanvas extends Component {
     var center = this.state.center
     var zoom = this.state.zoom
     const selectedMemory = this.props.selectedMemory
+
     if (selectedMemory) {
-      center = selectedMemory.coordinates
+      center = [
+        selectedMemory.position.coordinates[0],
+        selectedMemory.position.coordinates[1],
+      ]
       this.applyOffset(center)
       zoom = 15
     }
@@ -46,14 +52,14 @@ export class MapCanvas extends Component {
 
         {/* --- MARKERS --- */}
         {this.props.memories.map((element, index) => {
-          const memory = new Memory(element)
-          const coordinates = memory.coordinates
+          const memory = element
+          const coordinates = memory.position.coordinates
           return (
             <Marker
               key={memory.id}
               position={coordinates}
               onclick={() => {
-                this.props.handleSelectMemory(index)
+                this.props.handleSelectMemory(memory)
               }}
             >
               {/* --- POPUPS --- */}

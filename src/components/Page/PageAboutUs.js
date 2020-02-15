@@ -9,10 +9,14 @@ import { Header, Icon, Accordion } from 'semantic-ui-react'
 import { PageTemplate } from './PageTemplate'
 
 export class PageAboutUs extends Component {
-  /**
-   * Which accordion item to expend
-   */
-  state = { activeIndex: 0 }
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+    /**
+     * Which accordion item to expend
+     */
+    this.state = { activeIndex: 0 }
+  }
 
   /**
    * Expand accordion item clicked

@@ -12,8 +12,25 @@ import React, { Component } from 'react'
 import { MapCanvas } from './MapCanvas'
 import { InfoSegment } from './overlay/InfoSegment'
 import apis from '../../../api/index'
-import { Memory } from '../../../classes/memory'
+
 export class MapContainer extends Component {
+  constructor(props) {
+    super(props)
+    this.handleSelectMemory = this.handleSelectMemory.bind(
+      this,
+    )
+    this.handleUnselectMemory = this.handleUnselectMemory.bind(
+      this,
+    )
+    /**
+     * memories : contain memories list
+     */
+    this.state = {
+      memories: [],
+      loading: true,
+      selectedMemory: null,
+    }
+  }
   // componentDidMount() {
   //   this.map = L.map('map', {
   //     center: [60.45, 22.26],
@@ -44,25 +61,18 @@ export class MapContainer extends Component {
     this.fetchMemories()
   }
 
-  /**
-   * memories : contain memories list
-   */
-  state = {
-    memories: [],
-    loading: true,
-    selectedMemory: null,
-  }
-
-  handleSelectMemory = index => {
+  handleSelectMemory(memory) {
     this.setState({
-      selectedMemory: this.state.memories[index],
+      selectedMemory: memory,
     })
+    console.log('Memory selected: ', memory)
   }
 
-  handleUnselectMemory = () => {
+  handleUnselectMemory() {
     this.setState({
       selectedMemory: null,
     })
+    console.log('Memory unselected ')
   }
 
   /**
@@ -74,15 +84,19 @@ export class MapContainer extends Component {
       .then(res => {
         const memories = []
         res.data.forEach(element => {
-          const memory = new Memory(element)
+          const memory = element
           memories.push(memory)
         })
 
-        this.setState({ memories: memories })
-        console.log(memories)
-        this.setState({ loading: false })
+        this.setState({
+          memories: memories,
+          loading: false,
+        })
+        console.log('Memories fetched: ', memories)
       })
-      .catch(err => console.error({ err }))
+      .catch(err =>
+        console.error('Error fetching memories:', err),
+      )
   }
 
   render() {

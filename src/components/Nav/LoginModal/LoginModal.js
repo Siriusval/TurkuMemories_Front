@@ -13,12 +13,11 @@ export class LoginModal extends Component {
     this.handleChangeContent = this.handleChangeContent.bind(
       this,
     )
+    /**
+     * State can be 'SignIn' or 'SignOut'
+     */
+    this.state = { toDisplay: 'SignIn' }
   }
-
-  /**
-   * State can be 'SignIn' or 'SignOut'
-   */
-  state = { toDisplay: 'SignIn' }
 
   /**
    * Change state when we click on link in LoginModal

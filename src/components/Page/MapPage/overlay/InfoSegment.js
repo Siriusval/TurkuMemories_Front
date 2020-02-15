@@ -41,7 +41,12 @@ export class InfoSegment extends Component {
             memory={selectedMemory}
           />
         ) : (
-          <MemoryList memories={this.props.memories} />
+          <MemoryList
+            memories={this.props.memories}
+            handleSelectMemory={
+              this.props.handleSelectMemory
+            }
+          />
         )}
       </Segment>
     )

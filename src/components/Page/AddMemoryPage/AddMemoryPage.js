@@ -23,14 +23,19 @@ import {
 import apis from '../../../api'
 import Http from 'http-status-codes'
 export class AddMemoryPage extends Component {
-  /**
-   * center : where the map is centered
-   */
-  state = {
-    center: [60.455, 22.26],
-    title: '',
-    description: '',
-    markerPosition: [],
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    /**
+     * center : where the map is centered
+     */
+    this.state = {
+      center: [60.455, 22.26],
+      title: '',
+      description: '',
+      markerPosition: [],
+    }
   }
 
   handleChange = (e, { name, value }) =>

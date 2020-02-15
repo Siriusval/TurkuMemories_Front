@@ -23,13 +23,20 @@ const menuStyle = {
 }
 
 export class MenuContainer extends Component {
-  /**
-   * activeItem : highlight current tab
-   * activeLanguage : choose website language
-   */
-  state = {
-    activeItem: 'Home',
-    activeLanguage: 'EN',
+  constructor(props) {
+    super(props)
+    this.handleChangeLanguage = this.handleChangeLanguage.bind(
+      this,
+    )
+    this.handleItemClick = this.handleItemClick.bind(this)
+    /**
+     * activeItem : highlight current tab
+     * activeLanguage : choose website language
+     */
+    this.state = {
+      activeItem: 'Home',
+      activeLanguage: 'EN',
+    }
   }
 
   /**

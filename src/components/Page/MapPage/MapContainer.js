@@ -50,6 +50,19 @@ export class MapContainer extends Component {
   state = {
     memories: [],
     loading: true,
+    selectedMemory: null,
+  }
+
+  handleSelectMemory = index => {
+    this.setState({
+      selectedMemory: this.state.memories[index],
+    })
+  }
+
+  handleUnselectMemory = () => {
+    this.setState({
+      selectedMemory: null,
+    })
   }
 
   /**
@@ -75,10 +88,17 @@ export class MapContainer extends Component {
   render() {
     return (
       <div>
-        <MapCanvas memories={this.state.memories} />
+        <MapCanvas
+          memories={this.state.memories}
+          selectedMemory={this.state.selectedMemory}
+          handleSelectMemory={this.handleSelectMemory}
+        />
         <InfoSegment
           memories={this.state.memories}
           loading={this.state.loading}
+          selectedMemory={this.state.selectedMemory}
+          handleSelectMemory={this.handleSelectMemory}
+          handleUnselectMemory={this.handleUnselectMemory}
         />
       </div>
     )

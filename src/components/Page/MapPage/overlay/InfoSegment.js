@@ -6,7 +6,8 @@
  */
 import React, { Component } from 'react'
 import { Segment } from 'semantic-ui-react'
-import { MemoryCard } from './MemoryCard'
+import { MemoryList } from './MemoryList'
+import { MemoryDetails } from './MemoryDetails'
 
 /**
  * Style css of container
@@ -25,15 +26,23 @@ const segmentStyle = {
 
 export class InfoSegment extends Component {
   render() {
+    const selectedMemory = this.props.selectedMemory
     return (
       <Segment
         style={segmentStyle}
         raised
         loading={this.props.loading}
       >
-        {this.props.memories.map((memory, index) => (
-          <MemoryCard key={index} memory={memory} />
-        ))}
+        {selectedMemory ? (
+          <MemoryDetails
+            handleUnselectMemory={
+              this.props.handleUnselectMemory
+            }
+            memory={selectedMemory}
+          />
+        ) : (
+          <MemoryList memories={this.props.memories} />
+        )}
       </Segment>
     )
   }

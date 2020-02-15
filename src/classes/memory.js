@@ -21,4 +21,8 @@ export class Memory {
     this.categoryID = categoryID
     this.position = position
   }
+
+  get coordinates() {
+    return this.position.coordinates
+  }
 }

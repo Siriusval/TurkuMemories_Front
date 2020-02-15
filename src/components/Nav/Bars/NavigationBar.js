@@ -38,12 +38,9 @@ export class NavigationBar extends Component {
           key="0"
           name="Home"
           onClick={this.props.handleItemClick}
-          style={{ padding: ' 8px 0px 0px 8px' }}
+          style={{ padding: ' 8px 8px 8px 8px' }}
         >
-          <Image
-            src="/images/mtm_font_only.svg"
-            size="small"
-          />
+          <Image src="/images/logo512.png" size="small" />
         </MenuItem>
 
         {/* --- HOME --- */}

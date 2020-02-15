@@ -31,3 +31,22 @@
   font-weight: bold;
   color: #1e70bf;
 }
+
+/* Menu style*/
+.ui.secondary.pointing.menu {
+  border-bottom-style: none;
+  margin-bottom: 0;
+}
+.ui.secondary.pointing.menu .item {
+  align-self: center;
+}
+
+.ui.secondary.pointing.menu .item.pageSelectItem {
+  border-bottom-style: none;
+  align-self: center;
+  font-size: 1.2rem;
+}
+
+.ui.secondary.pointing.menu .active.item.pageSelectItem {
+  border-bottom-style: none;
+}

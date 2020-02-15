@@ -8,8 +8,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom'
-import './App.css'
-import 'semantic-ui-css/semantic.min.css'
+
 import { MenuContainer } from './components/Nav/MenuContainer'
 import { MapContainer } from './components/Page/MapPage/MapContainer'
 import { Page404 } from './components/Page/Page404'

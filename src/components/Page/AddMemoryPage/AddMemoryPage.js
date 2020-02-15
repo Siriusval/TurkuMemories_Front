@@ -14,15 +14,57 @@ import {
   Button,
   Grid,
 } from 'semantic-ui-react'
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, TileLayer, Marker } from 'react-leaflet'
 import { PageTemplate } from '../PageTemplate'
-
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications'
+import apis from '../../../api'
+import Http from 'http-status-codes'
 export class AddMemoryPage extends Component {
   /**
    * center : where the map is centered
    */
   state = {
     center: [60.455, 22.26],
+    title: '',
+    description: '',
+    markerPosition: [],
+  }
+
+  handleChange = (e, { name, value }) =>
+    this.setState({ [name]: value })
+
+  handleSubmit = () => {
+    const {
+      title,
+      description,
+      markerPosition,
+    } = this.state
+    apis.memories
+      .createMemory({
+        title: title,
+        content: description,
+        position: {
+          type: 'Point',
+          coordinates: markerPosition,
+        },
+      })
+      .then(res => {
+        if (Http.CREATED) {
+          NotificationManager.success('Title', 'Message')
+          this.props.history.push('/')
+        }
+      })
+  }
+
+  handleClickPosition = e => {
+    const { lat, lng } = e.latlng
+    console.log(lat, lng)
+    this.setState({
+      markerPosition: [lat, lng],
+    })
   }
 
   render() {
@@ -32,7 +74,7 @@ export class AddMemoryPage extends Component {
         <Header as="h2" textAlign="left">
           Add a new Memory
         </Header>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Grid columns={2}>
             {/* --- COLUMN 1 --- */}
             <Grid.Column>
@@ -50,6 +92,8 @@ export class AddMemoryPage extends Component {
                     fluid
                     label="Title"
                     placeholder="Example : Visit, Sunday Walk..."
+                    onChange={this.handleChange}
+                    name="title"
                   />
 
                   {/* Description */}
@@ -58,6 +102,8 @@ export class AddMemoryPage extends Component {
                     placeholder="Tell us more about it..."
                     type="text"
                     rows={5}
+                    onChange={this.handleChange}
+                    name="description"
                   />
                 </Segment>
               </Segment.Group>
@@ -98,11 +144,18 @@ export class AddMemoryPage extends Component {
                     height: '92%',
                     width: '100%',
                   }}
+                  onClick={this.handleClickPosition}
                 >
                   <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                   />
+                  {this.state.markerPosition.length !==
+                  0 ? (
+                    <Marker
+                      position={this.state.markerPosition}
+                    />
+                  ) : null}
                 </Map>
               </Segment>
             </Grid.Column>
@@ -113,6 +166,7 @@ export class AddMemoryPage extends Component {
             </Grid.Row>
           </Grid>
         </Form>
+        <NotificationContainer />
       </PageTemplate>
     )
   }

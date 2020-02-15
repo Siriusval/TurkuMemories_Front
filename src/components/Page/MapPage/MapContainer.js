@@ -12,7 +12,7 @@ import React, { Component } from 'react'
 import { MapCanvas } from './MapCanvas'
 import { InfoSegment } from './overlay/InfoSegment'
 import apis from '../../../api/index'
-
+import { Memory } from '../../../classes/memory'
 export class MapContainer extends Component {
   // componentDidMount() {
   //   this.map = L.map('map', {
@@ -45,29 +45,41 @@ export class MapContainer extends Component {
   }
 
   /**
+   * memories : contain memories list
+   */
+  state = {
+    memories: [],
+    loading: true,
+  }
+
+  /**
    * Call API to get memories
    */
   fetchMemories() {
     apis.memories
       .getAllMemories()
       .then(res => {
-        this.setState({ memories: res.data })
-        console.log(res)
+        const memories = []
+        res.data.forEach(element => {
+          const memory = new Memory(element)
+          memories.push(memory)
+        })
+
+        this.setState({ memories: memories })
+        console.log(memories)
+        this.setState({ loading: false })
       })
       .catch(err => console.error({ err }))
   }
 
-  /**
-   * memories : contain memories list
-   */
-  state = {
-    memories: [],
-  }
   render() {
     return (
       <div>
         <MapCanvas memories={this.state.memories} />
-        <InfoSegment memories={this.state.memories} />
+        <InfoSegment
+          memories={this.state.memories}
+          loading={this.state.loading}
+        />
       </div>
     )
   }

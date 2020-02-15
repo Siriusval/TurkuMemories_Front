@@ -30,7 +30,7 @@ export class NavigationBar extends Component {
       .activeLanguage
 
     return (
-      <Menu secondary pointing>
+      <Menu secondary pointing fluid>
         {/* --- LOGO --- */}
         <MenuItem
           as={Link}
@@ -45,6 +45,7 @@ export class NavigationBar extends Component {
 
         {/* --- HOME --- */}
         <Menu.Item
+          className="pageSelectItem"
           as={Link}
           to="/"
           key="1"
@@ -56,6 +57,7 @@ export class NavigationBar extends Component {
 
         {/* --- MY MEMORIES --- */}
         <Menu.Item
+          className="pageSelectItem"
           as={Link}
           to="myMemories"
           key="2"
@@ -67,6 +69,7 @@ export class NavigationBar extends Component {
 
         {/* --- ABOUT US --- */}
         <Menu.Item
+          className="pageSelectItem"
           as={Link}
           to="about"
           key="3"

@@ -11,6 +11,7 @@ import {
   Marker,
   Popup,
 } from 'react-leaflet'
+import { Memory } from '../../../classes/memory'
 
 export class MapCanvas extends Component {
   /**
@@ -29,22 +30,18 @@ export class MapCanvas extends Component {
         />
 
         {/* --- MARKERS --- */}
-        {this.props.memories.map(memory => {
-          var position = memory.position.split(',')
-          position = [
-            parseFloat(position[0]),
-            parseFloat(position[1]),
-          ]
+        {this.props.memories.map(element => {
+          const memory = new Memory(element)
           return (
             <Marker
-              key={memory.id.toString()}
-              position={position}
+              key={memory.id}
+              position={memory.position.coordinates}
             >
               {/* --- POPUPS --- */}
               <Popup>
                 {memory.title}
                 <br />
-                {memory.description}
+                {memory.content}
               </Popup>
             </Marker>
           )

@@ -14,19 +14,23 @@ import { MemoryCard } from './MemoryCard'
 const segmentStyle = {
   zIndex: 1,
   position: 'absolute',
-  width: 'auto',
-  top: '150px',
-  left: '10px',
-  maxHeight: 'calc(100vh - 3vw)',
+  width: '400px',
+  top: '130px',
+  left: '20px',
+  height: 'calc(79vh)',
   overflow: 'auto',
-  padding: '20px',
+  padding: '18px',
   textAlign: 'left',
 }
 
 export class InfoSegment extends Component {
   render() {
     return (
-      <Segment style={segmentStyle} raised>
+      <Segment
+        style={segmentStyle}
+        raised
+        loading={this.props.loading}
+      >
         {this.props.memories.map((memory, index) => (
           <MemoryCard key={index} memory={memory} />
         ))}

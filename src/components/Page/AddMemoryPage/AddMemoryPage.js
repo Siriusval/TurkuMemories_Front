@@ -16,10 +16,7 @@ import {
 } from 'semantic-ui-react'
 import { Map, TileLayer, Marker } from 'react-leaflet'
 import { PageTemplate } from '../PageTemplate'
-import {
-  NotificationContainer,
-  NotificationManager,
-} from 'react-notifications'
+import { NotificationManager } from 'react-notifications'
 import apis from '../../../api'
 import Http from 'http-status-codes'
 export class AddMemoryPage extends Component {
@@ -58,7 +55,10 @@ export class AddMemoryPage extends Component {
       })
       .then(res => {
         if (Http.CREATED) {
-          NotificationManager.success('Title', 'Message')
+          NotificationManager.success(
+            'Memory has been created',
+            'Success',
+          )
           this.props.history.push('/')
         }
       })
@@ -171,7 +171,6 @@ export class AddMemoryPage extends Component {
             </Grid.Row>
           </Grid>
         </Form>
-        <NotificationContainer />
       </PageTemplate>
     )
   }

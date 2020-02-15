@@ -15,6 +15,8 @@ import { Page404 } from './components/Page/Page404'
 import { PageAboutUs } from './components/Page/PageAboutUs'
 import { AddMemoryPage } from './components/Page/AddMemoryPage/AddMemoryPage'
 
+import { NotificationContainer } from 'react-notifications'
+
 function App() {
   return (
     <div className="App">
@@ -56,6 +58,7 @@ function App() {
           </div>
         </div>
       </Router>
+      <NotificationContainer />
     </div>
   )
 }

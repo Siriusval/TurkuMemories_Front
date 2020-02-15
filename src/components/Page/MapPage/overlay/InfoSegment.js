@@ -25,29 +25,40 @@ const segmentStyle = {
 }
 
 export class InfoSegment extends Component {
-  render() {
+  renderContent() {
     const selectedMemory = this.props.selectedMemory
+
+    if (this.props.loading) {
+      return null
+    }
+
+    if (this.props.selectedMemory) {
+      return (
+        <MemoryDetails
+          handleUnselectMemory={
+            this.props.handleUnselectMemory
+          }
+          memory={selectedMemory}
+        />
+      )
+    } else {
+      return (
+        <MemoryList
+          memories={this.props.memories}
+          handleSelectMemory={this.props.handleSelectMemory}
+        />
+      )
+    }
+  }
+
+  render() {
     return (
       <Segment
         style={segmentStyle}
         raised
         loading={this.props.loading}
       >
-        {selectedMemory ? (
-          <MemoryDetails
-            handleUnselectMemory={
-              this.props.handleUnselectMemory
-            }
-            memory={selectedMemory}
-          />
-        ) : (
-          <MemoryList
-            memories={this.props.memories}
-            handleSelectMemory={
-              this.props.handleSelectMemory
-            }
-          />
-        )}
+        {this.renderContent()}
       </Segment>
     )
   }

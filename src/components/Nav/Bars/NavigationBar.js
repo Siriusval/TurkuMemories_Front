@@ -99,8 +99,15 @@ export class NavigationBar extends Component {
           </Menu.Item>
 
           {/* --- LANGUAGE --- */}
-          <Menu.Item>
+          <Menu.Item
+            style={{
+              minWidth: '140px',
+              maxWidth: '140px',
+            }}
+          >
+            {/*//prevent resize when change language */}
             <Dropdown
+              fluid
               button
               className="icon"
               floating

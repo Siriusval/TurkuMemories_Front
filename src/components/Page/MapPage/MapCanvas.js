@@ -18,7 +18,7 @@ export class MapCanvas extends Component {
      * Where map is centered
      */
     this.state = {
-      center: [60.455, 22.26],
+      center: [60.455 + latOffset, 22.26 + lngOffset], //map center is moved a bit to the right because of the infopanel on the left
       zoom: 14,
     }
   }

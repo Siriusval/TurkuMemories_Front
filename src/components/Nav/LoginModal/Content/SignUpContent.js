@@ -2,6 +2,8 @@
  * Child of LoginModal
  * Render'SignUpContent' form in Modal
  */
+
+//TODO : https://www.npmjs.com/package/formsy-react
 import React, { Component } from 'react'
 import {
   Header,
@@ -11,8 +13,51 @@ import {
   Container,
   Button,
 } from 'semantic-ui-react'
+import apis from '../../../../api'
+import Http from 'http-status-codes'
+import { NotificationManager } from 'react-notifications'
 
 export class SignUpContent extends Component {
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = {
+      email: '',
+      username: '',
+      password: '',
+    }
+  }
+
+  handleChange = (e, { name, value }) =>
+    this.setState({ [name]: value })
+
+  handleSubmit = () => {
+    const { email, username, password } = this.state
+    apis.auth
+      .localRegister({
+        email: email,
+        username: username,
+        password: password,
+      })
+      .then(res => {
+        if (Http.CREATED) {
+          NotificationManager.success(
+            'Sucessfully registered!',
+            'Success',
+          )
+          this.props.history.push('/')
+        }
+      })
+      .catch(err => {
+        NotificationManager.error(
+          'Error registering',
+          'Error',
+        )
+        console.error('Error registering: ', err)
+      })
+  }
+
   render() {
     return (
       <Modal.Content>
@@ -20,7 +65,7 @@ export class SignUpContent extends Component {
           <Header textAlign="center">Register</Header>
 
           {/* --- FORM --- */}
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <Form.Group grouped>
               {/* Email */}
               <Form.Input
@@ -28,6 +73,8 @@ export class SignUpContent extends Component {
                 label="Email"
                 placeholder="Email"
                 required
+                name="email"
+                onChange={this.handleChange}
               >
                 <Icon name="at" />
                 <input />
@@ -40,6 +87,8 @@ export class SignUpContent extends Component {
                 label="Username"
                 placeholder="Username"
                 required
+                name="username"
+                onChange={this.handleChange}
               >
                 <Icon name="user" />
                 <input />
@@ -53,6 +102,8 @@ export class SignUpContent extends Component {
                 placeholder="Password"
                 type="password"
                 required
+                name="password"
+                onChange={this.handleChange}
               >
                 <Icon name="lock" />
                 <input />

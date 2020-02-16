@@ -60,9 +60,14 @@ export class AddMemoryPage extends Component {
             'Success',
           )
           this.props.history.push('/')
-        } else {
-          console.error(res)
         }
+      })
+      .catch(err => {
+        NotificationManager.error(
+          'Error creating memory',
+          'Error',
+        )
+        console.err('Error creating memory:', err)
       })
   }
 

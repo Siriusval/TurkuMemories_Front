@@ -2,12 +2,12 @@
   "name": "my-turku-memories-react",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4500",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "formsy-react": "^2.0.0",
     "http-status-codes": "^1.4.0",
     "leaflet": "^1.6.0",
     "moment": "^2.24.0",

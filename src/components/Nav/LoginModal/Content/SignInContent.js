@@ -4,38 +4,41 @@
  */
 import React, { Component } from 'react'
 import {
+  Form,
   Button,
   Header,
   Modal,
   Icon,
-  Form,
   Container,
 } from 'semantic-ui-react'
 import apis from '../../../../api'
 import Http from 'http-status-codes'
 import { NotificationManager } from 'react-notifications'
+import MyInput from '../../../Form/MyInput'
+import Formsy from 'formsy-react'
 
 export class SignInContent extends Component {
   constructor(props) {
     super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.disableButton = this.disableButton.bind(this)
+    this.enableButton = this.enableButton.bind(this)
+    this.state = {}
     this.state = {
-      email: '',
-      password: '',
+      canSubmit: false,
     }
   }
 
-  handleChange = (e, { name, value }) =>
-    this.setState({ [name]: value })
+  disableButton() {
+    this.setState({ canSubmit: false })
+  }
 
-  handleSubmit = () => {
-    const { email, password } = this.state
+  enableButton() {
+    this.setState({ canSubmit: true })
+  }
+
+  submit(model) {
     apis.auth
-      .localLogin({
-        email: email,
-        password: password,
-      })
+      .localLogin(JSON.stringify(model))
       .then(res => {
         if (Http.OK) {
           NotificationManager.success(
@@ -83,41 +86,46 @@ export class SignInContent extends Component {
             </Button>
             <br />
           </Container>
-
+          <br />
           {/* --- FORM --- */}
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group grouped>
+          <Formsy
+            onValidSubmit={this.submit}
+            onValid={this.enableButton}
+            onInvalid={this.disableButton}
+          >
+            <Form.Group>
               {/* Email */}
-              <Form.Input
-                iconPosition="left"
+              <MyInput
                 label="Email"
-                placeholder="Email"
-                required
+                icon="at"
                 name="email"
-                onChange={this.handleChange}
-              >
-                <Icon name="at" />
-                <input />
-              </Form.Input>
-              <br />
-
-              {/* Password */}
-              <Form.Input
-                iconPosition="left"
-                label="Password"
-                placeholder="Password"
-                type="password"
+                validations="isEmail"
+                validationError="This is not a valid email"
+                type="text"
                 required
+              />
+              <br />
+              {/* Password */}
+              <MyInput
+                label="Password"
+                icon="lock"
                 name="password"
-                onChange={this.handleChange}
-              >
-                <Icon name="lock" />
-                <input />
-              </Form.Input>
+                validations="isExisty"
+                type="password"
+                validationError="Please enter password"
+                required
+              />
+              <br />
 
               {/* --- LINKS --- */}
               <Container textAlign="center">
-                <Form.Button>Log In</Form.Button>
+                <Button
+                  type="submit"
+                  disabled={!this.state.canSubmit}
+                >
+                  Log In
+                </Button>
+                <br />
                 <Button className="tertiary">
                   Forgotten your password ?
                 </Button>
@@ -133,7 +141,7 @@ export class SignInContent extends Component {
                 </Button>
               </Container>
             </Form.Group>
-          </Form>
+          </Formsy>
         </Modal.Description>
       </Modal.Content>
     )

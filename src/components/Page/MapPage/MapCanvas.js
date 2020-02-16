@@ -7,7 +7,7 @@
 import React, { Component } from 'react'
 import { Map, TileLayer, Marker } from 'react-leaflet'
 
-//offset position to center in left part of the screen
+//offset position to center in right part of the screen
 const lngOffset = -0.008
 const latOffset = +0.001
 

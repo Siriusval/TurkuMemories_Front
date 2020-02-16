@@ -39,7 +39,6 @@ class MyInput extends React.Component {
           value={this.props.value || ''}
           icon={this.props.icon}
           iconPosition="left"
-          required={this.props.required}
           fluid
         />
         <Label

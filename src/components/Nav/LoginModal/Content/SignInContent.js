@@ -1,10 +1,11 @@
 /**
  * Child of LoginModal
  * Render'SignInContent' form in Modal
+ *
+ * Doc for formsy : https://github.com/formsy/formsy-react
  */
 import React, { Component } from 'react'
 import {
-  Form,
   Button,
   Header,
   Modal,
@@ -12,7 +13,7 @@ import {
   Container,
 } from 'semantic-ui-react'
 import apis from '../../../../api'
-import Http from 'http-status-codes'
+import HttpStatus from 'http-status-codes'
 import { NotificationManager } from 'react-notifications'
 import MyInput from '../../../Form/MyInput'
 import Formsy from 'formsy-react'
@@ -22,7 +23,6 @@ export class SignInContent extends Component {
     super(props)
     this.disableButton = this.disableButton.bind(this)
     this.enableButton = this.enableButton.bind(this)
-    this.state = {}
     this.state = {
       canSubmit: false,
     }
@@ -40,7 +40,7 @@ export class SignInContent extends Component {
     apis.auth
       .localLogin(JSON.stringify(model))
       .then(res => {
-        if (Http.OK) {
+        if (res.status == HttpStatus.OK) {
           NotificationManager.success(
             'Nice to see you again!',
             'Success',
@@ -48,12 +48,30 @@ export class SignInContent extends Component {
           this.props.history.push('/')
         }
       })
-      .catch(err => {
-        NotificationManager.error(
-          'Email and/or password incorrect',
-          'Error',
-        )
-        console.error('Local login failed: ', err)
+      .catch(error => {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data)
+          console.log(error.response.status)
+          console.log(error.response.headers)
+
+          if (error.response.status) {
+            NotificationManager.error(
+              'Email and/or password incorrect',
+              'Error',
+            )
+          }
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request)
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message)
+        }
+        console.log(error.config)
       })
   }
 
@@ -93,54 +111,52 @@ export class SignInContent extends Component {
             onValid={this.enableButton}
             onInvalid={this.disableButton}
           >
-            <Form.Group>
-              {/* Email */}
-              <MyInput
-                label="Email"
-                icon="at"
-                name="email"
-                validations="isEmail"
-                validationError="This is not a valid email"
-                type="text"
-                required
-              />
-              <br />
-              {/* Password */}
-              <MyInput
-                label="Password"
-                icon="lock"
-                name="password"
-                validations="isExisty"
-                type="password"
-                validationError="Please enter password"
-                required
-              />
-              <br />
+            {/* Email */}
+            <MyInput
+              label="Email"
+              icon="at"
+              name="email"
+              validations="isEmail"
+              validationError="This is not a valid email"
+              type="text"
+              required
+            />
+            <br />
+            {/* Password */}
+            <MyInput
+              label="Password"
+              icon="lock"
+              name="password"
+              validations="isExisty"
+              type="password"
+              validationError="Please enter password"
+              required
+            />
+            <br />
 
-              {/* --- LINKS --- */}
-              <Container textAlign="center">
-                <Button
-                  type="submit"
-                  disabled={!this.state.canSubmit}
-                >
-                  Log In
-                </Button>
-                <br />
-                <Button className="tertiary">
-                  Forgotten your password ?
-                </Button>
-                <br />
-                Not registered yet ?{' '}
-                <Button
-                  className="tertiary"
-                  onClick={e =>
-                    this.props.callbackFn(e, 'SignUp')
-                  }
-                >
-                  Sign Up
-                </Button>
-              </Container>
-            </Form.Group>
+            {/* --- LINKS --- */}
+            <Container textAlign="center">
+              <Button
+                type="submit"
+                disabled={!this.state.canSubmit}
+              >
+                Log In
+              </Button>
+              <br />
+              <Button className="tertiary">
+                Forgotten your password ?
+              </Button>
+              <br />
+              Not registered yet ?{' '}
+              <Button
+                className="tertiary"
+                onClick={e =>
+                  this.props.callbackFn(e, 'SignUp')
+                }
+              >
+                Sign Up
+              </Button>
+            </Container>
           </Formsy>
         </Modal.Description>
       </Modal.Content>

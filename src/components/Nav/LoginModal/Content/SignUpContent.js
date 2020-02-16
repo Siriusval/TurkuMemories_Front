@@ -1,47 +1,50 @@
 /**
  * Child of LoginModal
  * Render'SignUpContent' form in Modal
+ *
+ * Doc for formsy : https://github.com/formsy/formsy-react
  */
 
-//TODO : https://www.npmjs.com/package/formsy-react
 import React, { Component } from 'react'
 import {
   Header,
   Modal,
-  Icon,
-  Form,
   Container,
   Button,
 } from 'semantic-ui-react'
 import apis from '../../../../api'
-import Http from 'http-status-codes'
+import HttpStatus from 'http-status-codes'
 import { NotificationManager } from 'react-notifications'
-
+import MyInput from '../../../Form/MyInput'
+import Formsy from 'formsy-react'
 export class SignUpContent extends Component {
   constructor(props) {
     super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.disableButton = this.disableButton.bind(this)
+    this.enableButton = this.enableButton.bind(this)
     this.state = {
-      email: '',
-      username: '',
-      password: '',
+      canSubmit: false,
     }
   }
 
-  handleChange = (e, { name, value }) =>
-    this.setState({ [name]: value })
+  disableButton() {
+    this.setState({ canSubmit: false })
+  }
 
-  handleSubmit = () => {
-    const { email, username, password } = this.state
+  enableButton() {
+    this.setState({ canSubmit: true })
+  }
+
+  submit(model) {
+    console.log(model)
     apis.auth
-      .localRegister({
-        email: email,
-        username: username,
-        password: password,
-      })
+      .localRegister(model)
       .then(res => {
-        if (Http.CREATED) {
+        console.log(res)
+        if (
+          res.status == HttpStatus.OK ||
+          res.status == HttpStatus.CREATED
+        ) {
           NotificationManager.success(
             'Sucessfully registered!',
             'Success',
@@ -49,12 +52,32 @@ export class SignUpContent extends Component {
           this.props.history.push('/')
         }
       })
-      .catch(err => {
-        NotificationManager.error(
-          'Error registering',
-          'Error',
-        )
-        console.error('Error registering: ', err)
+      .catch(error => {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data)
+          console.log(error.response.status)
+          console.log(error.response.headers)
+
+          if (
+            error.response.status == HttpStatus.CONFLICT
+          ) {
+            NotificationManager.error(
+              'Email already used!',
+              'Error',
+            )
+          }
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request)
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message)
+        }
+        console.log(error.config)
       })
   }
 
@@ -65,66 +88,69 @@ export class SignUpContent extends Component {
           <Header textAlign="center">Register</Header>
 
           {/* --- FORM --- */}
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group grouped>
-              {/* Email */}
-              <Form.Input
-                iconPosition="left"
-                label="Email"
-                placeholder="Email"
-                required
-                name="email"
-                onChange={this.handleChange}
+          <Formsy
+            onValidSubmit={this.submit}
+            onValid={this.enableButton}
+            onInvalid={this.disableButton}
+          >
+            {/* Email */}
+            <MyInput
+              label="Email"
+              icon="at"
+              name="email"
+              validations="isEmail"
+              validationError="This is not a valid email"
+              type="text"
+              required
+            />
+
+            <br />
+
+            {/* Username */}
+            <MyInput
+              label="Username"
+              icon="user"
+              name="username"
+              validations="isExisty"
+              validationError="This is not a valid username"
+              type="text"
+              required
+            />
+
+            <br />
+
+            {/* Password */}
+            <MyInput
+              label="Password"
+              icon="lock"
+              name="password"
+              validations="isExisty"
+              type="password"
+              validationError="Please enter password"
+              required
+            />
+            <br />
+
+            {/* --- LINKS --- */}
+            <Container textAlign="center">
+              <Button
+                type="submit"
+                disabled={!this.state.canSubmit}
               >
-                <Icon name="at" />
-                <input />
-              </Form.Input>
+                Register
+              </Button>
               <br />
-
-              {/* Username */}
-              <Form.Input
-                iconPosition="left"
-                label="Username"
-                placeholder="Username"
-                required
-                name="username"
-                onChange={this.handleChange}
+              Already have an account ?{' '}
+              <Button
+                className="tertiary"
+                onClick={e =>
+                  this.props.callbackFn(e, 'SignIn')
+                }
               >
-                <Icon name="user" />
-                <input />
-              </Form.Input>
-              <br />
-
-              {/* Password */}
-              <Form.Input
-                iconPosition="left"
-                label="Password"
-                placeholder="Password"
-                type="password"
-                required
-                name="password"
-                onChange={this.handleChange}
-              >
-                <Icon name="lock" />
-                <input />
-              </Form.Input>
-
-              {/* --- LINKS --- */}
-              <Container textAlign="center">
-                <Form.Button>Register</Form.Button>
-                <br />
-                Already have an account ?{' '}
-                <Button
-                  className="tertiary"
-                  onClick={e =>
-                    this.props.callbackFn(e, 'SignIn')
-                  }
-                >
-                  Sign In
-                </Button>
-              </Container>
-            </Form.Group>
-          </Form>
+                Sign In
+              </Button>
+            </Container>
+          </Formsy>
         </Modal.Description>
       </Modal.Content>
     )

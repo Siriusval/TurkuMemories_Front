@@ -25,7 +25,6 @@ export class LoginModal extends Component {
   handleChangeContent(event, value) {
     event.preventDefault()
     this.setState({ toDisplay: value })
-    console.log(this.state.toDisplay)
   }
 
   render() {

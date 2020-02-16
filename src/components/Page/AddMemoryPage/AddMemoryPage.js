@@ -18,7 +18,7 @@ import { Map, TileLayer, Marker } from 'react-leaflet'
 import { PageTemplate } from '../PageTemplate'
 import { NotificationManager } from 'react-notifications'
 import apis from '../../../api'
-import Http from 'http-status-codes'
+import HttpStatus from 'http-status-codes'
 export class AddMemoryPage extends Component {
   constructor(props) {
     super(props)
@@ -54,7 +54,7 @@ export class AddMemoryPage extends Component {
         },
       })
       .then(res => {
-        if (Http.CREATED) {
+        if (HttpStatus.CREATED) {
           NotificationManager.success(
             'Memory has been created',
             'Success',

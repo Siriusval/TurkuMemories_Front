@@ -30,11 +30,7 @@ export class LoginModal extends Component {
 
   render() {
     return (
-      <Modal
-        size="mini"
-        trigger={<Button>Login</Button>}
-        dimmer="blurring"
-      >
+      <Modal size="mini" trigger={<Button>Login</Button>}>
         {/* --- TITLE --- */}
         <Modal.Header>
           <Container textAlign="center">

@@ -60,6 +60,8 @@ export class AddMemoryPage extends Component {
             'Success',
           )
           this.props.history.push('/')
+        } else {
+          console.error(res)
         }
       })
   }

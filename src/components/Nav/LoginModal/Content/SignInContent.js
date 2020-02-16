@@ -11,8 +11,49 @@ import {
   Form,
   Container,
 } from 'semantic-ui-react'
+import apis from '../../../../api'
+import Http from 'http-status-codes'
+import { NotificationManager } from 'react-notifications'
 
 export class SignInContent extends Component {
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = {
+      email: '',
+      password: '',
+    }
+  }
+
+  handleChange = (e, { name, value }) =>
+    this.setState({ [name]: value })
+
+  handleSubmit = () => {
+    const { email, password } = this.state
+    apis.auth
+      .localLogin({
+        email: email,
+        password: password,
+      })
+      .then(res => {
+        if (Http.OK) {
+          NotificationManager.success(
+            'Nice to see you again!',
+            'Success',
+          )
+          this.props.history.push('/')
+        }
+      })
+      .catch(err => {
+        NotificationManager.error(
+          'Email and/or password incorrect',
+          'Error',
+        )
+        console.error('Local login failed: ', err)
+      })
+  }
+
   render() {
     return (
       <Modal.Content>
@@ -44,7 +85,7 @@ export class SignInContent extends Component {
           </Container>
 
           {/* --- FORM --- */}
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <Form.Group grouped>
               {/* Email */}
               <Form.Input
@@ -52,6 +93,8 @@ export class SignInContent extends Component {
                 label="Email"
                 placeholder="Email"
                 required
+                name="email"
+                onChange={this.handleChange}
               >
                 <Icon name="at" />
                 <input />
@@ -65,6 +108,8 @@ export class SignInContent extends Component {
                 placeholder="Password"
                 type="password"
                 required
+                name="password"
+                onChange={this.handleChange}
               >
                 <Icon name="lock" />
                 <input />

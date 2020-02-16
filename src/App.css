@@ -50,3 +50,8 @@
 .ui.secondary.pointing.menu .active.item.pageSelectItem {
   border-bottom-style: none;
 }
+
+/* Remove modal dimmer*/
+.ui.dimmer {
+  background-color: transparent;
+}

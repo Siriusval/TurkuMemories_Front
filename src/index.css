@@ -2,34 +2,34 @@
  * Css file used for styling components outside <App/>
  */
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas,
-    'Courier New', monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
 }
 
 #root {
-  height: 100%;
+    height: 100%;
 }
 
 /*General*/
 
 .box {
-  display: flex;
-  flex-flow: column;
-  height: 100%;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
 }
 
 .box .row.header {
-  flex: 0 1 auto;
-  /* The above is shorthand for:
+    flex: 0 1 auto;
+    /* The above is shorthand for:
   flex-grow: 0,
   flex-shrink: 1,
   flex-basis: auto
@@ -37,9 +37,9 @@ code {
 }
 
 .box .row.content {
-  flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 
 .box .row.footer {
-  flex: 0 1 40px;
+    flex: 0 1 40px;
 }

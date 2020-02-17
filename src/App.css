@@ -5,29 +5,53 @@
 */
 
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 /* Leaflet style */
 .leaflet-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
 }
 
 /* Override tertiary style to display links*/
 .ui.button.tertiary {
-  box-shadow: none !important;
-  background-color: transparent;
-  padding: 0.5em;
-  font-weight: bold;
-  color: #1e70bf;
+    box-shadow: none !important;
+    background-color: transparent;
+    padding: 0.5em;
+    font-weight: bold;
+    color: #1e70bf;
 }
 .ui.button.tertiary:hover {
-  background-color: unset;
-  font-weight: bold;
-  color: #1e70bf;
+    background-color: unset;
+    font-weight: bold;
+    color: #1e70bf;
+}
+
+/* Menu style*/
+.ui.secondary.pointing.menu {
+    border-bottom-style: none;
+    margin-bottom: 0;
+}
+.ui.secondary.pointing.menu .item {
+    align-self: center;
+}
+
+.ui.secondary.pointing.menu .item.pageSelectItem {
+    border-bottom-style: none;
+    align-self: center;
+    font-size: 1.2rem;
+}
+
+.ui.secondary.pointing.menu .active.item.pageSelectItem {
+    border-bottom-style: none;
+}
+
+/* Remove modal dimmer*/
+.ui.dimmer {
+    background-color: transparent;
 }

@@ -21,6 +21,8 @@ export class MapCanvas extends Component {
             center: [60.455 + latOffset, 22.26 + lngOffset], //map center is moved a bit to the right because of the infopanel on the left
             zoom: 14,
         };
+        this.handleMove = this.handleMove.bind(this);
+        this.handleZoom = this.handleZoom.bind(this);
     }
 
     applyOffset = coordinates => {
@@ -28,11 +30,20 @@ export class MapCanvas extends Component {
         coordinates[1] += lngOffset;
     };
 
+    handleMove(e) {
+        this.setState({ center: e.target.getCenter() });
+    }
+
+    handleZoom(e) {
+        this.setState({ zoom: e.target.getZoom() });
+    }
+
     render() {
         var center = this.state.center;
-        var zoom = this.state.zoom;
         const selectedMemory = this.props.selectedMemory;
+        var zoom = this.state.zoom;
 
+        //Check if object is empty
         if (selectedMemory) {
             center = [
                 selectedMemory.position.coordinates[0],
@@ -40,16 +51,23 @@ export class MapCanvas extends Component {
             ];
             this.applyOffset(center);
             zoom = 15;
+        } else {
+            zoom = 14;
         }
 
         return (
-            <Map center={center} zoom={zoom} layers="">
+            <Map
+                center={center}
+                zoom={zoom}
+                layers=""
+                onMove={this.handleMove}
+                onZoom={this.handleZoom}
+            >
                 {/* --- MAP --- */}
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
-
                 {/* --- MARKERS --- */}
                 {this.props.memories.map((element, index) => {
                     const memory = element;
@@ -61,14 +79,7 @@ export class MapCanvas extends Component {
                             onclick={() => {
                                 this.props.handleSelectMemory(memory);
                             }}
-                        >
-                            {/* --- POPUPS --- */}
-                            {/* <Popup>
-                {memory.title}
-                <br />
-                {memory.content}
-              </Popup> */}
-                        </Marker>
+                        />
                     );
                 })}
             </Map>

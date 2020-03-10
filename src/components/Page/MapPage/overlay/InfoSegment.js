@@ -32,7 +32,7 @@ export class InfoSegment extends Component {
             return null;
         }
 
-        if (this.props.selectedMemory) {
+        if (selectedMemory) {
             return (
                 <MemoryDetails
                     handleUnselectMemory={this.props.handleUnselectMemory}

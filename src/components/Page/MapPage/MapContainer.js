@@ -8,25 +8,14 @@
  * https://www.azavea.com/blog/2016/12/05/getting-started-with-react-and-leaflet/
  * https://cherniavskii.com/using-leaflet-in-react-apps/
  */
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import { MapCanvas } from './MapCanvas';
 import { InfoSegment } from './overlay/InfoSegment';
-import apis from '../../../api/index';
+import MemoryContext from '../../../contexts/MemoryContext';
 
-export class MapContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.handleSelectMemory = this.handleSelectMemory.bind(this);
-        this.handleUnselectMemory = this.handleUnselectMemory.bind(this);
-        /**
-         * memories : contain memories list
-         */
-        this.state = {
-            memories: [],
-            loading: true,
-            selectedMemory: null,
-        };
-    }
+export const MapContainer = () => {
+    const context = useContext(MemoryContext);
+
     // componentDidMount() {
     //   this.map = L.map('map', {
     //     center: [60.45, 22.26],
@@ -50,65 +39,20 @@ export class MapContainer extends Component {
     //   return <div id="map"></div>
     // }
 
-    /**
-     * After component created
-     */
-    componentDidMount() {
-        this.fetchMemories();
-    }
-
-    handleSelectMemory(memory) {
-        this.setState({
-            selectedMemory: memory,
-        });
-        console.log('Memory selected: ', memory);
-    }
-
-    handleUnselectMemory() {
-        this.setState({
-            selectedMemory: null,
-        });
-        console.log('Memory unselected ');
-    }
-
-    /**
-     * Call API to get memories
-     */
-    fetchMemories() {
-        apis.memories
-            .getAllMemories()
-            .then(res => {
-                const memories = [];
-                res.data.forEach(element => {
-                    const memory = element;
-                    memories.push(memory);
-                });
-
-                this.setState({
-                    memories: memories,
-                    loading: false,
-                });
-                console.log('Memories fetched: ', memories);
-            })
-            .catch(err => console.error('Error fetching memories:', err));
-    }
-
-    render() {
-        return (
-            <div>
-                <MapCanvas
-                    memories={this.state.memories}
-                    selectedMemory={this.state.selectedMemory}
-                    handleSelectMemory={this.handleSelectMemory}
-                />
-                <InfoSegment
-                    memories={this.state.memories}
-                    loading={this.state.loading}
-                    selectedMemory={this.state.selectedMemory}
-                    handleSelectMemory={this.handleSelectMemory}
-                    handleUnselectMemory={this.handleUnselectMemory}
-                />
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <MapCanvas
+                memories={context.memories}
+                selectedMemory={context.selectedMemory}
+                handleSelectMemory={context.setSelectedMemory}
+            />
+            <InfoSegment
+                memories={context.memories}
+                loading={context.loadingMemory}
+                selectedMemory={context.selectedMemory}
+                handleSelectMemory={context.setSelectedMemory}
+                handleUnselectMemory={() => context.setSelectedMemory(null)}
+            />
+        </div>
+    );
+};

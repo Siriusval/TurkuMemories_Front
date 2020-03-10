@@ -4,33 +4,28 @@
  *
  * Doc for formsy : https://github.com/formsy/formsy-react
  */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Button, Header, Modal, Icon, Container } from 'semantic-ui-react';
 import apis from '../../../../api';
-import HttpStatus from 'http-status-codes';
-import { NotificationManager } from 'react-notifications';
 import MyInput from '../../../Form/MyInput';
 import Formsy from 'formsy-react';
+import { NotificationManager } from 'react-notifications';
+import HttpStatus from 'http-status-codes';
 
-export class SignInContent extends Component {
-    constructor(props) {
-        super(props);
-        this.disableButton = this.disableButton.bind(this);
-        this.enableButton = this.enableButton.bind(this);
-        this.state = {
-            canSubmit: false,
-        };
-    }
+export const SignInContent = props => {
+    //States
+    const [canSubmit, setCanSubmit] = useState(false);
 
-    disableButton() {
-        this.setState({ canSubmit: false });
-    }
+    //Functions
+    const disableButton = () => {
+        setCanSubmit(false);
+    };
 
-    enableButton() {
-        this.setState({ canSubmit: true });
-    }
+    const enableButton = () => {
+        setCanSubmit(true);
+    };
 
-    submit(model) {
+    const submit = model => {
         //MODEL SENT
         console.log('REQUEST: MODEL SENT:');
         console.log(model);
@@ -46,7 +41,7 @@ export class SignInContent extends Component {
                         'Nice to see you again!',
                         'Success'
                     );
-                    //this.props.history.push('/') //TODO, to fix, throws an error
+                    //props.history.push('/'); //TODO redirect with <Redirect> component
                 }
             })
             .catch(error => {
@@ -86,85 +81,78 @@ export class SignInContent extends Component {
                 console.log('ERROR: CONFIG');
                 console.log(error.config);
             });
-    }
+    };
 
-    render() {
-        return (
-            <Modal.Content>
-                <Modal.Description>
-                    <Container textAlign="center">
-                        <Header>Login</Header>
+    return (
+        <Modal.Content>
+            <Modal.Description>
+                <Container textAlign="center">
+                    <Header>Login</Header>
 
-                        {/* --- BUTTONS --- */}
-                        {/* Facebook */}
-                        <Button icon labelPosition="left" color="facebook">
-                            <Icon name="facebook" />
-                            Facebook
-                        </Button>
+                    {/* --- BUTTONS --- */}
+                    {/* Facebook */}
+                    <Button icon labelPosition="left" color="facebook">
+                        <Icon name="facebook" />
+                        Facebook
+                    </Button>
 
-                        {/* Google */}
-                        <Button icon labelPosition="left" color="google plus">
-                            <Icon name="google" />
-                            Google
-                        </Button>
-                        <br />
-                    </Container>
+                    {/* Google */}
+                    <Button icon labelPosition="left" color="google plus">
+                        <Icon name="google" />
+                        Google
+                    </Button>
                     <br />
-                    {/* --- FORM --- */}
-                    <Formsy
-                        onValidSubmit={this.submit}
-                        onValid={this.enableButton}
-                        onInvalid={this.disableButton}
-                    >
-                        {/* Email */}
-                        <MyInput
-                            label="Email"
-                            icon="at"
-                            name="email"
-                            validations="isEmail"
-                            validationError="This is not a valid email"
-                            type="text"
-                            required
-                        />
-                        <br />
-                        {/* Password */}
-                        <MyInput
-                            label="Password"
-                            icon="lock"
-                            name="password"
-                            validations="isExisty"
-                            type="password"
-                            validationError="Please enter password"
-                            required
-                        />
-                        <br />
+                </Container>
+                <br />
+                {/* --- FORM --- */}
+                <Formsy
+                    onValidSubmit={submit}
+                    onValid={enableButton}
+                    onInvalid={disableButton}
+                >
+                    {/* Email */}
+                    <MyInput
+                        label="Email"
+                        icon="at"
+                        name="email"
+                        validations="isEmail"
+                        validationError="This is not a valid email"
+                        type="text"
+                        required
+                    />
+                    <br />
+                    {/* Password */}
+                    <MyInput
+                        label="Password"
+                        icon="lock"
+                        name="password"
+                        validations="isExisty"
+                        type="password"
+                        validationError="Please enter password"
+                        required
+                    />
+                    <br />
 
-                        {/* --- LINKS --- */}
-                        <Container textAlign="center">
-                            <Button
-                                type="submit"
-                                disabled={!this.state.canSubmit}
-                            >
-                                Log In
-                            </Button>
-                            <br />
-                            <Button className="tertiary">
-                                Forgotten your password ?
-                            </Button>
-                            <br />
-                            Not registered yet ?{' '}
-                            <Button
-                                className="tertiary"
-                                onClick={e =>
-                                    this.props.callbackFn(e, 'SignUp')
-                                }
-                            >
-                                Sign Up
-                            </Button>
-                        </Container>
-                    </Formsy>
-                </Modal.Description>
-            </Modal.Content>
-        );
-    }
-}
+                    {/* --- LINKS --- */}
+                    <Container textAlign="center">
+                        <Button type="submit" disabled={!canSubmit}>
+                            Log In
+                        </Button>
+                        <br />
+                        <Button className="tertiary">
+                            Forgotten your password ?
+                        </Button>
+                        <br />
+                        Not registered yet ?{' '}
+                        <Button
+                            className="tertiary"
+                            onClick={e => props.callbackFn(e, 'SignUp')}
+                        >
+                            Sign Up
+                        </Button>
+                    </Container>
+                </Formsy>
+            </Modal.Description>
+        </Modal.Content>
+    );
+};

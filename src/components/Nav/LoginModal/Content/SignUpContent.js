@@ -8,10 +8,11 @@
 import React, { Component } from 'react';
 import { Header, Modal, Container, Button } from 'semantic-ui-react';
 import apis from '../../../../api';
-import HttpStatus from 'http-status-codes';
-import { NotificationManager } from 'react-notifications';
 import MyInput from '../../../Form/MyInput';
 import Formsy from 'formsy-react';
+import { NotificationManager } from 'react-notifications';
+import HttpStatus from 'http-status-codes';
+
 export class SignUpContent extends Component {
     constructor(props) {
         super(props);

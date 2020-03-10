@@ -2,7 +2,7 @@
  * Navigation Bar, children of MenuContainer
  * Shows tabs that allows us to reach pages of the website
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
     Menu,
@@ -23,102 +23,101 @@ const languageOptions = [
     { key: 'SWE', text: 'SWE', value: 'SWE' },
 ];
 
-export class NavigationBar extends Component {
-    render() {
-        const activeItem = this.props.menuState.activeItem;
-        const activeLanguage = this.props.menuState.activeLanguage;
+export const NavigationBar = props => {
+    //Vars
+    const activeItem = props.menuState.activeItem;
+    const activeLanguage = props.menuState.activeLanguage;
 
-        return (
-            <Menu secondary pointing fluid>
-                {/* --- LOGO --- */}
-                <MenuItem
+    return (
+        <Menu secondary pointing fluid>
+            {/* --- LOGO --- */}
+            <MenuItem
+                as={Link}
+                to="/"
+                key="0"
+                name="Home"
+                onClick={props.handleItemClick}
+                style={{ padding: ' 8px 8px 8px 8px' }}
+            >
+                <Image src="/images/logo512.png" size="small" />
+            </MenuItem>
+
+            {/* --- HOME --- */}
+            <Menu.Item
+                className="pageSelectItem"
+                as={Link}
+                to="/"
+                key="1"
+                active={activeItem === 'Home'}
+                name="Home"
+                content="Home"
+                onClick={props.handleItemClick}
+            ></Menu.Item>
+
+            {/* --- MY MEMORIES --- */}
+            <Menu.Item
+                className="pageSelectItem"
+                as={Link}
+                to="myMemories"
+                key="2"
+                active={activeItem === 'My Memories'}
+                name="My Memories"
+                content="My Memories"
+                onClick={props.handleItemClick}
+            ></Menu.Item>
+
+            {/* --- ABOUT US --- */}
+            <Menu.Item
+                className="pageSelectItem"
+                as={Link}
+                to="about"
+                key="3"
+                active={activeItem === 'About Us'}
+                name="About Us"
+                content="About Us"
+                onClick={props.handleItemClick}
+            ></Menu.Item>
+
+            <Menu.Menu position="right">
+                {/* --- ADD MEMORY --- */}
+                <Menu.Item
                     as={Link}
-                    to="/"
-                    key="0"
-                    name="Home"
-                    onClick={this.props.handleItemClick}
-                    style={{ padding: ' 8px 8px 8px 8px' }}
+                    to="addMemory"
+                    name="Add Memory"
+                    onClick={props.handleItemClick}
                 >
-                    <Image src="/images/logo512.png" size="small" />
-                </MenuItem>
+                    <Button icon labelPosition="left" color="teal">
+                        <Icon name="add" />
+                        Add Memory
+                    </Button>
+                </Menu.Item>
 
-                {/* --- HOME --- */}
+                {/* --- LOGIN --- */}
+                <Menu.Item>
+                    <LoginModal />
+                </Menu.Item>
+
+                {/* --- LANGUAGE --- */}
                 <Menu.Item
-                    className="pageSelectItem"
-                    as={Link}
-                    to="/"
-                    key="1"
-                    active={activeItem === 'Home'}
-                    name="Home"
-                    content="Home"
-                    onClick={this.props.handleItemClick}
-                ></Menu.Item>
-
-                {/* --- MY MEMORIES --- */}
-                <Menu.Item
-                    className="pageSelectItem"
-                    as={Link}
-                    to="myMemories"
-                    key="2"
-                    active={activeItem === 'My Memories'}
-                    name="My Memories"
-                    content="My Memories"
-                    onClick={this.props.handleItemClick}
-                ></Menu.Item>
-
-                {/* --- ABOUT US --- */}
-                <Menu.Item
-                    className="pageSelectItem"
-                    as={Link}
-                    to="about"
-                    key="3"
-                    active={activeItem === 'About Us'}
-                    name="About Us"
-                    content="About Us"
-                    onClick={this.props.handleItemClick}
-                ></Menu.Item>
-
-                <Menu.Menu position="right">
-                    {/* --- ADD MEMORY --- */}
-                    <Menu.Item
-                        as={Link}
-                        to="addMemory"
-                        name="Add Memory"
-                        onClick={this.props.handleItemClick}
-                    >
-                        <Button icon labelPosition="left" color="teal">
-                            <Icon name="add" />
-                            Add Memory
-                        </Button>
-                    </Menu.Item>
-
-                    {/* --- LOGIN --- */}
-                    <Menu.Item>
-                        <LoginModal />
-                    </Menu.Item>
-
-                    {/* --- LANGUAGE --- */}
-                    <Menu.Item
-                        style={{
-                            minWidth: '140px',
-                            maxWidth: '140px',
-                        }}
-                    >
-                        {/*//prevent resize when change language */}
-                        <Dropdown
-                            fluid
-                            button
-                            className="icon"
-                            floating
-                            labeled
-                            icon="world"
-                            value={activeLanguage}
-                            options={languageOptions}
-                            onClick={this.props.handleChangeLanguage}
-                        />
-                    </Menu.Item>
-                </Menu.Menu>
-            </Menu>
-        );
-    }
-}
+                    style={{
+                        minWidth: '140px',
+                        maxWidth: '140px',
+                    }}
+                >
+                    {/*//prevent resize when change language */}
+                    <Dropdown
+                        fluid
+                        button
+                        className="icon"
+                        floating
+                        labeled
+                        icon="world"
+                        value={activeLanguage}
+                        options={languageOptions}
+                        onClick={props.handleChangeLanguage}
+                    />
+                </Menu.Item>
+            </Menu.Menu>
+        </Menu>
+    );
+};

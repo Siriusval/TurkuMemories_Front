@@ -25,8 +25,8 @@ const languageOptions = [
 
 export const NavigationBar = props => {
     //Vars
-    const activeItem = props.menuState.activeItem;
-    const activeLanguage = props.menuState.activeLanguage;
+    const activeItem = props.activeItem;
+    const activeLanguage = props.activeLanguage;
 
     return (
         <Menu secondary pointing fluid>

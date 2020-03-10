@@ -14,7 +14,10 @@ import { InfoSegment } from './overlay/InfoSegment';
 import MemoryContext from '../../../contexts/MemoryContext';
 
 export const MapContainer = () => {
+    //Contexts
     const context = useContext(MemoryContext);
+
+    //Mapbox WIP
 
     // componentDidMount() {
     //   this.map = L.map('map', {

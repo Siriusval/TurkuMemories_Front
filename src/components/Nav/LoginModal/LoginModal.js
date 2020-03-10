@@ -2,46 +2,39 @@
  * Modal Component opening when we click on SignIn Button
  * Can render'SignInContent' or 'SignUpContent' depending on the state
  */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, Container } from 'semantic-ui-react';
 import { SignInContent } from './Content/SignInContent';
 import { SignUpContent } from './Content/SignUpContent';
 
-export class LoginModal extends Component {
-    constructor(props) {
-        super(props);
-        this.handleChangeContent = this.handleChangeContent.bind(this);
-        /**
-         * State can be 'SignIn' or 'SignOut'
-         */
-        this.state = { toDisplay: 'SignIn' };
-    }
+export const LoginModal = props => {
+    //States
+    const [toDisplay, setToDisplay] = useState('SignIn');
 
+    //Funtions
     /**
      * Change state when we click on link in LoginModal
      */
-    handleChangeContent(event, value) {
+    const handleChangeContent = (event, value) => {
         event.preventDefault();
-        this.setState({ toDisplay: value });
-    }
+        setToDisplay(value);
+    };
 
-    render() {
-        return (
-            <Modal size="mini" trigger={<Button>Login</Button>}>
-                {/* --- TITLE --- */}
-                <Modal.Header>
-                    <Container textAlign="center">
-                        Welcome to My Turku Memories
-                    </Container>
-                </Modal.Header>
+    return (
+        <Modal size="mini" trigger={<Button>Login</Button>}>
+            {/* --- TITLE --- */}
+            <Modal.Header>
+                <Container textAlign="center">
+                    Welcome to My Turku Memories
+                </Container>
+            </Modal.Header>
 
-                {/* --- CONTENT --- */}
-                {this.state.toDisplay === 'SignIn' ? (
-                    <SignInContent callbackFn={this.handleChangeContent} />
-                ) : (
-                    <SignUpContent callbackFn={this.handleChangeContent} />
-                )}
-            </Modal>
-        );
-    }
-}
+            {/* --- CONTENT --- */}
+            {toDisplay === 'SignIn' ? (
+                <SignInContent callbackFn={handleChangeContent} />
+            ) : (
+                <SignUpContent callbackFn={handleChangeContent} />
+            )}
+        </Modal>
+    );
+};

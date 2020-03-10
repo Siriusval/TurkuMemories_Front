@@ -24,14 +24,19 @@ import CategoryContext from '../../../contexts/CategoryContext';
 
 //replace formsy with formik
 export const AddMemoryPage = () => {
+    //Contexts
     const context = useContext(CategoryContext);
 
-    const center = [60.455, 22.26];
+    //States
     const [markerPosition, setMarkerPosition] = useState([]);
     const [category, setCategory] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
+    //Vars
+    const center = [60.455, 22.26];
+
+    //Functions
     const handleClickPosition = e => {
         const { lat, lng } = e.latlng;
         console.log(lat, lng);

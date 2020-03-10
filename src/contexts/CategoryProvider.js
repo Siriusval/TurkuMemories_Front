@@ -15,11 +15,6 @@ const CategoryProvider = props => {
                         key: element.id,
                         text: element.name,
                         value: element.id,
-                        label: {
-                            color: 'blue',
-                            empty: true,
-                            circular: true,
-                        },
                     };
                     categoriesTemp.push(category);
                 });

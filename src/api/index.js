@@ -45,6 +45,10 @@ const deleteMemoryById = id => api.delete(`${basePathMemories}/memories/${id}`);
  */
 const getAllMemories = () => api.get(`${basePathMemories}/memories`);
 
+const getMemoriesByCategory = categoryId =>
+    api.get(`${basePathMemories}/memories`, {
+        params: { categoryId: categoryId },
+    });
 /**
  * GET : get all memories from database containing this <tag>
  */
@@ -130,6 +134,7 @@ const apis = {
     memories: {
         createMemory,
         getMemoryById,
+        getMemoriesByCategory,
         updateMemoryById,
         deleteMemoryById,
         getAllMemories,

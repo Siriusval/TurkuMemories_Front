@@ -41,7 +41,7 @@ export const SignInContent = props => {
                         'Nice to see you again!',
                         'Success'
                     );
-                    //props.history.push('/'); //TODO redirect with <Redirect> component
+                    props.setRedirect(true);
                 }
             })
             .catch(error => {

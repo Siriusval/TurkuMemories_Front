@@ -3,6 +3,7 @@
  * Can render'SignInContent' or 'SignUpContent' depending on the state
  */
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Modal, Button, Container } from 'semantic-ui-react';
 import { SignInContent } from './Content/SignInContent';
 import { SignUpContent } from './Content/SignUpContent';
@@ -10,7 +11,7 @@ import { SignUpContent } from './Content/SignUpContent';
 export const LoginModal = props => {
     //States
     const [toDisplay, setToDisplay] = useState('SignIn');
-
+    const [redirect, setRedirect] = useState(false);
     //Funtions
     /**
      * Change state when we click on link in LoginModal
@@ -20,7 +21,9 @@ export const LoginModal = props => {
         setToDisplay(value);
     };
 
-    return (
+    return redirect ? (
+        <Redirect to="/" />
+    ) : (
         <Modal size="mini" trigger={<Button>Login</Button>}>
             {/* --- TITLE --- */}
             <Modal.Header>
@@ -31,9 +34,15 @@ export const LoginModal = props => {
 
             {/* --- CONTENT --- */}
             {toDisplay === 'SignIn' ? (
-                <SignInContent callbackFn={handleChangeContent} />
+                <SignInContent
+                    callbackFn={handleChangeContent}
+                    setRedirect={setRedirect}
+                />
             ) : (
-                <SignUpContent callbackFn={handleChangeContent} />
+                <SignUpContent
+                    callbackFn={handleChangeContent}
+                    setRedirect={setRedirect}
+                />
             )}
         </Modal>
     );

@@ -14,7 +14,7 @@ const MemoryProvider = props => {
             .getAllMemories()
             .then(res => {
                 const memoriesTemp = [];
-                res.data.forEach(element => {
+                res.data['rows'].forEach(element => {
                     const memory = element;
                     memoriesTemp.push(memory);
                 });
@@ -35,7 +35,9 @@ const MemoryProvider = props => {
         <MemoryContext.Provider
             value={{
                 memories,
+                setMemories,
                 loadingMemories,
+                setLoadingMemories,
                 selectedMemory,
                 setSelectedMemory,
                 fetchMemories,

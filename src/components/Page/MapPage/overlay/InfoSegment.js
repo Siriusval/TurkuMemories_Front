@@ -4,7 +4,7 @@
  *
  * Contain MemoryCard components as childrens
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import { MemoryList } from './MemoryList';
 import { MemoryDetails } from './MemoryDetails';
@@ -24,36 +24,36 @@ const segmentStyle = {
     textAlign: 'left',
 };
 
-export class InfoSegment extends Component {
-    renderContent() {
-        const selectedMemory = this.props.selectedMemory;
+export const InfoSegment = props => {
+    //Functions
 
-        if (this.props.loading) {
+    const renderContent = () => {
+        const selectedMemory = props.selectedMemory;
+
+        if (props.loading) {
             return null;
         }
 
         if (selectedMemory) {
             return (
                 <MemoryDetails
-                    handleUnselectMemory={this.props.handleUnselectMemory}
+                    handleUnselectMemory={props.handleUnselectMemory}
                     memory={selectedMemory}
                 />
             );
         } else {
             return (
                 <MemoryList
-                    memories={this.props.memories}
-                    handleSelectMemory={this.props.handleSelectMemory}
+                    memories={props.memories}
+                    handleSelectMemory={props.handleSelectMemory}
                 />
             );
         }
-    }
+    };
 
-    render() {
-        return (
-            <Segment style={segmentStyle} raised loading={this.props.loading}>
-                {this.renderContent()}
-            </Segment>
-        );
-    }
-}
+    return (
+        <Segment style={segmentStyle} raised loading={props.loading}>
+            {renderContent()}
+        </Segment>
+    );
+};

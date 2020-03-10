@@ -4,85 +4,74 @@
  *
  * displays map and markers
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 
-//offset position to center in right part of the screen
-const lngOffset = -0.008;
-const latOffset = +0.001;
+export const MapCanvas = props => {
+    //Vars
+    const selectedMemory = props.selectedMemory;
+    //offset position to center in right part of the screen
+    const lngOffset = -0.008;
+    const latOffset = +0.001;
 
-export class MapCanvas extends Component {
-    constructor(props) {
-        super(props);
-        /**
-         * Where map is centered
-         */
-        this.state = {
-            center: [60.455 + latOffset, 22.26 + lngOffset], //map center is moved a bit to the right because of the infopanel on the left
-            zoom: 14,
-        };
-        this.handleMove = this.handleMove.bind(this);
-        this.handleZoom = this.handleZoom.bind(this);
-    }
+    /**
+     * Where map is centered
+     */
+    var center = [60.455 + latOffset, 22.26 + lngOffset];
+    var zoom = 15;
 
-    applyOffset = coordinates => {
+    const applyOffset = coordinates => {
         coordinates[0] += latOffset;
         coordinates[1] += lngOffset;
     };
 
-    handleMove(e) {
-        this.setState({ center: e.target.getCenter() });
+    const handleMove = e => {
+        center = e.target.getCenter();
+    };
+
+    const handleZoom = e => {
+        zoom = e.target.setZoom();
+    };
+
+    //Check if object is empty
+    if (selectedMemory) {
+        center = [
+            selectedMemory.position.coordinates[0],
+            selectedMemory.position.coordinates[1],
+        ];
+        applyOffset(center);
+        zoom = 15;
+    } else {
+        zoom = 14;
     }
 
-    handleZoom(e) {
-        this.setState({ zoom: e.target.getZoom() });
-    }
-
-    render() {
-        var center = this.state.center;
-        const selectedMemory = this.props.selectedMemory;
-        var zoom = this.state.zoom;
-
-        //Check if object is empty
-        if (selectedMemory) {
-            center = [
-                selectedMemory.position.coordinates[0],
-                selectedMemory.position.coordinates[1],
-            ];
-            this.applyOffset(center);
-            zoom = 15;
-        } else {
-            zoom = 14;
-        }
-
-        return (
-            <Map
-                center={center}
-                zoom={zoom}
-                layers=""
-                onMove={this.handleMove}
-                onZoom={this.handleZoom}
-            >
-                {/* --- MAP --- */}
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                />
-                {/* --- MARKERS --- */}
-                {this.props.memories.map((element, index) => {
-                    const memory = element;
-                    const coordinates = memory.position.coordinates;
-                    return (
-                        <Marker
-                            key={memory.id}
-                            position={coordinates}
-                            onclick={() => {
-                                this.props.handleSelectMemory(memory);
-                            }}
-                        />
-                    );
-                })}
-            </Map>
-        );
-    }
-}
+    return (
+        <Map
+            center={center}
+            zoom={zoom}
+            layers=""
+            onMove={handleMove}
+            onZoom={handleZoom}
+        >
+            {/* --- MAP --- */}
+            <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {/* --- MARKERS --- */}
+            {props.memories.map((element, index) => {
+                const memory = element;
+                const coordinates = memory.position.coordinates;
+                return (
+                    <Marker
+                        key={memory.id}
+                        position={coordinates}
+                        onclick={() => {
+                            props.handleSelectMemory(memory);
+                        }}
+                    />
+                );
+            })}
+        </Map>
+    );
+};

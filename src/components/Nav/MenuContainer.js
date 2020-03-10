@@ -5,7 +5,7 @@
  * Contain navigation bar 100% of time
  * Displays filter bar only if on home page (which is map page)
  */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { NavigationBar } from './Bars/NavigationBar';
 import { FilterBar } from './Bars/FilterBar';
 
@@ -22,49 +22,40 @@ const menuStyle = {
     backgroundColor: 'white',
 };
 
-export class MenuContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
-        this.handleItemClick = this.handleItemClick.bind(this);
-        /**
-         * activeItem : highlight current tab
-         * activeLanguage : choose website language
-         */
-        this.state = {
-            activeItem: 'Home',
-            activeLanguage: 'EN',
-        };
-    }
+export const MenuContainer = props => {
+    //Vars
+    /**
+     * activeItem : highlight current tab
+     * activeLanguage : choose website language
+     */
+    const [activeItem, setActiveItem] = useState('Home');
+    const [activeLanguage, setActiveLanguage] = useState('EN');
+
+    //DEBUG
+    const location = props.location;
+    console.log(location);
 
     /**
      * Callback : handle click on nav bar items
      */
-    handleItemClick = (e, { name }) => {
-        this.setState({ activeItem: name });
+    const handleItemClick = (e, { name }) => {
+        setActiveItem(name);
     };
 
     /**
      * Callback : handle click on language dropdown item
      */
-    handleChangeLanguage = (e, { key }) =>
-        this.setState({ activeLanguage: key });
+    const handleChangeLanguage = (e, { key }) => setActiveLanguage(key);
 
-    render() {
-        const location = this.props.location;
-        console.log(location);
-
-        return (
-            <div style={menuStyle}>
-                <NavigationBar
-                    menuState={this.state}
-                    handleItemClick={this.handleItemClick}
-                    handleChangeLanguage={this.handleChangeLanguage}
-                />
-                {location.pathname === '/' ? (
-                    <FilterBar menuState={this.state} />
-                ) : null}
-            </div>
-        );
-    }
-}
+    return (
+        <div style={menuStyle}>
+            <NavigationBar
+                activeItem={activeItem}
+                activeLanguage={activeLanguage}
+                handleItemClick={handleItemClick}
+                handleChangeLanguage={handleChangeLanguage}
+            />
+            {location.pathname === '/' ? <FilterBar /> : null}
+        </div>
+    );
+};

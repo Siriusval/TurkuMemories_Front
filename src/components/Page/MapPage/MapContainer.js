@@ -51,7 +51,7 @@ export const MapContainer = () => {
             />
             <InfoSegment
                 memories={context.memories}
-                loading={context.loadingMemory}
+                loading={context.loadingMemories}
                 selectedMemory={context.selectedMemory}
                 handleSelectMemory={context.setSelectedMemory}
                 handleUnselectMemory={() => context.setSelectedMemory(null)}

@@ -28,7 +28,7 @@ const MyInput = props => {
                 onChange={changeValue}
                 value={props.value || ''}
                 icon={props.icon}
-                iconPosition="left"
+                iconPosition={props.icon ? 'left' : 'none'}
                 fluid
             />
             <Label

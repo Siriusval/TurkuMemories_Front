@@ -43,7 +43,7 @@ export const SignUpContent = props => {
                         'Sucessfully registered!',
                         'Success'
                     );
-                    //props.history.push('/') //TODO : fix redirect
+                    props.setRedirect(true);
                 }
             })
             .catch(error => {

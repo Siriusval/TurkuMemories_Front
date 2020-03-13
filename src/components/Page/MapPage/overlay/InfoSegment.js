@@ -29,7 +29,6 @@ export const InfoSegment = props => {
 
     const renderContent = () => {
         const selectedMemory = props.selectedMemory;
-
         if (props.loading) {
             return null;
         }

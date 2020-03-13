@@ -29,7 +29,6 @@ export const MenuContainer = props => {
      * activeLanguage : choose website language
      */
     const [activeItem, setActiveItem] = useState('Home');
-    const [activeLanguage, setActiveLanguage] = useState('EN');
 
     //DEBUG
     const location = props.location;
@@ -42,18 +41,11 @@ export const MenuContainer = props => {
         setActiveItem(name);
     };
 
-    /**
-     * Callback : handle click on language dropdown item
-     */
-    const handleChangeLanguage = (e, { key }) => setActiveLanguage(key);
-
     return (
         <div style={menuStyle}>
             <NavigationBar
                 activeItem={activeItem}
-                activeLanguage={activeLanguage}
                 handleItemClick={handleItemClick}
-                handleChangeLanguage={handleChangeLanguage}
             />
             {location.pathname === '/' ? <FilterBar /> : null}
         </div>

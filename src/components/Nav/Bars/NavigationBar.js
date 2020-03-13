@@ -2,7 +2,7 @@
  * Navigation Bar, children of MenuContainer
  * Shows tabs that allows us to reach pages of the website
  */
-import React from 'react';
+import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import {
     Menu,
@@ -13,20 +13,35 @@ import {
     Icon,
 } from 'semantic-ui-react';
 import { LoginModal } from '../LoginModal/LoginModal';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Language options for dropdown item
  */
 const languageOptions = [
-    { key: 'EN', text: 'EN', value: 'EN' },
-    { key: 'FI', text: 'FI', value: 'FI' },
-    { key: 'SWE', text: 'SWE', value: 'SWE' },
+    { key: 'en', text: 'EN', value: 'en' },
+    { key: 'fi', text: 'FI', value: 'fi' },
+    { key: 'swe', text: 'SWE', value: 'swe' },
 ];
 
 export const NavigationBar = props => {
     //Vars
     const activeItem = props.activeItem;
-    const activeLanguage = props.activeLanguage;
+    const [activeLanguage, setActiveLanguage] = useState('en');
+    const { i18n, t } = useTranslation();
+
+    
+    /**
+     * Callback : handle click on language dropdown item
+     */
+    const handleChangeLanguage = (e, { value }) => {
+
+        
+        setActiveLanguage(value);
+        i18n.changeLanguage(value);
+        console.log(value);
+
+    }
 
     return (
         <Menu secondary pointing fluid>
@@ -50,7 +65,7 @@ export const NavigationBar = props => {
                 key="1"
                 active={activeItem === 'Home'}
                 name="Home"
-                content="Home"
+                content={ t('menubar.home') }
                 onClick={props.handleItemClick}
             ></Menu.Item>
 
@@ -62,7 +77,7 @@ export const NavigationBar = props => {
                 key="2"
                 active={activeItem === 'My Memories'}
                 name="My Memories"
-                content="My Memories"
+                content={ t('menubar.memories')}
                 onClick={props.handleItemClick}
             ></Menu.Item>
 
@@ -74,7 +89,7 @@ export const NavigationBar = props => {
                 key="3"
                 active={activeItem === 'About Us'}
                 name="About Us"
-                content="About Us"
+                content={ t('menubar.aboutus')}
                 onClick={props.handleItemClick}
             ></Menu.Item>
 
@@ -88,7 +103,7 @@ export const NavigationBar = props => {
                 >
                     <Button icon labelPosition="left" color="teal">
                         <Icon name="add" />
-                        Add Memory
+                        { t('menubar.addmemory')}
                     </Button>
                 </Menu.Item>
 
@@ -114,7 +129,7 @@ export const NavigationBar = props => {
                         icon="world"
                         value={activeLanguage}
                         options={languageOptions}
-                        onClick={props.handleChangeLanguage}
+                        onChange={handleChangeLanguage}
                     />
                 </Menu.Item>
             </Menu.Menu>

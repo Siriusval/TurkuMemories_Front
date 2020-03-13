@@ -7,6 +7,8 @@
 import React, { useState } from 'react';
 import { Header, Icon, Accordion } from 'semantic-ui-react';
 import { PageTemplate } from './PageTemplate';
+import { useTranslation } from 'react-i18next';
+
 
 export const PageAboutUs = props => {
     //States
@@ -14,6 +16,7 @@ export const PageAboutUs = props => {
      * Which accordion item to expend
      */
     const [activeIndex, setActiveIndex] = useState(0);
+    const { t } = useTranslation();
 
     //Functions
     /**
@@ -31,9 +34,9 @@ export const PageAboutUs = props => {
             {/* --- HEADER ---*/}
             <Header as="h2" icon>
                 <Icon name="info" />
-                About Us
+                    { t('about.title') }
                 <Header.Subheader>
-                    Here is more information about us.
+                    { t('about.intro') }
                 </Header.Subheader>
             </Header>
 
@@ -47,17 +50,14 @@ export const PageAboutUs = props => {
                         onClick={handleClick}
                     >
                         <Icon name="dropdown" />
-                        Who are we ?
+                        { t('about.who') }
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === 0}>
-                        <p>We are the museum of Turku.</p>
                         <p>
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla
+                            { t('about.who_param1')}
+                        </p>
+                        <p>
+                            { t('about.who_param2')}
                         </p>
                     </Accordion.Content>
 
@@ -68,16 +68,11 @@ export const PageAboutUs = props => {
                         onClick={handleClick}
                     >
                         <Icon name="dropdown" />
-                        What kinds of memory is here ?
+                        { t('about.what') }
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === 1}>
                         <p>
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla
+                            { t('about.what_param')}
                         </p>
                     </Accordion.Content>
 
@@ -88,16 +83,11 @@ export const PageAboutUs = props => {
                         onClick={handleClick}
                     >
                         <Icon name="dropdown" />
-                        How do you I post a memory ?
+                        { t('about.how')}
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === 2}>
                         <p>
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla blablabla
-                            blablabla blablabla blablabla blablabla
+                            { t('about.how_param')}
                         </p>
                     </Accordion.Content>
                 </Accordion>

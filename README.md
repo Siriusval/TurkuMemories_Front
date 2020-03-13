@@ -4,11 +4,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm run server`
-
-Runs the json-server for test data.  
-Memories will not displays if it's not running.
-
 ### `npm start`
 
 Runs the app in the development mode.<br />

@@ -2,7 +2,7 @@
  * Main entry for react app
  * Displays Menu, and page depending on URL
  */
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { MenuContainer } from './components/Nav/MenuContainer';
@@ -15,53 +15,57 @@ import { NotificationContainer } from 'react-notifications';
 import CategoryProvider from './contexts/CategoryProvider';
 import MemoryProvider from './contexts/MemoryProvider';
 
+import i18n from './i18n';
+
 function App() {
     return (
-        <CategoryProvider>
-            <MemoryProvider>
-                <div className="App">
-                    <Router>
-                        {/* --- MENU ---*/}
-                        <div className="box">
-                            <header>
-                                <Route
-                                    path="/"
-                                    component={MenuContainer}
-                                    className="row header"
-                                />
-                            </header>
-
-                            {/* --- PAGE --- */}
-                            <div className="row content">
-                                {/* Switch render first found*/}
-                                <Switch>
+        <Suspense fallback="loading">
+            <CategoryProvider>
+                <MemoryProvider>
+                    <div className="App">
+                        <Router>
+                            {/* --- MENU ---*/}
+                            <div className="box">
+                                <header>
                                     <Route
-                                        exact
                                         path="/"
-                                        component={MapContainer}
+                                        component={MenuContainer}
+                                        className="row header"
                                     />
+                                </header>
 
-                                    <Route
-                                        path="/myMemories"
-                                        component={Page404}
-                                    />
-                                    <Route
-                                        path="/addMemory"
-                                        component={AddMemoryPage}
-                                    />
-                                    <Route
-                                        path="/about"
-                                        component={PageAboutUs}
-                                    />
-                                    <Route component={Page404} />
-                                </Switch>
+                                {/* --- PAGE --- */}
+                                <div className="row content">
+                                    {/* Switch render first found*/}
+                                    <Switch>
+                                        <Route
+                                            exact
+                                            path="/"
+                                            component={MapContainer}
+                                        />
+
+                                        <Route
+                                            path="/myMemories"
+                                            component={Page404}
+                                        />
+                                        <Route
+                                            path="/addMemory"
+                                            component={AddMemoryPage}
+                                        />
+                                        <Route
+                                            path="/about"
+                                            component={PageAboutUs}
+                                        />
+                                        <Route component={Page404} />
+                                    </Switch>
+                                </div>
                             </div>
-                        </div>
-                    </Router>
-                    <NotificationContainer />
-                </div>
-            </MemoryProvider>
-        </CategoryProvider>
+                        </Router>
+                        <NotificationContainer />
+                    </div>
+                </MemoryProvider>
+            </CategoryProvider>
+        </Suspense>
     );
 }
 

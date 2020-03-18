@@ -1,0 +1,20 @@
+{
+    "about": {
+        "title": "Tervetuloa",
+        "intro": "Tässä lisää tietoja meistä",
+        "who": "Ketä me olemme",
+        "who_param1": "Me olemme Turun museo",
+        "who_param2": "balbalbal SUOMI balaa",
+        "what": "Minkälaisia muistoja keräämme ?",
+        "what_param": "bLAaaa Torille!!! aaa",
+        "how": "Kuinka lisään muiston ?",
+        "how_param": "Mmmmmmmmmmmh"
+    },
+    "menubar": {
+        "home": "Koti",
+        "memories": "My Memories",
+        "about": "Tietoja",
+        "addmemory": "Lisää Muisto",
+        "login": "Kirjaudu"
+    }
+}

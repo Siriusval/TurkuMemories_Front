@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background: url('/images/grid.png');
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#__next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

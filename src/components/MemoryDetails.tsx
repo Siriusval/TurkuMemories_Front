@@ -47,16 +47,6 @@ export const MemoryDetails = props => {
     return (
         <Paper elevation={4} className={classes.root}>
             <List>
-                {/*
-      <IconButton
-        aria-label="previous"
-        onClick={backToList}
-        color="secondary"
-        size="medium"
-      >
-        <ChevronLeftIcon />
-      </IconButton>
- */}
                 <ListItem alignItems="flex-start">
                     <IconButton
                         aria-label="previous"

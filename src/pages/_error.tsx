@@ -1,13 +1,13 @@
-import Head from "next/head";
-import React from "react";
+import Head from 'next/head';
+import React from 'react';
 
-import { withTranslation } from "../i18n";
+import { withTranslation } from '../i18n';
 
 const Page = ({ t }) => {
     return (
         <div>
             <Head>
-                <title>{t("_error:title")}</title>
+                <title>{t('_error:title')}</title>
             </Head>
             Error
         </div>
@@ -15,7 +15,7 @@ const Page = ({ t }) => {
 };
 
 Page.getInitialProps = async () => ({
-    namespacesRequired: ["common"],
+    namespacesRequired: ['common'],
 });
 
-export default withTranslation("common")(Page);
+export default withTranslation('common')(Page as any);

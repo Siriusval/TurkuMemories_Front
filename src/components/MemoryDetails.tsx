@@ -84,7 +84,7 @@ export const MemoryDetails = props => {
                     <Grid container justify="center" spacing={2}>
                         <Grid item>
                             <Button
-                                variant="contained"
+                                variant="outlined"
                                 color="primary"
                                 startIcon={<FavoriteSharpIcon />}
                             >
@@ -93,7 +93,7 @@ export const MemoryDetails = props => {
                         </Grid>
                         <Grid item>
                             <Button
-                                variant="contained"
+                                variant="outlined"
                                 color="primary"
                                 startIcon={<ShareSharpIcon />}
                             >

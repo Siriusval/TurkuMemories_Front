@@ -54,37 +54,36 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const LoginForm = ({ t }) => {
+const RegisterForm = ({ t }) => {
     const classes = useStyles();
 
-    const submit = (email, password) => {
-        const model = { email: email, password: password };
+    const submit = model => {
         //MODEL SENT
         console.log('REQUEST: MODEL SENT:');
         console.log(model);
         apis.auth
-            .localLogin(model)
-            .then((res: AxiosResponse) => {
+            .localRegister(model)
+            .then(res => {
                 // SUCCES
                 console.log('SUCCES');
                 console.log(res);
-
-                if (res.status === HttpStatus.OK) {
+                if (
+                    res.status === HttpStatus.OK ||
+                    res.status === HttpStatus.CREATED
+                ) {
                     NotificationManager.success(
-                        'Nice to see you again!',
+                        'Sucessfully registered!',
                         'Success',
                     );
-                    //TODO redirect
                 }
             })
-            .catch((error: AxiosError) => {
+            .catch(error => {
                 if (error.response) {
                     // ERROR: SERVER RESPONSE
                     console.log('ERROR: SERVER RESPONSE');
 
                     const data = error.response.data;
                     const status = error.response.status;
-
                     // The request was made and the server responded with a status code
                     // that falls out of the range of 2xx
                     console.log('data: ', data);
@@ -92,13 +91,12 @@ const LoginForm = ({ t }) => {
                     console.log('headers: ', error.response.headers);
 
                     NotificationManager.error(
-                        'Email and/or password incorrect',
+                        `${status}:${data.message}`,
                         'Error',
                     );
                 } else if (error.request) {
                     // ERROR: SERVER NO RESPONSE
                     console.log('ERROR: SERVER NO RESPONSE');
-
                     // The request was made but no response was received
                     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
                     // http.ClientRequest in node.js
@@ -108,6 +106,7 @@ const LoginForm = ({ t }) => {
                     console.log('ERROR: REQUEST ERROR');
 
                     // Something happened in setting up the request that triggered an Error
+
                     console.log('Error', error.message);
                 }
                 //ERROR: CONFIG
@@ -126,28 +125,10 @@ const LoginForm = ({ t }) => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="h4">{t('form.login')}</Typography>
+                        <Typography variant="h4">
+                            {t('form.register')}
+                        </Typography>
                     </Grid>
-                    <Grid item xs={2} />
-                    <Grid item xs={4}>
-                        <Button
-                            variant="outlined"
-                            className={classes.facebookButton}
-                            startIcon={<FontAwesomeIcon icon={faFacebook} />}
-                        >
-                            Facebook
-                        </Button>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Button
-                            variant="outlined"
-                            className={classes.googleButton}
-                            startIcon={<FontAwesomeIcon icon={faGoogle} />}
-                        >
-                            Google
-                        </Button>
-                    </Grid>
-                    <Grid item xs={2} />
 
                     {/* --- FORM --- */}
                     <Grid item xs={12}>
@@ -155,6 +136,14 @@ const LoginForm = ({ t }) => {
                             required
                             id="outlined-basic"
                             label="Email"
+                            variant="outlined"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            id="outlined-basic"
+                            label="Username"
                             variant="outlined"
                         />
                     </Grid>
@@ -173,22 +162,17 @@ const LoginForm = ({ t }) => {
                             color="primary"
                             type="submit"
                         >
-                            {t('form.login')}
-                        </Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button variant="text">
-                            {t('form.forgottenPassword')}
+                            {t('form.register')}
                         </Button>
                     </Grid>
 
                     <Grid item xs={12}>
                         <Typography variant="body1">
-                            {t('form.notRegistered')}
+                            {t('form.alreadyRegistered')}
                         </Typography>
-                        <Link href="/register" passHref>
+                        <Link href="/login" passHref>
                             <Button component="a" className={classes.button}>
-                                {t('form.register')}
+                                {t('form.login')}
                             </Button>
                         </Link>
                     </Grid>
@@ -198,4 +182,4 @@ const LoginForm = ({ t }) => {
     );
 };
 
-export default withTranslation('common')(LoginForm as any);
+export default withTranslation('common')(RegisterForm as any);

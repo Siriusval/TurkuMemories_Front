@@ -15,6 +15,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import TranslateIcon from '@material-ui/icons/Translate';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,6 +36,15 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             maxWidth: 360,
             backgroundColor: theme.palette.background.paper,
+        },
+        addMemoryButton: {
+            backgroundColor: '#00a97a',
+            color: '#ffffff',
+            marginRight: theme.spacing(2),
+            '&:hover': {
+                backgroundColor: '#028a61',
+                color: '#ffffff',
+            },
         },
     }),
 );
@@ -80,6 +90,20 @@ const CustomAppBar = ({ t, i18n }) => {
                     <img src={logo} height="44px" />
                 </ButtonBase>
                 <Box className={classes.space} />
+                <Link href="/addMemory" passHref>
+                    <Button
+                        component="a"
+                        variant="contained"
+                        className={classes.addMemoryButton}
+                        color="primary"
+                        aria-haspopup="true"
+                        aria-label="Add a new memory"
+                        startIcon={<AddIcon />}
+                    >
+                        Add Memory
+                    </Button>
+                </Link>
+
                 <Typography variant="h6">
                     <Link href="/" passHref>
                         <Button component="a" className={classes.nav}>

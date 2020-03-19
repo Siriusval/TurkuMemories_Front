@@ -25,6 +25,7 @@
         "register": "Register",
         "forgottenPassword": "Forgotten your password ?",
         "notRegistered": "Not registered yet ?",
-        "signUp": "Sign Up"
+        "alreadyRegistered": "Already have an account ?",
+        "register": "Register"
     }
 }

@@ -4,8 +4,8 @@
     "description": "",
     "scripts": {
         "dev": "nodemon ./src/server.ts",
-        "prod": "tsc && cross-env NODE_ENV=production node ./build/server.js",
-        "tsc": "tsc",
+        "build": "next build && tsc --project tsconfig.server.json",
+        "prod": "cross-env NODE_ENV=production node ./build/server.js",
         "fix:prettier": "prettier --write \"**/*\""
     },
     "keywords": [],

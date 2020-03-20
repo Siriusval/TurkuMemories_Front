@@ -4,7 +4,7 @@ import { withTranslation } from '../i18n';
 import CustomAppBar from '../components/CustomAppBar';
 import LoginForm from '../components/LoginForm';
 
-const Login = ({ t }) => {
+const Login = ({ t, randomImage }) => {
     return (
         <div>
             <CustomAppBar />
@@ -22,8 +22,10 @@ const Login = ({ t }) => {
                     style={{
                         flexGrow: 1,
                         width: '50%',
-                        backgroundImage: 'url(/bg/22.jpg)',
+                        backgroundImage: `url(/bg/${randomImage}.jpg)`,
                         backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
                     }}
                 ></div>
                 <div style={{ flexGrow: 1, width: '50%' }}>
@@ -34,8 +36,13 @@ const Login = ({ t }) => {
     );
 };
 
-Login.getInitialProps = async () => ({
-    namespacesRequired: ['common'],
-});
+Login.getInitialProps = async () => {
+    const randomImage: number = Math.floor(Math.random() * 34) + 1;
+
+    return {
+        namespacesRequired: ['common'],
+        randomImage,
+    };
+};
 
 export default withTranslation('common')(Login as any);

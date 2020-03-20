@@ -18,19 +18,6 @@ import { MapboxContainer } from '../components/MapboxContainer';
 import { PinnedSubheaderList } from '../components/PinnedSubheaderList';
 import { MemoryDetails } from '../components/MemoryDetails';
 
-/*
-  
-                <div
-                    style={{
-                        paddingTop: "100px",
-                        paddingBottom: "100px",
-                        paddingLeft: "36px",
-                    }}
-                >
-                    
-                </div>
-                */
-
 const Index = ({ t, memories }) => {
     //console.log("Current language:", currentLanguage);
     const [selectedMemory, setSelectedMemory] = useState<Memory>(null);

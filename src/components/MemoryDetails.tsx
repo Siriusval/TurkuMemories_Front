@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'absolute',
             top: '100px',
             borderRadius: '8px',
-            marginLeft: theme.spacing(2),
+            marginLeft: theme.spacing(4),
             overflow: 'auto',
             maxHeight: 550,
         },

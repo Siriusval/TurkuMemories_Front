@@ -5,17 +5,17 @@ import {
     AppBar,
     Box,
     Button,
-    Menu,
-    MenuItem,
     Toolbar,
     Typography,
     ButtonBase,
 } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import TranslateIcon from '@material-ui/icons/Translate';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
+import { useAuthContext } from '../contexts/AuthContext';
+
+import AccountMenu from './AccountMenu';
+import LanguageMenu from './LanguageMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -49,36 +49,12 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const options: any[] = [
-    { key: 'en', value: 'English' },
-    { key: 'fi', value: 'Suomi' },
-    { key: 'sv', value: 'Svensk' },
-];
 const logo = '/images/logo192.png';
 const turkuLogo = '/images/turku_logo_black.png';
 
-const CustomAppBar = ({ t, i18n }) => {
+const CustomAppBar = ({ t }) => {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-    const [selectedIndex, setSelectedIndex] = useState<string>(i18n.language);
-
-    const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuItemClick = (
-        event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-        option: any,
-    ) => {
-        i18n.changeLanguage(option.key);
-        setSelectedIndex(option.key);
-        setAnchorEl(null);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const authContext = useAuthContext();
 
     return (
         <AppBar className={classes.root} position="fixed">
@@ -94,7 +70,7 @@ const CustomAppBar = ({ t, i18n }) => {
                     <Button
                         component="a"
                         variant="contained"
-                        className={classes.addMemoryButton}
+                        className={classes.nav}
                         color="primary"
                         aria-haspopup="true"
                         aria-label="Add a new memory"
@@ -119,46 +95,21 @@ const CustomAppBar = ({ t, i18n }) => {
                     </Link>
                 </Typography>
                 <Typography variant="h6">
-                    <Link href="/login" passHref>
-                        <Button component="a" className={classes.nav}>
-                            {t('menubar.login')}
-                        </Button>
-                    </Link>
+                    {!authContext.isLogged ? (
+                        <Link href="/login" passHref>
+                            <Button component="a" className={classes.nav}>
+                                {t('menubar.login')}
+                            </Button>
+                        </Link>
+                    ) : (
+                        <Box className={classes.nav}>
+                            <AccountMenu />
+                        </Box>
+                    )}
                 </Typography>
                 <Typography variant="h6">
                     {/* Language Menu*/}
-                    <div>
-                        <Button
-                            aria-haspopup="true"
-                            aria-controls="lock-menu"
-                            aria-label="Change language"
-                            onClick={handleClickListItem}
-                            startIcon={<TranslateIcon />}
-                            endIcon={<ExpandMoreIcon />}
-                        >
-                            {selectedIndex}
-                        </Button>
-
-                        <Menu
-                            id="lock-menu"
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            {options.map((option, index) => (
-                                <MenuItem
-                                    key={option.key}
-                                    selected={option.key === selectedIndex}
-                                    onClick={event =>
-                                        handleMenuItemClick(event, option)
-                                    }
-                                >
-                                    {option.value}
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </div>
+                    <LanguageMenu />
                 </Typography>
             </Toolbar>
         </AppBar>

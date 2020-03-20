@@ -1,0 +1,29 @@
+{
+    "title": "About us",
+    "intro": {
+        "p1": "\tHave you ever wanted to tell an exciting story somebody besides your friends or relatives? Or you know some interesting history facts about your city and going to share it? This website can help you in this. The main purpose is to collect, storage and share personal stories and histories of Turku residents.",
+        "p2": "There you can add a memory related with particular place. With it we can discover how did Turku looked like last years and decades."
+    },
+    "how": {
+        "title": "How it works",
+        "p1": "Log in with e-mail or Facebook/Google account.",
+        "p2": "Tap \"Add memory\" to create a new post.",
+        "p3": "Write your story, make a title.",
+        "p4": "Tag a place connected with your memory on the map.",
+        "p5": "Publish a post."
+    },
+    "opportunity": {
+        "title": "Good opportunity",
+        "p1": "For elder citizens: to remember past days and get to know stories from their neighbors.",
+        "p2": "For a new generation: to find out something new about history of their homeland.",
+        "p3": "For city guests: to get acquainted with the city and discover interesting places to visit."
+    },
+    "who": {
+        "title": "Who are we ?",
+        "p1": "The website is created by Turku City Museums, which is responsible for the city’s cultural, art and natural history museums. Accumulated material may be a part of museum’s collections and can be used in research and exhibitions."
+    },
+    "what": {
+        "title": "What kinds of memories are there ?",
+        "p1": "Here you can add any memory from such categories as sport, culture or school. Also there is possible to write about stories linked to special events."
+    }
+}

@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 
 import { apis } from '../services/apis';
-import { NotificationManager } from 'react-notifications';
 import HttpStatus from 'http-status-codes';
 import { AxiosResponse, AxiosError } from 'axios';
 import Link from 'next/link';
@@ -71,10 +70,7 @@ const RegisterForm = ({ t }) => {
                     res.status === HttpStatus.OK ||
                     res.status === HttpStatus.CREATED
                 ) {
-                    NotificationManager.success(
-                        'Sucessfully registered!',
-                        'Success',
-                    );
+                    //TODO sucess snackbar
                 }
             })
             .catch(error => {
@@ -90,10 +86,9 @@ const RegisterForm = ({ t }) => {
                     console.log('status: ', status);
                     console.log('headers: ', error.response.headers);
 
-                    NotificationManager.error(
-                        `${status}:${data.message}`,
-                        'Error',
-                    );
+                    //TODO error snackbar
+
+                    //`${status}:${data.message}`,
                 } else if (error.request) {
                     // ERROR: SERVER NO RESPONSE
                     console.log('ERROR: SERVER NO RESPONSE');

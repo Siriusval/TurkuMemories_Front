@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: theme.palette.background.paper,
             position: 'absolute',
             top: '100px',
-            marginLeft: theme.spacing(2),
+            marginLeft: theme.spacing(4),
             overflow: 'auto',
             maxHeight: 550,
         },

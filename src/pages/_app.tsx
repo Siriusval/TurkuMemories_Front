@@ -4,18 +4,17 @@ import { appWithTranslation } from '../i18n';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme';
-
-//import { config } from "@fortawesome/fontawesome-svg-core";
-//import "@fortawesome/fontawesome-svg-core/styles.css"; // Import the CSS
-//config.autoAddCss = false;
+import { AuthProvider } from '../contexts/AuthContext';
 
 function MyApp({ Component, pageProps }) {
     return (
         <React.Fragment>
             <ThemeProvider theme={theme}>
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline />
-                <Component {...pageProps} />{' '}
+                <AuthProvider isLogged={true}>
+                    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                    <CssBaseline />
+                    <Component {...pageProps} />{' '}
+                </AuthProvider>
             </ThemeProvider>
         </React.Fragment>
     );

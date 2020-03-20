@@ -19,29 +19,98 @@ const About = ({ t }) => {
             <CustomAppBar />
 
             <Layout>
-                <Typography variant="h3">{t('about.intro')}</Typography>
+                {/* Title */}
+                <Typography variant="h3">{t('title')}</Typography>
+                <div style={{ height: '5vh' }} />
+
+                {/* Intro */}
+                <Typography variant="body1">{t('intro.p1')}</Typography>
+                <br />
+
+                <Typography variant="body1">{t('intro.p2')}</Typography>
+                <div style={{ height: '5vh' }} />
+
+                {/* How it works */}
+                <Typography variant="h5" gutterBottom>
+                    {t('how.title')}
+                </Typography>
+                <ul>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('how.p1')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('how.p2')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('how.p3')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('how.p4')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('how.p5')}
+                        </Typography>
+                    </li>
+                </ul>
+                <div style={{ height: '5vh' }} />
+
+                {/* Good opportunity */}
+                <Typography variant="h5" gutterBottom>
+                    {t('opportunity.title')}
+                </Typography>
+                <ul>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('opportunity.p1')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('opportunity.p2')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('opportunity.p3')}
+                        </Typography>
+                    </li>
+                </ul>
+
                 <div style={{ height: '5vh' }} />
 
                 {/* Who are we */}
-                <Typography variant="h5">{t('about.who')}</Typography>
-                <Typography variant="body1">{t('about.who_param1')}</Typography>
+                <Typography variant="h5" gutterBottom>
+                    {t('who.title')}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {t('who.p1')}
+                </Typography>
                 <div style={{ height: '5vh' }} />
 
-                {/* What kind of memory */}
-                <Typography variant="h5">{t('about.who_param1')}</Typography>
-                <Typography variant="body1">{t('about.what_param')}</Typography>
+                {/* What kind of memories */}
+                <Typography variant="h5" gutterBottom>
+                    {t('what.title')}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {t('what.p1')}
+                </Typography>
                 <div style={{ height: '5vh' }} />
-
-                {/* How to post memory */}
-                <Typography variant="h5">{t('about.how')}</Typography>
-                <Typography variant="body1">{t('about.how_param')}</Typography>
             </Layout>
         </div>
     );
 };
 
 About.getInitialProps = async () => ({
-    namespacesRequired: ['common'],
+    namespacesRequired: ['common', 'about'],
 });
 
-export default withTranslation('common')(About as any);
+export default withTranslation('about')(About as any);

@@ -11,13 +11,13 @@ import {
 } from '@material-ui/core';
 
 import { apis } from '../services/apis';
-import { NotificationManager } from 'react-notifications';
 import HttpStatus from 'http-status-codes';
 import { AxiosResponse, AxiosError } from 'axios';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { withTranslation } from '../i18n';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const LoginForm = ({ t }) => {
     const classes = useStyles();
+    const authContext = useAuthContext();
 
     const submit = (email, password) => {
         const model = { email: email, password: password };
@@ -70,12 +71,9 @@ const LoginForm = ({ t }) => {
                 console.log(res);
 
                 if (res.status === HttpStatus.OK) {
-                    NotificationManager.success(
-                        'Nice to see you again!',
-                        'Success',
-                    );
-                    //TODO redirect
+                    //TODO sucess snackbar
                 }
+                //TODO redirect
             })
             .catch((error: AxiosError) => {
                 if (error.response) {
@@ -91,10 +89,7 @@ const LoginForm = ({ t }) => {
                     console.log('status: ', status);
                     console.log('headers: ', error.response.headers);
 
-                    NotificationManager.error(
-                        'Email and/or password incorrect',
-                        'Error',
-                    );
+                    //TODO error snackbar
                 } else if (error.request) {
                     // ERROR: SERVER NO RESPONSE
                     console.log('ERROR: SERVER NO RESPONSE');
@@ -172,6 +167,7 @@ const LoginForm = ({ t }) => {
                             variant="outlined"
                             color="primary"
                             type="submit"
+                            onClick={authContext.login}
                         >
                             {t('form.login')}
                         </Button>

@@ -1,11 +1,37 @@
 import React, { useState } from 'react';
 import ReactMapGl, { Marker, NavigationControl } from 'react-map-gl';
 import { Memory, Memories } from '../types';
+import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
 const normalIcon = '/images/marker-icon.png';
 const selectedIcon = '/images/marker-icon-red.png';
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        marker: {
+            backgroundImage: `url(${normalIcon})`,
+            backgroundSize: 'contain',
+            width: '25px',
+            height: '41px',
+            //border-radius: 50%,
+            cursor: 'pointer',
+            backgroundRepeat: 'no-repeat',
+        },
+        selectedMarker: {
+            backgroundImage: `url(${selectedIcon})`,
+            backgroundSize: 'contain',
+            width: '25px',
+            height: '41px',
+            //border-radius: 50%,
+            cursor: 'pointer',
+            backgroundRepeat: 'no-repeat',
+        },
+    }),
+);
+
 export const MapboxContainer = props => {
+    const classes = useStyles();
+
     //State
     const [viewport, setViewport] = useState({
         latitude: 60.455,
@@ -20,18 +46,9 @@ export const MapboxContainer = props => {
 
     const mapStyle = 'mapbox://styles/mapbox/streets-v11';
 
-    const buttonStyle = {
-        backgroundColor: 'Transparent',
-        backgroundRepeat: 'no-repeat',
-        border: 'none',
-        cursor: 'pointer',
-        overflow: 'hidden',
-        outline: 'none',
-    };
-
     const handleMarkerClick = (e, memory) => {
         e.preventDefault();
-        props.handleUnselectMemory(memory);
+        props.handleSelectMemory(memory);
         setViewport({
             ...viewport,
             latitude: memory.position.coordinates[0],
@@ -41,21 +58,22 @@ export const MapboxContainer = props => {
 
     const renderMarkers = () => {
         return props.memories['rows'].map(memory => {
-            const icon = memory === selectedMemory ? selectedIcon : normalIcon;
+            const markerClass =
+                memory === selectedMemory
+                    ? classes.selectedMarker
+                    : classes.marker;
             return (
                 <Marker
                     key={memory.id}
                     latitude={memory.position.coordinates[0]}
                     longitude={memory.position.coordinates[1]}
                 >
-                    <button
-                        style={buttonStyle}
+                    <div
+                        className={markerClass}
                         onClick={e => {
                             handleMarkerClick(e, memory);
                         }}
-                    >
-                        <img src={icon} alt="marker" />
-                    </button>
+                    />
                 </Marker>
             );
         });

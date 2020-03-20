@@ -1,21 +1,11 @@
 {
-    "about": {
-        "title": "Welcome",
-        "intro": "Here is more information about us",
-        "who": "Who are we",
-        "who_param1": "We are the museum of Turku",
-        "who_param2": "balbalbal english balaa",
-        "what": "What kind of memories are we collecting ?",
-        "what_param": "blalalala blaaa enklish",
-        "how": "How do I post a memory ?",
-        "how_param": "BLAAAAAAAAAAAAAAA"
-    },
     "menubar": {
         "home": "Home",
         "memories": "My Memories",
         "about": "About Us",
         "addmemory": "Add Memory",
-        "login": "LogIn"
+        "login": "Login",
+        "logout": "Logout"
     },
     "form": {
         "login": "Login",
@@ -25,7 +15,6 @@
         "register": "Register",
         "forgottenPassword": "Forgotten your password ?",
         "notRegistered": "Not registered yet ?",
-        "alreadyRegistered": "Already have an account ?",
-        "register": "Register"
+        "alreadyRegistered": "Already have an account ?"
     }
 }

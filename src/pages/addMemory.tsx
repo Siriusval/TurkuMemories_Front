@@ -7,22 +7,37 @@
  */
 import React, { useState } from 'react';
 import { Layout } from '../components/Layout';
-import { NotificationManager } from 'react-notifications';
 import { apis } from '../services/apis';
 import HttpStatus from 'http-status-codes';
 
 import { Memory } from '../types';
 import { withTranslation } from '../i18n';
 import CustomAppBar from '../components/CustomAppBar';
-import { Typography, Grid, Paper, TextField } from '@material-ui/core';
+import {
+    Typography,
+    Grid,
+    Paper,
+    TextField,
+    Box,
+    Button,
+} from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { EmptyMap } from '../components/EmptyMap';
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        box: {
+            paddingTop: '16px',
+            paddingLeft: '16px',
+            paddingRight: '16px',
+            paddingBottom: '16px',
+        },
+        item: {
+            paddingBottom: '16px',
+        },
         paper: {
             borderRadius: '8px',
-            width: '100%',
             backgroundColor: theme.palette.background.paper,
-            marginLeft: theme.spacing(2),
         },
     }),
 );
@@ -64,15 +79,13 @@ const AddMemory = ({ t }) => {
             .createMemory(memory)
             .then(_ => {
                 if (HttpStatus.CREATED) {
-                    NotificationManager.success(
-                        'Memory has been created',
-                        'Success',
-                    );
+                    //TODO sucess snackbar
                     //this.props.history.push('/'); //TODO redirect
                 }
             })
             .catch(err => {
-                NotificationManager.error('Error creating memory', 'Error');
+                //TODO error snackbar
+
                 console.error('Error creating memory:', err);
             });
     };
@@ -92,51 +105,92 @@ const AddMemory = ({ t }) => {
             {/* --- TITLE --- */}
             <Typography variant="h3">Add a new memory</Typography>
             <div style={{ height: '5vh' }} />
-            <Grid container direction="row" spacing={1}>
-                <Grid container item xs={6} direction="column" spacing={3}>
+            {/* MAIN GRID */}
+            <Grid
+                container
+                direction="column"
+                spacing={2}
+                justify="flex-start"
+                alignItems="center"
+            >
+                {/* FIRST ROW */}
+                <Grid
+                    container
+                    item
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                    spacing={2}
+                >
+                    {/* LEFT ELEMENT */}
                     <Grid item xs={6}>
                         <Paper className={classes.paper} elevation={4}>
-                            <Typography variant="body1">Title</Typography>
-                            <TextField
-                                required
-                                id="outlined-basic"
-                                label="Title"
-                                variant="outlined"
-                            />
+                            <Box className={classes.box}>
+                                <Typography
+                                    variant="body1"
+                                    className={classes.item}
+                                >
+                                    Informations
+                                </Typography>
+                                <TextField
+                                    className={classes.item}
+                                    required
+                                    id="outlined-basic"
+                                    label="Title"
+                                    variant="outlined"
+                                    size="small"
+                                    fullWidth
+                                />
+                                <TextField
+                                    className={classes.item}
+                                    required
+                                    id="outlined-basic"
+                                    label="Category"
+                                    variant="outlined"
+                                    size="small"
+                                    fullWidth
+                                />
+
+                                <TextField
+                                    id="outlined-multiline"
+                                    label="Description"
+                                    multiline
+                                    rows="8"
+                                    variant="outlined"
+                                    size="small"
+                                    fullWidth
+                                />
+                            </Box>
                         </Paper>
                     </Grid>
-                    <Grid item xs={6}>
+
+                    {/* RIGHT ELEMENT */}
+                    <Grid container item xs={6}>
                         <Paper className={classes.paper} elevation={4}>
-                            <Typography variant="body1">Category</Typography>
-                            <TextField
-                                required
-                                id="outlined-basic"
-                                label="Email"
-                                variant="outlined"
-                            />
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Paper className={classes.paper} elevation={4}>
-                            <Typography variant="body1">Description</Typography>
-                            <TextField
-                                required
-                                id="outlined-basic"
-                                label="Description"
-                                variant="outlined"
-                            />
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Paper className={classes.paper} elevation={4}>
-                            <Typography variant="body1">Image</Typography>
+                            <Box className={classes.box}>
+                                <Typography
+                                    variant="body1"
+                                    className={classes.item}
+                                >
+                                    Position
+                                </Typography>
+                                <EmptyMap />
+                            </Box>
                         </Paper>
                     </Grid>
                 </Grid>
-                <Grid container item xs={6} direction="column" spacing={3}>
-                    <Paper className={classes.paper} elevation={4}>
-                        a
-                    </Paper>
+
+                {/* SECOND ROW */}
+                <Grid container item xs={12} justify="center">
+                    <Grid item>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            type="submit"
+                        >
+                            Submit
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
         </Layout>

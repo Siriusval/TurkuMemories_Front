@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+/**
+ * Display a panel containing informations
+ * when memory is selected
+ * Appears on home page
+ */
+
+// --- IMPORTS ---
+import React from 'react';
 import Moment from 'react-moment';
-
-import { Memory } from '../types';
-
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-
 import {
     List,
     ListItem,
@@ -18,7 +21,9 @@ import {
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ShareSharpIcon from '@material-ui/icons/ShareSharp';
 import FavoriteSharpIcon from '@material-ui/icons/FavoriteSharp';
+import { Memory } from '../types';
 
+// --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -39,9 +44,16 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export const MemoryDetails = props => {
-    console.log(props);
+interface IMemoryDetails {
+    handleUnselectMemory(): void;
+    selectedMemory: Memory;
+}
 
+// --- COMPONENT ---
+const MemoryDetails: React.FC<IMemoryDetails> = ({
+    handleUnselectMemory,
+    selectedMemory,
+}) => {
     const classes = useStyles();
 
     return (
@@ -51,7 +63,7 @@ export const MemoryDetails = props => {
                     <IconButton
                         aria-label="previous"
                         className={classes.buttonBack}
-                        onClick={props.handleUnselectMemory}
+                        onClick={handleUnselectMemory}
                         color="secondary"
                     >
                         <ChevronLeftIcon />
@@ -60,23 +72,19 @@ export const MemoryDetails = props => {
 
                 {/*TODO : add picture */}
                 <ListItem alignItems="flex-start">
-                    <Typography variant="h3">
-                        {props.selectedMemory.title}
-                    </Typography>
+                    <Typography variant="h3">{selectedMemory.title}</Typography>
                 </ListItem>
 
                 <ListItem alignItems="flex-start">
                     <Typography variant="subtitle1">
-                        <Moment fromNow>
-                            {props.selectedMemory.createdAt}
-                        </Moment>
+                        <Moment fromNow>{selectedMemory.createdAt}</Moment>
                     </Typography>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
 
                 <ListItem alignItems="flex-start">
                     <Typography variant="body2" align="left">
-                        {props.selectedMemory.description}
+                        {selectedMemory.description}
                     </Typography>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
@@ -107,3 +115,5 @@ export const MemoryDetails = props => {
     );
 };
 //<ReportModal /> TODO
+
+export default MemoryDetails;

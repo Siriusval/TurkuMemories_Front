@@ -1,23 +1,20 @@
-import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+/**
+ * Register form
+ * May not be used if switched to auth0 authentication
+ *
+ */
 
-import {
-    Button,
-    Box,
-    TextField,
-    Grid,
-    Paper,
-    Typography,
-} from '@material-ui/core';
+// --- IMPORTS ---
+import React from 'react';
 
 import { apis } from '../services/apis';
 import HttpStatus from 'http-status-codes';
-import { AxiosResponse, AxiosError } from 'axios';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { withTranslation } from '../i18n';
+import { Button, TextField, Grid, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
+// --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -53,9 +50,15 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const RegisterForm = ({ t }) => {
+interface IRegisterForm {
+    t(key: string, opts?): Function;
+}
+// --- COMPONENT ---
+const RegisterForm: React.FC<IRegisterForm> = ({ t }) => {
+    //Contexts
     const classes = useStyles();
 
+    //Functions
     const submit = model => {
         //MODEL SENT
         console.log('REQUEST: MODEL SENT:');
@@ -113,6 +116,7 @@ const RegisterForm = ({ t }) => {
         <div className={classes.root}>
             <form noValidate autoComplete="off">
                 <Grid className={classes.mainGrid} container spacing={3}>
+                    {/* Logo */}
                     <Grid item xs={12}>
                         <img
                             src="/images/logo512.png"

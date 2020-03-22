@@ -1,14 +1,20 @@
+/**
+ * Mymemories Page
+ * User see his memories
+ * Restricted, only is logged
+ */
+
+// --- IMPORTS ---
 import React from 'react';
-import CustomAppBar from '../components/CustomAppBar';
 import { withTranslation } from '../i18n';
 import { Typography, Grid } from '@material-ui/core';
-import { Layout } from '../components/Layout';
+import Layout from '../components/Layout';
 import SimpleCard from '../components/SimpleCard';
 
+// --- COMPONENT ---
 const Mymemories = ({ t }) => {
     return (
         <div>
-            <CustomAppBar />
             <Layout>
                 <Typography variant="h3">My Memories</Typography>
                 <div style={{ height: '5vh' }} />
@@ -27,6 +33,7 @@ const Mymemories = ({ t }) => {
     );
 };
 
+// --- POPULATE PAGE ---
 Mymemories.getInitialProps = async ({ req }) => {
     return {
         namespacesRequired: ['common'],

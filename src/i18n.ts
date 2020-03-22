@@ -1,8 +1,12 @@
-import NextI18Next from "next-i18next";
+/**
+ * i18n Provider
+ * Provide available tranlations and namespaces to pages and components
+ */
+import NextI18Next from 'next-i18next';
 
 const NextI18NextInstance = new NextI18Next({
-    defaultLanguage: "en",
-    otherLanguages: ["fi", "sv"],
+    defaultLanguage: 'en',
+    otherLanguages: ['fi', 'sv'],
 });
 
 export default NextI18NextInstance;

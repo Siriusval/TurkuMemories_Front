@@ -1,11 +1,19 @@
+/**
+ * Mapcontainer with mapbox
+ * For Home page
+ */
+
+// --- IMPORTS ---
 import React, { useState } from 'react';
 import ReactMapGl, { Marker, NavigationControl } from 'react-map-gl';
-import { Memory, Memories } from '../types';
+import { Memories, Memory } from '../types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
+// --- ICONS PROPERTIES ---
 const normalIcon = '/images/marker-icon.png';
 const selectedIcon = '/images/marker-icon-red.png';
 
+// --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         marker: {
@@ -29,7 +37,20 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export const MapboxContainer = props => {
+// --- PROPS ---
+interface IMapboxContainer {
+    memories: Memories;
+    selectedMemory: Memory;
+    handleSelectMemory(memory: Memory): void;
+}
+
+// --- COMPONENT ---
+const MapboxContainer: React.FC<IMapboxContainer> = ({
+    memories,
+    selectedMemory,
+    handleSelectMemory,
+}) => {
+    //Contexts
     const classes = useStyles();
 
     //State
@@ -41,14 +62,12 @@ export const MapboxContainer = props => {
         pitch: 0,
     });
 
-    const memories: Memories = props.memories;
-    const selectedMemory = props.selectedMemory;
-
+    //Vars
     const mapStyle = 'mapbox://styles/mapbox/streets-v11';
 
     const handleMarkerClick = (e, memory) => {
         e.preventDefault();
-        props.handleSelectMemory(memory);
+        handleSelectMemory(memory);
         setViewport({
             ...viewport,
             latitude: memory.position.coordinates[0],
@@ -57,7 +76,7 @@ export const MapboxContainer = props => {
     };
 
     const renderMarkers = () => {
-        return props.memories['rows'].map(memory => {
+        return memories['rows'].map(memory => {
             const markerClass =
                 memory === selectedMemory
                     ? classes.selectedMarker
@@ -83,13 +102,12 @@ export const MapboxContainer = props => {
         <ReactMapGl
             {...viewport}
             mapStyle={mapStyle}
-            mapboxApiAccessToken={
-                'pk.eyJ1IjoibXl0dXJrdW1lbW9yaWVzIiwiYSI6ImNrNXhuZjdjMjBramMzbm54YWNjZWsweDQifQ.VSBHa6HkpaJfywOHhEjgbA'
-            }
+            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             width="100vw"
             height="100vh"
             onViewportChange={setViewport}
         >
+            {/* Controls */}
             <div
                 style={{
                     position: 'absolute',
@@ -99,9 +117,11 @@ export const MapboxContainer = props => {
             >
                 <NavigationControl />
             </div>
-            {props.memories && props.memories.length !== 0
-                ? renderMarkers()
-                : null}
+
+            {/* Render markers */}
+            {memories && memories.count !== 0 ? renderMarkers() : null}
         </ReactMapGl>
     );
 };
+
+export default MapboxContainer;

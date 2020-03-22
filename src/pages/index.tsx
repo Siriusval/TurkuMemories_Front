@@ -1,27 +1,26 @@
 /**
- * Map container component
- * Contain all the component in Map Page
- * aka. map canvas and overlay
- *
- * Ressources :
- * https://blog.logrocket.com/how-to-use-react-leaflet/
- * https://www.azavea.com/blog/2016/12/05/getting-started-with-react-and-leaflet/
- * https://cherniavskii.com/using-leaflet-in-react-apps/
+ * Index  / Home Page
+ * Contains :
+ * - Map  (MapboxContainer)
+ * - list of most recent memories (PinnedSubheaderList)
  */
+
+// --- IMPORTS ---
 import React, { useState } from 'react';
-import CustomAppBar from '../components/CustomAppBar';
 import { apis } from '../services/apis';
 import { i18n, withTranslation } from '../i18n';
 import { Memories, Memory } from '../types';
 import { NoSsr } from '@material-ui/core';
-import { MapboxContainer } from '../components/MapboxContainer';
-import { PinnedSubheaderList } from '../components/PinnedSubheaderList';
-import { MemoryDetails } from '../components/MemoryDetails';
+import MapboxContainer from '../components/MapboxContainer';
+import PinnedSubheaderList from '../components/PinnedSubheaderList';
+import MemoryDetails from '../components/MemoryDetails';
 
+// --- COMPONENT ---
 const Index = ({ t, memories }) => {
-    //console.log("Current language:", currentLanguage);
+    //States
     const [selectedMemory, setSelectedMemory] = useState<Memory>(null);
 
+    //functions
     const handleSelectMemory = (memory: Memory) => {
         setSelectedMemory(memory);
     };
@@ -30,7 +29,7 @@ const Index = ({ t, memories }) => {
     };
     return (
         <div>
-            <CustomAppBar />
+            {/* Only rendered client side */}
             <NoSsr>
                 <MapboxContainer
                     memories={memories}
@@ -46,7 +45,6 @@ const Index = ({ t, memories }) => {
             ) : (
                 <PinnedSubheaderList
                     memories={memories}
-                    selectedMemory={selectedMemory}
                     handleSelectMemory={handleSelectMemory}
                 />
             )}
@@ -54,6 +52,10 @@ const Index = ({ t, memories }) => {
     ); //TODO : create placeholder when map loading  <PinnedSubheaderList />
 };
 
+// --- POPULATE PAGE ---
+/**
+ * Fetch memories from back
+ */
 Index.getInitialProps = async ({ req }) => {
     const currentLanguage: string = req ? req.language : i18n.language;
 
@@ -65,7 +67,7 @@ Index.getInitialProps = async ({ req }) => {
 
             console.log('Memories fetched: ', memories.count);
         })
-        .catch(err => console.error('Error fetching memories:', err));
+        .catch(err => console.error('Error fetching memories'));
 
     return {
         namespacesRequired: ['common'],

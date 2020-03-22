@@ -1,6 +1,17 @@
-import React, { useState } from 'react';
+/**
+ * Custom App Bar Compoennt
+ * Contain main elements for navigation
+ * - Home
+ * - Add Memory
+ * - About Us
+ * - Login / Account if logged
+ * - Language Menu
+ */
+
+// --- IMPORTS ---
+import React from 'react';
 import Link from 'next/link';
-import { i18n, withTranslation } from '../i18n';
+import { withTranslation } from '../i18n';
 import {
     AppBar,
     Box,
@@ -9,14 +20,14 @@ import {
     Typography,
     ButtonBase,
 } from '@material-ui/core';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import { useAuthContext } from '../contexts/AuthContext';
-
 import AccountMenu from './AccountMenu';
 import LanguageMenu from './LanguageMenu';
 
+// --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -49,16 +60,25 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const logo = '/images/logo192.png';
-const turkuLogo = '/images/turku_logo_black.png';
+// --- PROPS ---
+interface ICustomAppBar {
+    t(key, opts?): Function;
+}
 
-const CustomAppBar = ({ t }) => {
+// --- COMPONENT ---
+const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
+    //Contexts
     const classes = useStyles();
     const authContext = useAuthContext();
 
+    //Vars
+    const logo = '/images/logo192.png';
+    const turkuLogo = '/images/turku_logo_black.png';
+
     return (
-        <AppBar className={classes.root} position="fixed">
+        <AppBar id="app-bar" className={classes.root} position="fixed">
             <Toolbar>
+                {/* Logo button to home */}
                 <ButtonBase href="/" className={classes.homeButton}>
                     <img src={turkuLogo} height="44px" />
                 </ButtonBase>
@@ -66,7 +86,10 @@ const CustomAppBar = ({ t }) => {
                     <img src={logo} height="44px" />
                 </ButtonBase>
                 <Box className={classes.space} />
-                <Link href="/addMemory" passHref>
+
+                {/* Add memory */}
+
+                <Link href="/addmemory" passHref>
                     <Button
                         component="a"
                         variant="contained"
@@ -80,6 +103,7 @@ const CustomAppBar = ({ t }) => {
                     </Button>
                 </Link>
 
+                {/* Home */}
                 <Typography variant="h6">
                     <Link href="/" passHref>
                         <Button component="a" className={classes.nav}>
@@ -87,6 +111,8 @@ const CustomAppBar = ({ t }) => {
                         </Button>
                     </Link>
                 </Typography>
+
+                {/* About Us */}
                 <Typography variant="h6">
                     <Link href="/about" passHref>
                         <Button component="a" className={classes.nav}>
@@ -94,6 +120,8 @@ const CustomAppBar = ({ t }) => {
                         </Button>
                     </Link>
                 </Typography>
+
+                {/* Login / Account */}
                 <Typography variant="h6">
                     {!authContext.isLogged ? (
                         <Link href="/login" passHref>
@@ -107,6 +135,8 @@ const CustomAppBar = ({ t }) => {
                         </Box>
                     )}
                 </Typography>
+
+                {/* Language */}
                 <Typography variant="h6">
                     {/* Language Menu*/}
                     <LanguageMenu />

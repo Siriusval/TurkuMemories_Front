@@ -1,13 +1,19 @@
-import React from 'react';
+/**
+ * Login page
+ * Maybe not use if we switch to Auth0 authentication
+ * on the LEFT : contains a random picture of Turku
+ * on the RIGHT : contains the login form
+ */
 
+// ---IMPORT ---
+import React from 'react';
 import { withTranslation } from '../i18n';
-import CustomAppBar from '../components/CustomAppBar';
 import LoginForm from '../components/LoginForm';
 
+// --- COMPONENTS ---
 const Login = ({ t, randomImage }) => {
     return (
         <div>
-            <CustomAppBar />
             <div
                 style={{
                     display: 'flex',
@@ -36,6 +42,11 @@ const Login = ({ t, randomImage }) => {
     );
 };
 
+// ---POPULATE PAGE  ---
+/**
+ * pass translation namespace
+ * and a random number for background
+ */
 Login.getInitialProps = async () => {
     const randomImage: number = Math.floor(Math.random() * 34) + 1;
 

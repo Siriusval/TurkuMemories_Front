@@ -1,3 +1,9 @@
+/**
+ * Auth context
+ * contain info if user is logged or not
+ * USED FOR TESTING, WILL BE DELETED
+ */
+
 import React, { ReactNode, useState } from 'react';
 interface IAuthContext {
     isLogged: boolean;

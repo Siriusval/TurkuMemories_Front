@@ -1,11 +1,20 @@
+/**
+ * Pinpoint Map
+ * Map used in /addmemory , so user can locate memory
+ *
+ */
+
+// --- IMPORTS ---
 import React, { useState } from 'react';
 import { InteractiveMap, Marker, NavigationControl } from 'react-map-gl';
-import { Memory, Memories } from '../types';
+import { Memories, Memory } from '../types';
 import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 
-const selectedIcon = '/images/marker-icon-red.png';
-const iconSize = { width: 25, height: 41 };
+// --- ICON INFO ---
+const selectedIcon: string = '/images/marker-icon-red.png';
+const iconSize: any = { width: 25, height: 41 };
 
+// --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         selectedMarker: {
@@ -20,10 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export const EmptyMap = props => {
+// --- COMPONENT ---
+const PinpointMap: React.FC = () => {
+    //Contexts
     const classes = useStyles();
 
-    //State
+    //States
+    const [marker, setMarker] = React.useState(null);
     const [viewport, setViewport] = useState({
         latitude: 60.455,
         longitude: 22.26,
@@ -32,13 +44,10 @@ export const EmptyMap = props => {
         pitch: 0,
     });
 
-    const memories: Memories = props.memories;
-    const selectedMemory = props.selectedMemory;
-
+    //Vars
     const mapStyle = 'mapbox://styles/mapbox/streets-v11';
 
-    const [marker, setMarker] = React.useState(null);
-
+    //Functions
     const handleClick = ({ lngLat: [longitude, latitude] }) => {
         setMarker({
             longitude,
@@ -60,6 +69,7 @@ export const EmptyMap = props => {
             height="40vh"
             onViewportChange={setViewport}
         >
+            {/* Controls */}
             <div
                 style={{
                     position: 'absolute',
@@ -69,9 +79,12 @@ export const EmptyMap = props => {
             >
                 <NavigationControl />
             </div>
+            {/* Marker */}
             {marker !== null ? (
                 <Marker {...marker} className={classes.selectedMarker} />
             ) : null}
         </InteractiveMap>
     );
 };
+
+export default PinpointMap;

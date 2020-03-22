@@ -5,14 +5,14 @@
  *
  * Ideas : https://www.blablacar.fr/offer-seats/1
  */
+
+// --- IMPORTS ---
 import React, { useState } from 'react';
-import { Layout } from '../components/Layout';
+import Layout from '../components/Layout';
 import { apis } from '../services/apis';
 import HttpStatus from 'http-status-codes';
-
 import { Memory } from '../types';
 import { withTranslation } from '../i18n';
-import CustomAppBar from '../components/CustomAppBar';
 import {
     Typography,
     Grid,
@@ -22,8 +22,9 @@ import {
     Button,
 } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { EmptyMap } from '../components/EmptyMap';
+import PinpointMap from '../components/PinpointMap';
 
+// --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         box: {
@@ -42,8 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-//replace formsy with formik
+// --- COMPONENTS ---
 const AddMemory = ({ t }) => {
+    // TODO:replace formsy with formik
     //Contexts
     const classes = useStyles();
     //States
@@ -101,7 +103,6 @@ const AddMemory = ({ t }) => {
 
     return (
         <Layout>
-            <CustomAppBar />
             {/* --- TITLE --- */}
             <Typography variant="h3">Add a new memory</Typography>
             <div style={{ height: '5vh' }} />
@@ -174,7 +175,7 @@ const AddMemory = ({ t }) => {
                                 >
                                     Position
                                 </Typography>
-                                <EmptyMap />
+                                <PinpointMap />
                             </Box>
                         </Paper>
                     </Grid>
@@ -197,114 +198,8 @@ const AddMemory = ({ t }) => {
     );
 };
 
-/*
-<Grid container xs={6} spacing={3}></Grid>
-                <Grid columns={2}>
-                     --- COLUMN 1 --- 
-                    <Grid.Column>
-                         --- Informations --- 
-                        <Segment.Group>
-                            <Segment textAlign="left">
-                                <Header as="h3">Informations</Header>
-                            </Segment>
-                            <Segment
-                                style={{ background: '#f9fafb' }}
-                                textAlign="left"
-                            >
-                                 Title }
-                                <Form.Input
-                                    fluid
-                                    label="Title"
-                                    placeholder="Example : Visit, Sunday Walk..."
-                                    name="title"
-                                    onChange={(_, { value }) => setTitle(value)}
-                                />
-                                <Form.Field
-                                    control={Select}
-                                    label="Category"
-                                    options={categoryContext.categories}
-                                    placeholder="Category"
-                                    name="category"
-                                    onChange={(
-                                        _: React.ChangeEvent,
-                                        { value }: any,
-                                    ) => setCategory(value)}
-                                />
-
-                                 Description }
-                                <Form.TextArea
-                                    label="Description"
-                                    placeholder="Tell us more about it..."
-                                    type="text"
-                                    rows={5}
-                                    name="description"
-                                    onChange={(
-                                        e: React.FormEvent<HTMLTextAreaElement>,
-                                        data: TextAreaProps,
-                                    ) => handleChangeDescription(e, data)}
-                                />
-                            </Segment>
-                        </Segment.Group>
-
-                         --- Image --- }
-                        <Segment.Group>
-                            <Segment textAlign="left">
-                                <Header as="h3">Image (Optional)</Header>
-                            </Segment>
-                            <Segment placeholder>
-                                <Header icon>
-                                    <Icon
-                                        name="file image outline"
-                                        style={{ height: 'auto' }}
-                                    />
-                                    Add an image for your memory.
-                                </Header>
-                                <Button primary>Add Document</Button>
-                            </Segment>
-                        </Segment.Group>
-                    </Grid.Column>
-
-                     --- COLUMN 2 --- }
-                    <Grid.Column stretched>
-                        <Segment>
-                             --- TITLE --- }
-                            <Header as="h3" textAlign="left">
-                                Indicate position of the memory
-                            </Header>
-
-                             
-                            <Map
-                                center={center}
-                                zoom={13.5}
-                                style={{
-                                    position: 'relative',
-                                    height: '92%',
-                                    width: '100%',
-                                }}
-                                onClick={handleClickPosition}
-                            >
-                                <TileLayer
-                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                />
-                                {markerPosition ? (
-                                    <Marker position={markerPosition} />
-                                ) : null}
-                            </Map>
-                            }
-                        </Segment>
-                    </Grid.Column>
-
-                     --- SUBMIT BUTTON --- }
-                    <Grid.Row centered>
-                        <Form.Button type="submit">Continue</Form.Button>
-                    </Grid.Row>
-                </Grid>
-
-*/
-
 AddMemory.getInitialProps = async () => ({
     namespacesRequired: ['common'],
 });
 
-export default withTranslation('common')(AddMemory as any);
+export default withTranslation('common')(AddMemory as any); //TODO : create namespace for each page

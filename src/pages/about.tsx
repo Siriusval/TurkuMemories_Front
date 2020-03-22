@@ -4,20 +4,19 @@
  *
  * Contain an accordion item and logic
  */
+
+// --- IMPORTS ---
 import React from 'react';
-
 import { withTranslation } from '../i18n';
-import { Layout } from '../components/Layout';
-import { Typography } from '@material-ui/core';
-import CustomAppBar from '../components/CustomAppBar';
+import Layout from '../components/Layout';
+import { Typography, Button } from '@material-ui/core';
+import { useSnackbarContext } from '../contexts/SnackbarContext';
+import { NextPage, NextPageContext } from 'next';
 
-const About = ({ t }) => {
-    //States
-
+// --- COMPONENT ---
+const About: NextPage<any> = ({ t }) => {
     return (
         <div>
-            <CustomAppBar />
-
             <Layout>
                 {/* Title */}
                 <Typography variant="h3">{t('title')}</Typography>
@@ -109,7 +108,8 @@ const About = ({ t }) => {
     );
 };
 
-About.getInitialProps = async () => ({
+//Populate page data
+About.getInitialProps = async (ctx: NextPageContext) => ({
     namespacesRequired: ['common', 'about'],
 });
 

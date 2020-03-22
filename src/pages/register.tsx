@@ -1,13 +1,19 @@
-import React from 'react';
+/**
+ * Register page
+ * Maybe not use if we switch to Auth0 authentication
+ * on the LEFT : contains a random picture of Turku
+ * on the RIGHT : contains the register form
+ */
 
+// --- IMPORTS ---
+import React from 'react';
 import { withTranslation } from '../i18n';
-import CustomAppBar from '../components/CustomAppBar';
 import RegisterForm from '../components/RegisterForm';
 
+// --- COMPONENT ---
 const Register = ({ t }) => {
     return (
         <div>
-            <CustomAppBar />
             <div
                 style={{
                     display: 'flex',
@@ -34,6 +40,7 @@ const Register = ({ t }) => {
     );
 };
 
+// --- POPULATE PAGE ---
 Register.getInitialProps = async () => ({
     namespacesRequired: ['common'],
 });

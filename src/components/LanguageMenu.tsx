@@ -1,3 +1,11 @@
+/**
+ * Language Menu
+ * Used in CustomAppBar
+ * Change language to EN, FI or SV
+ * Store cookie in browser automaticaly
+ */
+
+// --- IMPORTS ---
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -6,22 +14,22 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import Link from 'next/link';
-
 import TranslateIcon from '@material-ui/icons/Translate';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation } from '../i18n';
 
-const options: any[] = [
-    { key: 'en', value: 'English' },
-    { key: 'fi', value: 'Suomi' },
-    { key: 'sv', value: 'Svensk' },
-];
-
+// --- Component ---
 const LanguageMenu = ({ t, i18n }) => {
-    const [open, setOpen] = React.useState(false);
+    //states
+    const [open, setOpen] = React.useState<boolean>(false);
     const [selectedIndex, setSelectedIndex] = useState<string>(i18n.language);
 
+    //Vars
+    const options: any[] = [
+        { key: 'en', value: 'English' },
+        { key: 'fi', value: 'Suomi' },
+        { key: 'sv', value: 'Svensk' },
+    ];
     const anchorRef = React.useRef<HTMLButtonElement>(null);
 
     const handleToggle = () => {
@@ -34,7 +42,6 @@ const LanguageMenu = ({ t, i18n }) => {
         handleToggle();
     };
     const handleClose = (event: React.MouseEvent<EventTarget>) => {
-        console.log(event);
         if (
             anchorRef.current &&
             anchorRef.current.contains(event.target as HTMLElement)

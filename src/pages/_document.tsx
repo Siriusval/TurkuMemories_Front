@@ -1,7 +1,15 @@
+/**
+ * Custom Document component
+ * populate <html> and <body> tag
+ * import fonts and css
+ */
+
+/// --- IMPORTS ---
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 import { ServerStyleSheets } from '@material-ui/core';
 import theme from '../theme';
+
 export default class MyDocument extends Document {
     render() {
         return (

@@ -1,24 +1,24 @@
-import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+/**
+ * Login form
+ * Maybe not use if we switch to Auth0 authentication
+ */
 
-import {
-    Button,
-    Box,
-    TextField,
-    Grid,
-    Paper,
-    Typography,
-} from '@material-ui/core';
+// --- IMPORTS ---
+import React from 'react';
+import Link from 'next/link';
 
 import { apis } from '../services/apis';
 import HttpStatus from 'http-status-codes';
 import { AxiosResponse, AxiosError } from 'axios';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { withTranslation } from '../i18n';
 import { useAuthContext } from '../contexts/AuthContext';
 
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Button, TextField, Grid, Typography } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
+
+// --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -54,10 +54,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+// --- COMPONENT ---
 const LoginForm = ({ t }) => {
+    //Contexts
     const classes = useStyles();
     const authContext = useAuthContext();
 
+    //Functions
     const submit = (email, password) => {
         const model = { email: email, password: password };
         //MODEL SENT
@@ -114,16 +117,21 @@ const LoginForm = ({ t }) => {
         <div className={classes.root}>
             <form noValidate autoComplete="off">
                 <Grid className={classes.mainGrid} container spacing={3}>
+                    {/* Logo */}
                     <Grid item xs={12}>
                         <img
                             src="/images/logo512.png"
                             className={classes.logo}
                         />
                     </Grid>
+
+                    {/* Titre */}
                     <Grid item xs={12}>
                         <Typography variant="h4">{t('form.login')}</Typography>
                     </Grid>
                     <Grid item xs={2} />
+
+                    {/* Facebook button */}
                     <Grid item xs={4}>
                         <Button
                             variant="outlined"
@@ -133,6 +141,8 @@ const LoginForm = ({ t }) => {
                             Facebook
                         </Button>
                     </Grid>
+
+                    {/* Google Button */}
                     <Grid item xs={4}>
                         <Button
                             variant="outlined"
@@ -145,6 +155,7 @@ const LoginForm = ({ t }) => {
                     <Grid item xs={2} />
 
                     {/* --- FORM --- */}
+                    {/* Email */}
                     <Grid item xs={12}>
                         <TextField
                             required
@@ -153,6 +164,8 @@ const LoginForm = ({ t }) => {
                             variant="outlined"
                         />
                     </Grid>
+
+                    {/* Password */}
                     <Grid item xs={12}>
                         <TextField
                             required
@@ -162,6 +175,8 @@ const LoginForm = ({ t }) => {
                             variant="outlined"
                         />
                     </Grid>
+
+                    {/* Submit button */}
                     <Grid item xs={12}>
                         <Button
                             variant="outlined"
@@ -172,12 +187,15 @@ const LoginForm = ({ t }) => {
                             {t('form.login')}
                         </Button>
                     </Grid>
+
+                    {/* Forgotten password button */}
                     <Grid item xs={12}>
                         <Button variant="text">
                             {t('form.forgottenPassword')}
                         </Button>
                     </Grid>
 
+                    {/* Register button */}
                     <Grid item xs={12}>
                         <Typography variant="body1">
                             {t('form.notRegistered')}

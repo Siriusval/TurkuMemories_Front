@@ -1,6 +1,12 @@
+/**
+ * Theme settings for material ui components
+ */
+
+// --- IMPORTS ---
 import { createMuiTheme } from '@material-ui/core/styles';
 import { teal } from '@material-ui/core/colors';
 
+// --- DEFAULT THEME ---
 const theme = createMuiTheme({
     palette: {
         primary: {

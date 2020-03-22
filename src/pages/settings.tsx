@@ -1,10 +1,18 @@
+/**
+ * Settings Page
+ * User see his username and email
+ * Can change his password (see auth0)
+ */
+
+// --- IMPORTS ---
 import React from 'react';
 import CustomAppBar from '../components/CustomAppBar';
 import { withTranslation } from '../i18n';
 import Link from 'next/link';
 import { Button, TextField, Typography } from '@material-ui/core';
-import { Layout } from '../components/Layout';
+import Layout from '../components/Layout';
 
+// --- COMPONENT ---
 const Settings = ({ t }) => {
     return (
         <div>
@@ -36,6 +44,7 @@ const Settings = ({ t }) => {
     );
 };
 
+// --- POPULATE PAGE ---
 Settings.getInitialProps = async ({ req }) => {
     return {
         namespacesRequired: ['common'],

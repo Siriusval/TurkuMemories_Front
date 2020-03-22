@@ -1,8 +1,15 @@
+/**
+ * Custom types for Typescript check
+ * Prevent mistakes
+ */
+
 export type Memory = {
     id: number;
     title: string;
     description: string;
-    position: Object;
+    position: {
+        coordinates: number[];
+    };
     createdAt: string;
     updateAt: string;
     userId: number;

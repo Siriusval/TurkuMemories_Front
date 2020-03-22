@@ -1,21 +1,46 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import Link from 'next/link';
+/**
+ * Account Menu Component
+ *
+ * Showed when user is logged in
+ * Display choice between :
+ * - My memories
+ * - Settings
+ *  - Logout
+ */
 
-const AccountMenu = () => {
+// --- IMPORTS ---
+import React from 'react';
+import Router from 'next/router';
+import {
+    Button,
+    Grow,
+    Paper,
+    Popper,
+    MenuItem,
+    MenuList,
+    ClickAwayListener,
+} from '@material-ui/core';
+import { withTranslation } from '../i18n';
+
+// --- COMPONENT ---
+const AccountMenu: React.FC = () => {
+    //State
     const [open, setOpen] = React.useState(false);
+
+    //Anchor for menu
     const anchorRef = React.useRef<HTMLButtonElement>(null);
 
+    //Functions
+    /**
+     * Toggle menu on or off
+     */
     const handleToggle = () => {
         setOpen(prevOpen => !prevOpen);
     };
 
+    /**
+     * Close menu on click
+     */
     const handleClose = (event: React.MouseEvent<EventTarget>) => {
         if (
             anchorRef.current &&
@@ -27,6 +52,9 @@ const AccountMenu = () => {
         setOpen(false);
     };
 
+    /**
+     * Close menu on tab key down
+     */
     function handleListKeyDown(event: React.KeyboardEvent) {
         if (event.key === 'Tab') {
             event.preventDefault();
@@ -45,7 +73,8 @@ const AccountMenu = () => {
     }, [open]);
 
     return (
-        <div>
+        <div id="account-menu">
+            {/* Account button */}
             <Button
                 ref={anchorRef}
                 aria-controls={open ? 'menu-list-grow' : undefined}
@@ -54,6 +83,8 @@ const AccountMenu = () => {
             >
                 Account
             </Button>
+            {/* Popup Menu */}
+
             <Popper
                 open={open}
                 anchorEl={anchorRef.current}
@@ -71,6 +102,8 @@ const AccountMenu = () => {
                                     : 'center bottom',
                         }}
                     >
+                        {/* Content */}
+
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList
@@ -78,31 +111,24 @@ const AccountMenu = () => {
                                     id="menu-list-grow"
                                     onKeyDown={handleListKeyDown}
                                 >
-                                    <Link href="/myMemories" passHref>
-                                        <MenuItem
-                                            component="a"
-                                            onClick={handleClose}
-                                        >
-                                            My Memories
-                                        </MenuItem>
-                                    </Link>
+                                    <MenuItem
+                                        onClick={() => {
+                                            Router.push('/mymemories');
+                                        }}
+                                    >
+                                        My Memories
+                                    </MenuItem>
 
-                                    <Link href="/settings" passHref>
-                                        <MenuItem
-                                            component="a"
-                                            onClick={handleClose}
-                                        >
-                                            Settings
-                                        </MenuItem>
-                                    </Link>
-                                    <Link href="/logout" passHref>
-                                        <MenuItem
-                                            component="a"
-                                            onClick={handleClose}
-                                        >
-                                            Logout
-                                        </MenuItem>
-                                    </Link>
+                                    <MenuItem
+                                        onClick={() => Router.push('/settings')}
+                                    >
+                                        Settings
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={() => Router.push('/logout')}
+                                    >
+                                        Logout
+                                    </MenuItem>
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>
@@ -113,4 +139,4 @@ const AccountMenu = () => {
     );
 };
 
-export default AccountMenu;
+export default withTranslation('common')(AccountMenu);

@@ -1,3 +1,7 @@
+/**
+ * Component used to display sample data while My Memory page is not working
+ */
+
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';

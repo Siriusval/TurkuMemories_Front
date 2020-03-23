@@ -4,10 +4,10 @@
  *
  * Naming convention : https://restfulapi.net/resource-naming/
  */
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from 'axios';
 
 const api = axios.create({
-    baseURL: "http://localhost:4500/api",
+    baseURL: 'http://localhost:4500/api',
 });
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
@@ -15,14 +15,13 @@ const api = axios.create({
  *  api : /memory-management
  */
 
-const basePathMemories = "/memory-management";
+const basePathMemories = '/memory-management';
 
 /**
  * POST : add one memory to database
  * @param {*} payload
  */
-const createMemory = (memory): Promise<AxiosResponse> => {
-    const payload = JSON.stringify(memory);
+const createMemory = (payload: any): Promise<AxiosResponse> => {
     return api.post(`${basePathMemories}/memories`, payload);
 };
 
@@ -71,7 +70,7 @@ const getMemoryReportsById = (id: any) =>
  *  api : /auth-management
  */
 
-const basePathAuth = "/auth-management";
+const basePathAuth = '/auth-management';
 
 /**
  * POST : check login for a local user
@@ -117,7 +116,7 @@ const facebookRedirect = (payload: any) =>
 /* --- CATEGORIES MANAGEMENT ---
  *  api : /category-management
  */
-const basePathCategories = "/category-management";
+const basePathCategories = '/category-management';
 
 /**
  * POST : create a category

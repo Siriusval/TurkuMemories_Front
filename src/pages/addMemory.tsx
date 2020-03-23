@@ -23,6 +23,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PinpointMap from '../components/PinpointMap';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
+import { Router } from 'next/router';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -74,16 +75,18 @@ const AddMemory = ({ t }) => {
                 type: 'Point',
                 coordinates: markerPosition!,
             },
+            userId: 2,
         };
-        const memory = data;
 
         apis.memories
-            .createMemory(memory)
+            .createMemory(data)
             .then((res: AxiosResponse) => {
                 snackbarContext.displaySuccessSnackbar('Memory Added');
+                Router.push('/');
             })
             .catch((err: AxiosError) => {
                 snackbarContext.displayErrorSnackbar('Error');
+                console.log(err);
             });
     };
 
@@ -166,6 +169,7 @@ const AddMemory = ({ t }) => {
                                         fullWidth
                                         value={description}
                                         onChange={handleDescriptionChange}
+                                        required
                                     />
                                 </form>
                             </Box>

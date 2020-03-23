@@ -79,6 +79,10 @@ const AccountMenu: React.FC = () => {
         handleClose(event);
         Router.push('/mymemories');
     };
+    const handleAdminClick = (event: React.MouseEvent<EventTarget>) => {
+        handleClose(event);
+        Router.push('/admin'); //TODO : logout
+    };
     const handleLoginClick = (event: React.MouseEvent<EventTarget>) => {
         handleClose(event);
         Router.push('/login');
@@ -129,7 +133,9 @@ const AccountMenu: React.FC = () => {
                                     <MenuItem onClick={handleMymemoriesClick}>
                                         My Memories
                                     </MenuItem>
-
+                                    <MenuItem onClick={handleAdminClick}>
+                                        Admin
+                                    </MenuItem>
                                     <MenuItem onClick={handleSettingsClick}>
                                         Settings
                                     </MenuItem>

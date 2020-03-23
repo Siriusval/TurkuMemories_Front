@@ -23,7 +23,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PinpointMap from '../components/PinpointMap';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
-import { Router } from 'next/router';
+import Router from 'next/router';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>

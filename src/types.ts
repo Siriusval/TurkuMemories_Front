@@ -29,3 +29,9 @@ export type Category = {
 };
 
 export type Categories = Category[];
+
+export type Background = {
+    id: number;
+    title: string;
+    credit: string;
+};

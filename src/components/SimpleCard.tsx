@@ -29,12 +29,12 @@ export default function MediaCard() {
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
-                    image="/images/contemplative-reptile.jpg"
-                    title="Contemplative Reptile"
+                    image="/images/placeholder_small.jpg"
+                    title="Memory Picture"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        Lizard
+                        Sample Memory
                     </Typography>
                     <Typography
                         variant="body2"
@@ -51,8 +51,8 @@ export default function MediaCard() {
                 <Button size="small" color="primary">
                     Share
                 </Button>
-                <Button size="small" color="primary">
-                    Learn More
+                <Button size="small" color="secondary">
+                    Delete
                 </Button>
             </CardActions>
         </Card>

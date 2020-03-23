@@ -10,7 +10,6 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import { apis } from '../services/apis';
-import HttpStatus from 'http-status-codes';
 import { withTranslation } from '../i18n';
 import {
     Typography,
@@ -197,7 +196,7 @@ const AddMemory = ({ t }) => {
                 <Grid container item xs={12} justify="center">
                     <Grid item>
                         <Button
-                            variant="outlined"
+                            variant="contained"
                             color="primary"
                             onClick={handleSubmit}
                         >

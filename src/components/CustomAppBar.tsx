@@ -48,15 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
             maxWidth: 360,
             backgroundColor: theme.palette.background.paper,
         },
-        addMemoryButton: {
-            backgroundColor: '#00a97a',
-            color: '#ffffff',
-            marginRight: theme.spacing(2),
-            '&:hover': {
-                backgroundColor: '#028a61',
-                color: '#ffffff',
-            },
-        },
     }),
 );
 

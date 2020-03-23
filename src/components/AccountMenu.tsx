@@ -48,7 +48,6 @@ const AccountMenu: React.FC = () => {
         ) {
             return;
         }
-
         setOpen(false);
     };
 
@@ -72,6 +71,22 @@ const AccountMenu: React.FC = () => {
         prevOpen.current = open;
     }, [open]);
 
+    const handleSettingsClick = (event: React.MouseEvent<EventTarget>) => {
+        handleClose(event);
+        Router.push('/settings');
+    };
+    const handleMymemoriesClick = (event: React.MouseEvent<EventTarget>) => {
+        handleClose(event);
+        Router.push('/mymemories');
+    };
+    const handleLoginClick = (event: React.MouseEvent<EventTarget>) => {
+        handleClose(event);
+        Router.push('/login');
+    };
+    const handleLogoutClick = (event: React.MouseEvent<EventTarget>) => {
+        handleClose(event);
+        Router.push('/'); //TODO : logout
+    };
     return (
         <div id="account-menu">
             {/* Account button */}
@@ -111,27 +126,17 @@ const AccountMenu: React.FC = () => {
                                     id="menu-list-grow"
                                     onKeyDown={handleListKeyDown}
                                 >
-                                    <MenuItem
-                                        onClick={() => {
-                                            Router.push('/mymemories');
-                                        }}
-                                    >
+                                    <MenuItem onClick={handleMymemoriesClick}>
                                         My Memories
                                     </MenuItem>
 
-                                    <MenuItem
-                                        onClick={() => Router.push('/settings')}
-                                    >
+                                    <MenuItem onClick={handleSettingsClick}>
                                         Settings
                                     </MenuItem>
-                                    <MenuItem
-                                        onClick={() => Router.push('/login')}
-                                    >
+                                    <MenuItem onClick={handleLoginClick}>
                                         Login
                                     </MenuItem>
-                                    <MenuItem
-                                        onClick={() => Router.push('/logout')}
-                                    >
+                                    <MenuItem onClick={handleLogoutClick}>
                                         Logout
                                     </MenuItem>
                                 </MenuList>

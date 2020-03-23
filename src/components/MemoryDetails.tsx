@@ -17,11 +17,14 @@ import {
     Paper,
     IconButton,
     Grid,
+    createMuiTheme,
+    MuiThemeProvider,
 } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ShareSharpIcon from '@material-ui/icons/ShareSharp';
 import FavoriteSharpIcon from '@material-ui/icons/FavoriteSharp';
 import { Memory } from '../types';
+import { red, blue } from '@material-ui/core/colors';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,6 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
+
+const redTheme = createMuiTheme({ palette: { primary: red } });
+const blueTheme = createMuiTheme({ palette: { primary: blue } });
 
 interface IMemoryDetails {
     handleUnselectMemory(): void;
@@ -91,22 +97,26 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                 <ListItem>
                     <Grid container justify="center" spacing={2}>
                         <Grid item>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                startIcon={<FavoriteSharpIcon />}
-                            >
-                                Favorite
-                            </Button>
+                            <MuiThemeProvider theme={redTheme}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<FavoriteSharpIcon />}
+                                >
+                                    Favorite
+                                </Button>
+                            </MuiThemeProvider>
                         </Grid>
                         <Grid item>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                startIcon={<ShareSharpIcon />}
-                            >
-                                Share
-                            </Button>
+                            <MuiThemeProvider theme={blueTheme}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<ShareSharpIcon />}
+                                >
+                                    Share
+                                </Button>
+                            </MuiThemeProvider>
                         </Grid>
                     </Grid>
                 </ListItem>

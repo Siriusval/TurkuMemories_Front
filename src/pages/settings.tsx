@@ -15,8 +15,7 @@ import Layout from '../components/Layout';
 // --- COMPONENT ---
 const Settings = ({ t }) => {
     return (
-        <div>
-            <CustomAppBar />
+        <div id="settings-page">
             <Layout>
                 <Typography variant="h3">Settings</Typography>
                 <div style={{ height: '5vh' }} />

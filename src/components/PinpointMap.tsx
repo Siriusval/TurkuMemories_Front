@@ -7,7 +7,6 @@
 // --- IMPORTS ---
 import React, { useState } from 'react';
 import { InteractiveMap, Marker, NavigationControl } from 'react-map-gl';
-import { Memories, Memory } from '../types';
 import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 
 // --- ICON INFO ---
@@ -30,7 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // --- COMPONENT ---
-const PinpointMap: React.FC = () => {
+interface IPinpointMap {
+    handleClickPositionCallback(position: number[]): void;
+}
+
+const PinpointMap: React.FC<IPinpointMap> = ({
+    handleClickPositionCallback,
+}) => {
     //Contexts
     const classes = useStyles();
 
@@ -53,8 +58,9 @@ const PinpointMap: React.FC = () => {
             longitude,
             latitude,
             offsetLeft: -iconSize.width / 2,
-            offsetTop: iconSize.height,
+            offsetTop: -iconSize.height,
         });
+        handleClickPositionCallback([longitude, latitude]); //Callback
     };
 
     return (
@@ -62,9 +68,7 @@ const PinpointMap: React.FC = () => {
             onClick={handleClick}
             {...viewport}
             mapStyle={mapStyle}
-            mapboxApiAccessToken={
-                'pk.eyJ1IjoibXl0dXJrdW1lbW9yaWVzIiwiYSI6ImNrNXhuZjdjMjBramMzbm54YWNjZWsweDQifQ.VSBHa6HkpaJfywOHhEjgbA'
-            }
+            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             width="40vw"
             height="40vh"
             onViewportChange={setViewport}

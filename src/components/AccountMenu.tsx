@@ -125,6 +125,11 @@ const AccountMenu: React.FC = () => {
                                         Settings
                                     </MenuItem>
                                     <MenuItem
+                                        onClick={() => Router.push('/login')}
+                                    >
+                                        Login
+                                    </MenuItem>
+                                    <MenuItem
                                         onClick={() => Router.push('/logout')}
                                     >
                                         Logout

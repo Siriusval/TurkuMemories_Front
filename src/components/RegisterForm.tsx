@@ -8,11 +8,12 @@
 import React from 'react';
 
 import { apis } from '../services/apis';
-import HttpStatus from 'http-status-codes';
 import Link from 'next/link';
 import { withTranslation } from '../i18n';
 import { Button, TextField, Grid, Typography } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { AxiosResponse, AxiosError } from 'axios';
+import { useSnackbarContext } from '../contexts/SnackbarContext';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -57,59 +58,41 @@ interface IRegisterForm {
 const RegisterForm: React.FC<IRegisterForm> = ({ t }) => {
     //Contexts
     const classes = useStyles();
+    const snackbarContext = useSnackbarContext();
 
+    //States
+    const [email, setEmail] = React.useState<string>('');
+    const [username, setUsername] = React.useState<string>('');
+    const [password, setPassword] = React.useState<string>('');
+
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
+    };
+    const handleUsernameChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setUsername(event.target.value);
+    };
+
+    const handlePasswordChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setPassword(event.target.value);
+    };
     //Functions
-    const submit = model => {
+    const handleSubmit = () => {
+        const model = { email: email, username: username, password: password };
         //MODEL SENT
         console.log('REQUEST: MODEL SENT:');
         console.log(model);
         apis.auth
             .localRegister(model)
-            .then(res => {
-                // SUCCES
-                console.log('SUCCES');
-                console.log(res);
-                if (
-                    res.status === HttpStatus.OK ||
-                    res.status === HttpStatus.CREATED
-                ) {
-                    //TODO sucess snackbar
-                }
+            .then((res: AxiosResponse) => {
+                snackbarContext.displaySuccessSnackbar('Registered');
             })
-            .catch(error => {
-                if (error.response) {
-                    // ERROR: SERVER RESPONSE
-                    console.log('ERROR: SERVER RESPONSE');
-
-                    const data = error.response.data;
-                    const status = error.response.status;
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-                    console.log('data: ', data);
-                    console.log('status: ', status);
-                    console.log('headers: ', error.response.headers);
-
-                    //TODO error snackbar
-
-                    //`${status}:${data.message}`,
-                } else if (error.request) {
-                    // ERROR: SERVER NO RESPONSE
-                    console.log('ERROR: SERVER NO RESPONSE');
-                    // The request was made but no response was received
-                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                    // http.ClientRequest in node.js
-                    console.log(error.request);
-                } else {
-                    // ERROR: REQUEST ERROR
-                    console.log('ERROR: REQUEST ERROR');
-
-                    // Something happened in setting up the request that triggered an Error
-
-                    console.log('Error', error.message);
-                }
-                //ERROR: CONFIG
-                console.log('ERROR: CONFIG');
-                console.log(error.config);
+            .catch((err: AxiosError) => {
+                snackbarContext.displayErrorSnackbar('Error');
+                console.log(err);
             });
     };
     return (
@@ -131,35 +114,48 @@ const RegisterForm: React.FC<IRegisterForm> = ({ t }) => {
 
                     {/* --- FORM --- */}
                     <Grid item xs={12}>
-                        <TextField
-                            required
-                            id="outlined-basic"
-                            label="Email"
-                            variant="outlined"
-                        />
+                        <form noValidate autoComplete="off">
+                            <div>
+                                <TextField
+                                    required
+                                    id="outlined-basic"
+                                    label="Email"
+                                    variant="outlined"
+                                    value={email}
+                                    onChange={handleEmailChange}
+                                />
+                            </div>
+
+                            <div>
+                                <TextField
+                                    required
+                                    id="outlined-basic"
+                                    label="Username"
+                                    variant="outlined"
+                                    value={username}
+                                    onChange={handleUsernameChange}
+                                />
+                            </div>
+
+                            <div>
+                                <TextField
+                                    required
+                                    id="outlined-basic"
+                                    label="Password"
+                                    type="password"
+                                    variant="outlined"
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                />
+                            </div>
+                        </form>
                     </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            id="outlined-basic"
-                            label="Username"
-                            variant="outlined"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            id="outlined-basic"
-                            label="Password"
-                            type="password"
-                            variant="outlined"
-                        />
-                    </Grid>
+
                     <Grid item xs={12}>
                         <Button
                             variant="outlined"
                             color="primary"
-                            type="submit"
+                            onClick={handleSubmit}
                         >
                             {t('form.register')}
                         </Button>

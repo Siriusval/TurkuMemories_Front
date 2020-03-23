@@ -9,16 +9,27 @@
 import React, { useState } from 'react';
 import { apis } from '../services/apis';
 import { i18n, withTranslation } from '../i18n';
-import { Memories, Memory } from '../types';
+import { Memories, Memory, Categories } from '../types';
 import { NoSsr } from '@material-ui/core';
 import MapboxContainer from '../components/MapboxContainer';
 import PinnedSubheaderList from '../components/PinnedSubheaderList';
 import MemoryDetails from '../components/MemoryDetails';
+import { useSnackbarContext } from '../contexts/SnackbarContext';
 
 // --- COMPONENT ---
-const Index = ({ t, memories }) => {
+const Index = ({ t, memories, categories }) => {
+    //Contexts
+    const snackbarContext = useSnackbarContext();
+
     //States
     const [selectedMemory, setSelectedMemory] = useState<Memory>(null);
+
+    const [isFiltered, setIsFiltered] = useState<boolean>(false);
+
+    const [unFilteredMemories, setUnFilteredMemories] = useState<Memories>(
+        memories,
+    );
+    const [filteredMemories, setFilteredMemories] = useState<Memories>(null);
 
     //functions
     const handleSelectMemory = (memory: Memory) => {
@@ -27,12 +38,36 @@ const Index = ({ t, memories }) => {
     const handleUnselectMemory = () => {
         setSelectedMemory(null);
     };
+
+    const handleCategoryFilterChange = (categoryId: string) => {
+        if (categoryId === '') {
+            setIsFiltered(false);
+        } else {
+            apis.memories
+                .getMemoriesByCategory(categoryId)
+                .then(res => {
+                    setFilteredMemories(res.data);
+                    snackbarContext.displaySuccessSnackbar('Filter Applied');
+                })
+                .catch(err => {
+                    snackbarContext.displayWarningSnackbar(
+                        'No memories in this category',
+                    );
+                    console.log(err);
+                });
+            setIsFiltered(true);
+        }
+    };
+
+    const getMemories = () => {
+        return isFiltered ? filteredMemories : unFilteredMemories;
+    };
     return (
         <div>
             {/* Only rendered client side */}
             <NoSsr>
                 <MapboxContainer
-                    memories={memories}
+                    memories={getMemories()}
                     selectedMemory={selectedMemory}
                     handleSelectMemory={handleSelectMemory}
                 />
@@ -44,8 +79,10 @@ const Index = ({ t, memories }) => {
                 />
             ) : (
                 <PinnedSubheaderList
-                    memories={memories}
+                    memories={getMemories()}
                     handleSelectMemory={handleSelectMemory}
+                    categories={categories}
+                    handleCategoryFilterChange={handleCategoryFilterChange}
                 />
             )}
         </div>
@@ -69,10 +106,21 @@ Index.getInitialProps = async ({ req }) => {
         })
         .catch(err => console.error('Error fetching memories'));
 
+    let categories: Categories;
+    await apis.categories
+        .getAllCategories()
+        .then(res => {
+            categories = res.data.categories;
+
+            console.log('Categories fetched: ', categories.length);
+        })
+        .catch(err => console.error('Error fetching categories'));
+
     return {
         namespacesRequired: ['common'],
         currentLanguage,
         memories,
+        categories,
     };
 };
 

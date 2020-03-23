@@ -85,6 +85,8 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
                 <ButtonBase href="/" className={classes.homeButton}>
                     <img src={logo} height="44px" />
                 </ButtonBase>
+
+                {/* Space */}
                 <Box className={classes.space} />
 
                 {/* Add memory */}

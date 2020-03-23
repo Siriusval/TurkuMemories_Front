@@ -11,7 +11,6 @@ import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import { apis } from '../services/apis';
 import HttpStatus from 'http-status-codes';
-import { Memory } from '../types';
 import { withTranslation } from '../i18n';
 import {
     Typography,
@@ -23,6 +22,8 @@ import {
 } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PinpointMap from '../components/PinpointMap';
+import { AxiosError, AxiosResponse } from 'axios';
+import { useSnackbarContext } from '../contexts/SnackbarContext';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -48,11 +49,12 @@ const AddMemory = ({ t }) => {
     // TODO:replace formsy with formik
     //Contexts
     const classes = useStyles();
+    const snackbarContext = useSnackbarContext();
     //States
     const [markerPosition, setMarkerPosition] = useState<number[] | undefined>(
         undefined,
     );
-    const [category, setCategory] = useState<undefined>(undefined);
+    const [category, setCategory] = useState<string>('');
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
 
@@ -60,9 +62,8 @@ const AddMemory = ({ t }) => {
     const center = [60.455, 22.26];
 
     //Functions
-    const handleClickPosition = (e: any): void => {
-        const latLng: number[] = e.latlng;
-        setMarkerPosition(latLng);
+    const handleClickPositionCallback = (position: number[]): void => {
+        setMarkerPosition(position);
     };
 
     const handleSubmit = (): void => {
@@ -79,28 +80,27 @@ const AddMemory = ({ t }) => {
 
         apis.memories
             .createMemory(memory)
-            .then(_ => {
-                if (HttpStatus.CREATED) {
-                    //TODO sucess snackbar
-                    //this.props.history.push('/'); //TODO redirect
-                }
+            .then((res: AxiosResponse) => {
+                snackbarContext.displaySuccessSnackbar('Memory Added');
             })
-            .catch(err => {
-                //TODO error snackbar
-
-                console.error('Error creating memory:', err);
+            .catch((err: AxiosError) => {
+                snackbarContext.displayErrorSnackbar('Error');
             });
     };
 
-    const handleChangeDescription = (
-        _: React.FormEvent<HTMLTextAreaElement>,
-        { value }: any,
-    ): void => {
-        if (value) {
-            setDescription(value.toString());
-        }
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.target.value);
     };
-
+    const handleCategoryChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setCategory(event.target.value);
+    };
+    const handleDescriptionChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setDescription(event.target.value);
+    };
     return (
         <Layout>
             {/* --- TITLE --- */}
@@ -133,34 +133,42 @@ const AddMemory = ({ t }) => {
                                 >
                                     Informations
                                 </Typography>
-                                <TextField
-                                    className={classes.item}
-                                    required
-                                    id="outlined-basic"
-                                    label="Title"
-                                    variant="outlined"
-                                    size="small"
-                                    fullWidth
-                                />
-                                <TextField
-                                    className={classes.item}
-                                    required
-                                    id="outlined-basic"
-                                    label="Category"
-                                    variant="outlined"
-                                    size="small"
-                                    fullWidth
-                                />
 
-                                <TextField
-                                    id="outlined-multiline"
-                                    label="Description"
-                                    multiline
-                                    rows="8"
-                                    variant="outlined"
-                                    size="small"
-                                    fullWidth
-                                />
+                                <form noValidate autoComplete="off">
+                                    <TextField
+                                        className={classes.item}
+                                        required
+                                        id="outlined-basic"
+                                        label="Title"
+                                        variant="outlined"
+                                        size="small"
+                                        fullWidth
+                                        value={title}
+                                        onChange={handleTitleChange}
+                                    />
+                                    <TextField
+                                        className={classes.item}
+                                        required
+                                        id="outlined-basic"
+                                        label="Category"
+                                        variant="outlined"
+                                        size="small"
+                                        fullWidth
+                                        value={category}
+                                        onChange={handleCategoryChange}
+                                    />
+                                    <TextField
+                                        id="outlined-multiline"
+                                        label="Description"
+                                        multiline
+                                        rows="8"
+                                        variant="outlined"
+                                        size="small"
+                                        fullWidth
+                                        value={description}
+                                        onChange={handleDescriptionChange}
+                                    />
+                                </form>
                             </Box>
                         </Paper>
                     </Grid>
@@ -175,7 +183,11 @@ const AddMemory = ({ t }) => {
                                 >
                                     Position
                                 </Typography>
-                                <PinpointMap />
+                                <PinpointMap
+                                    handleClickPositionCallback={
+                                        handleClickPositionCallback
+                                    }
+                                />
                             </Box>
                         </Paper>
                     </Grid>
@@ -187,7 +199,7 @@ const AddMemory = ({ t }) => {
                         <Button
                             variant="outlined"
                             color="primary"
-                            type="submit"
+                            onClick={handleSubmit}
                         >
                             Submit
                         </Button>

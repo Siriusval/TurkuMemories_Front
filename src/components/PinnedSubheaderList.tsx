@@ -6,15 +6,17 @@
 
 // --- IMPORTS ---
 import React from 'react';
-import { Memories, Memory } from '../types';
+import { Memories, Memory, Categories } from '../types';
 import {
     List,
     ListItem,
     ListItemText,
     ListSubheader,
     Paper,
+    Grid,
 } from '@material-ui/core';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import CategorySelect from './CategorySelect';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -49,12 +51,15 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IPinnedSubheaderList {
     memories: Memories;
     handleSelectMemory(memory: Memory): void;
+    categories: Categories;
+    handleCategoryFilterChange(categoryId: string): void;
 }
-
 // --- COMPONENT ---
 const PinnedSubheaderList: React.FC<IPinnedSubheaderList> = ({
     memories,
     handleSelectMemory,
+    categories,
+    handleCategoryFilterChange,
 }) => {
     //Contexts
     const classes = useStyles();
@@ -68,7 +73,7 @@ const PinnedSubheaderList: React.FC<IPinnedSubheaderList> = ({
     };
 
     const generateMemoryList = () => {
-        memories['rows'].map((memory, index) => {
+        return memories['rows'].map((memory, index) => {
             const content = memory.description!.slice(0, 100) + '...';
 
             return (
@@ -93,7 +98,25 @@ const PinnedSubheaderList: React.FC<IPinnedSubheaderList> = ({
                     >
                         <ul className={classes.ul}>
                             <ListSubheader className={classes.subheader}>
-                                <Paper>Memories</Paper>
+                                <Paper>
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        alignItems="center"
+                                    >
+                                        <Grid item xs={6}>
+                                            Recent Memories
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <CategorySelect
+                                                categories={categories}
+                                                handleCategoryFilterChange={
+                                                    handleCategoryFilterChange
+                                                }
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
                             </ListSubheader>
 
                             {/* List or error message */}

@@ -1,0 +1,75 @@
+import React from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { Categories, Category } from '../types';
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        formControl: {
+            margin: theme.spacing(1),
+            minWidth: 120,
+        },
+        selectEmpty: {
+            marginTop: theme.spacing(2),
+        },
+    }),
+);
+
+interface ICategorySelect {
+    categories: Categories;
+    handleCategoryFilterChange(categoryId: string): void;
+}
+
+const CategorySelect: React.FC<ICategorySelect> = ({
+    categories,
+    handleCategoryFilterChange,
+}) => {
+    //Contexts
+    const classes = useStyles();
+
+    //States
+    const [category, setCategory] = React.useState('');
+
+    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        const categoryId: string = event.target.value as string;
+        setCategory(categoryId);
+        handleCategoryFilterChange(categoryId);
+    };
+    return (
+        <div>
+            <FormControl
+                variant="outlined"
+                className={classes.formControl}
+                size="small"
+            >
+                <InputLabel id="demo-simple-select-outlined-label">
+                    Category
+                </InputLabel>
+                <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={category}
+                    onChange={handleChange}
+                    label="Category"
+                >
+                    <MenuItem value="">All</MenuItem>
+                    {categories
+                        ? categories.map(
+                              (category: Category, index: number) => {
+                                  return (
+                                      <MenuItem key={index} value={category.id}>
+                                          {category.name}
+                                      </MenuItem>
+                                  );
+                              },
+                          )
+                        : null}
+                </Select>
+            </FormControl>
+        </div>
+    );
+};
+
+export default CategorySelect;

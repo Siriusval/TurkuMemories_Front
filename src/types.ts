@@ -20,3 +20,12 @@ export type Memories = {
     count: number;
     rows: Memory[];
 };
+
+export type Category = {
+    id: number;
+    name: string;
+    description: string;
+    createdAt: string;
+};
+
+export type Categories = Category[];

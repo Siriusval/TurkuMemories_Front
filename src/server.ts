@@ -15,7 +15,7 @@ import dotenv from 'dotenv';
 // --- CONFIG ---
 dotenv.config();
 const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
+const app = next({ dev, shallowRender: true });
 const handle = app.getRequestHandler();
 
 // --- SERVER ---

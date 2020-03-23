@@ -59,7 +59,7 @@ const Register = ({ t, randomImage }) => {
 // --- POPULATE PAGE ---
 Register.getInitialProps = async () => {
     const randomNumber: number = Math.floor(Math.random() * 34) + 1;
-    const randomImage: Background = backgrounds.data[randomNumber];
+    const randomImage: Background = backgrounds['data'][randomNumber];
 
     return {
         namespacesRequired: ['common'],

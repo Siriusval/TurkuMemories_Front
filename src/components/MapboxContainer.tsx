@@ -4,10 +4,15 @@
  */
 
 // --- IMPORTS ---
-import React, { useState } from 'react';
-import ReactMapGl, { Marker, NavigationControl } from 'react-map-gl';
+import React, { useState, useEffect } from 'react';
+import ReactMapGl, {
+    Marker,
+    NavigationControl,
+    FlyToInterpolator,
+} from 'react-map-gl';
 import { Memories, Memory } from '../types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { easeCubic } from 'd3-ease';
 
 // --- ICONS PROPERTIES ---
 const normalIcon = '/images/marker-icon.png';
@@ -97,6 +102,26 @@ const MapboxContainer: React.FC<IMapboxContainer> = ({
             );
         });
     };
+
+    const goToSelectedMemory = () => {
+        const newViewport = {
+            ...viewport,
+            longitude: selectedMemory.position.coordinates[1],
+            latitude: selectedMemory.position.coordinates[0],
+            zoom: 14,
+            transitionDuration: 2000,
+            transitionInterpolator: new FlyToInterpolator(),
+            transitionEasing: easeCubic,
+        };
+        setViewport(newViewport);
+    };
+
+    //trigger on selected memory not null
+    useEffect(() => {
+        if (selectedMemory) {
+            goToSelectedMemory();
+        }
+    }, [selectedMemory]);
 
     return (
         <ReactMapGl

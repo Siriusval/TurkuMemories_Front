@@ -53,7 +53,7 @@ const AddMemory = ({ t }) => {
     //States
     const [markerPosition, setMarkerPosition] = useState<number[] | undefined>(
         undefined,
-    );
+    ); //Care, Mapbox use [lng,lat] and not [lat,lng]
     const [category, setCategory] = useState<string>('');
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -63,6 +63,7 @@ const AddMemory = ({ t }) => {
 
     //Functions
     const handleClickPositionCallback = (position: number[]): void => {
+        console.log(position);
         setMarkerPosition(position);
     };
 
@@ -73,7 +74,7 @@ const AddMemory = ({ t }) => {
             description: description,
             position: {
                 type: 'Point',
-                coordinates: markerPosition!,
+                coordinates: [markerPosition[1], markerPosition[0]],
             },
             userId: 2,
         };

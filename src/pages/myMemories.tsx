@@ -16,7 +16,7 @@ const Mymemories = ({ t }) => {
     return (
         <div>
             <Layout>
-                <Typography variant="h3">My Memories</Typography>
+                <Typography variant="h3">{t('memorypage.myMemories')}</Typography>
                 <div style={{ height: '5vh' }} />
 
                 <Grid container spacing={3}>

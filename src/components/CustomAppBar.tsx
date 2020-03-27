@@ -92,7 +92,7 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
                         aria-label="Add a new memory"
                         startIcon={<AddIcon />}
                     >
-                        Add Memory
+                        {t('menubar.addmemory')}
                     </Button>
                 </Link>
 

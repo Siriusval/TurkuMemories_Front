@@ -1,0 +1,12 @@
+{
+    "addmemory": {
+        "title": "Add a new memory",
+        "info_title": "Informations",
+        "title_PH": "Title",
+        "category_PH": "Category",
+        "description_PH": "Description",
+        "map_title": "Position",
+        "continue_button": "Submit",
+        "success": "Muisto luotu"
+    }
+}

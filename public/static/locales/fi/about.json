@@ -1,0 +1,29 @@
+{
+    "title": "Tietoa meistä",
+    "intro": {
+        "p1": "\tOletko koskaan halunnut kertoa jännittävän tarinan jollekkin kavereidesi ja sukulaistesi lisäksi? Tai tiedät jotain mielenkiintoisia historiallisia faktoja kaupungistasi ja haluat jakaa ne? Tämä verkkosivu auttaa sinua jakamaan ne. Meidän pää-idea on kerätä, arkistoida ja jakaa nämä turkulaisten henkilökohtaiset tarinat.",
+        "p2": "Täällä voit lisätä muistoja tietyistä paikoista. Näiden avulla voimme saamme selville miltä Turku näytti viime vuosina ja vuosikymmeninä."
+    },
+    "how": {
+        "title": "Kuinka toimia",
+        "p1": "Kirjaudu sisään sähköpostilla tai Facebook/Google-tunnuksilla",
+        "p2": "Klikkaa \"lisää muisto\" -painiketta luodaksesi muiston",
+        "p3": "Kirjoita tarinasi, Keksi otsikko",
+        "p4": "Merkitse paikka kartalla, johon muisto liittyy ",
+        "p5": "Julkaise muisto"
+    },
+    "opportunity": {
+        "title": "Hyvä mahdollisuus",
+        "p1": "Vanhemmille asukkaille: muistella menneitä ja lueskella naapureiden tarinoita.",
+        "p2": "Uudelle sukupolvelle: ottaa selvää omien kotikontujen historiasta.",
+        "p3": "Alueella vieraileville: tutusta kaupunkiin ja löytää mielenkiintoisia paikkoja vierailla."
+    },
+    "who": {
+        "title": "Keitä me olemme?",
+        "p1": "Verkkosivu on luotu Turun Museon toimesta, joka on vastuussa kaupungin kulttuurisista, taide ja luonnontieteellisista museoista. Kerätty materiaali voi olla osa museon kokoelmaa ja saatetaan käyttää tutkimuksissa ja esittelyissä."
+    },
+    "what": {
+        "title": "Minkälaisia muistoja voi tehdä?",
+        "p1": "Täällä voit lisätä minkä tahansa muiston liittyen esimerkiksi urheiluun, kulttuuriin tai kouluun. On myös mahdollista kirjoittaa tarinoita liittyen erikoistapahtumiin."
+    }
+}

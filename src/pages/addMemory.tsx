@@ -107,7 +107,7 @@ const AddMemory = ({ t }) => {
     return (
         <Layout>
             {/* --- TITLE --- */}
-            <Typography variant="h3">Add a new memory</Typography>
+            <Typography variant="h3">{t('addmemory.title')}</Typography>
             <div style={{ height: '5vh' }} />
             {/* MAIN GRID */}
             <Grid
@@ -134,7 +134,7 @@ const AddMemory = ({ t }) => {
                                     variant="body1"
                                     className={classes.item}
                                 >
-                                    Informations
+                                    {t('addmemory.info_title')}
                                 </Typography>
 
                                 <form noValidate autoComplete="off">
@@ -185,7 +185,7 @@ const AddMemory = ({ t }) => {
                                     variant="body1"
                                     className={classes.item}
                                 >
-                                    Position
+                                    {t('addmemory.map_title')}
                                 </Typography>
                                 <PinpointMap
                                     handleClickPositionCallback={
@@ -205,7 +205,7 @@ const AddMemory = ({ t }) => {
                             color="primary"
                             onClick={handleSubmit}
                         >
-                            Submit
+                            {t('addmemory.continue_button')}
                         </Button>
                     </Grid>
                 </Grid>
@@ -215,7 +215,7 @@ const AddMemory = ({ t }) => {
 };
 
 AddMemory.getInitialProps = async () => ({
-    namespacesRequired: ['common'],
+    namespacesRequired: ['common', 'addMem'],
 });
 
-export default withTranslation('common')(AddMemory as any); //TODO : create namespace for each page
+export default withTranslation('addMem')(AddMemory as any); //TODO : create namespace for each page

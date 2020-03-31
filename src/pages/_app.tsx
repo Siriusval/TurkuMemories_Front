@@ -26,7 +26,7 @@ const MyApp = ({ Component, pageProps }) => {
     return (
         <React.Fragment>
             <ThemeProvider theme={theme}>
-                <AuthProvider isLogged={true}>
+                <AuthProvider isLogged={false}>
                     <SnackbarProvider>
                         <CustomAppBar />
                         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

@@ -117,11 +117,13 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
                 {/* Login / Account */}
                 <Typography variant="h6">
                     {!authContext.isLogged ? (
-                        <Link href="/login" passHref>
-                            <Button component="a" className={classes.nav}>
-                                {t('menubar.login')}
-                            </Button>
-                        </Link>
+                        <Button
+                            component="a"
+                            href="https://localhost:4500/api/auth-management/login"
+                            className={classes.nav}
+                        >
+                            {t('menubar.login')}
+                        </Button>
                     ) : (
                         <Box className={classes.nav}>
                             <AccountMenu />

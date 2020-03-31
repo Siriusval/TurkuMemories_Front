@@ -17,7 +17,7 @@ const Settings = ({ t }) => {
     return (
         <div id="settings-page">
             <Layout>
-                <Typography variant="h3">Settings</Typography>
+                <Typography variant="h3">{t('settingspage.stitle')}</Typography>
                 <div style={{ height: '5vh' }} />
                 <TextField
                     disabled
@@ -36,7 +36,7 @@ const Settings = ({ t }) => {
                 />
                 <div style={{ height: '5vh' }} />
                 <Link href="#" passHref>
-                    <Button component="a">Change password</Button>
+                    <Button component="a">{t('settingspage.passchange')}</Button>
                 </Link>
             </Layout>
         </div>

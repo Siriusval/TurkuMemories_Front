@@ -1,20 +1,42 @@
 {
-    "about": {
-        "title": "Tervetuloa",
-        "intro": "Tässä lisää tietoja meistä",
-        "who": "Ketä me olemme",
-        "who_param1": "Me olemme Turun museo",
-        "who_param2": "balbalbal SUOMI balaa",
-        "what": "Minkälaisia muistoja keräämme ?",
-        "what_param": "bLAaaa Torille!!! aaa",
-        "how": "Kuinka lisään muiston ?",
-        "how_param": "Mmmmmmmmmmmh"
-    },
     "menubar": {
         "home": "Koti",
         "memories": "My Memories",
         "about": "Tietoja",
         "addmemory": "Lisää Muisto",
-        "login": "Kirjaudu"
+        "login": "Kirjaudu",
+        "logout": "kirjaudu ulos"
+    },
+    "form": {
+        "login": "Kirjaudu",
+        "username": "Käyttäjä",
+        "email": "Sähköposti",
+        "password": "Salasana",
+        "register": "Rekisteröidy",
+        "forgottenpassword": "Unohditko salasanasi?",
+        "notRegistered": "Etkö ole rekisteröitynyt?",
+        "alreadyRegistered": "Onko sinulla jo tili?"
+    },
+    "error": {
+        "err": "Virhe on tpahatunut",
+        "notfound": "Muistoja ei löytynyt",
+        "404": "404, Sivua ei löydy.",
+        "404_param": "Sivua jota etsit ei ole olemassa.",
+        "memory_creation_error": "Muiston luonnissa tapahtui virhe"
+    },
+    "accountmenu": {
+        "navbar": "Tili",
+        "memories": "Muistoni",
+        "admin": "Admin",
+        "settings": "Asetukset",
+        "log": "Kirjaudu",
+        "logt": "Kirjaudu ulos"
+    },
+    "settingspage": {
+        "stitle": "Asetukset",
+        "passchange": "Vaihda Salasana"
+    },
+    "memorypage": {
+        "myMemories": "Muistoni"
     }
 }

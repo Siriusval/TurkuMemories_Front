@@ -9,7 +9,7 @@ const Page = ({ t }) => {
             <Head>
                 <title>{t('_error:title')}</title>
             </Head>
-            Error
+            {t('error.err')}
         </div>
     );
 };

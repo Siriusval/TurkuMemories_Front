@@ -175,7 +175,7 @@ const LoginForm = ({ t }) => {
                     {/* Forgotten password button */}
                     <Grid item xs={12}>
                         <Button variant="text">
-                            {t('form.forgottenPassword')}
+                            {t('form.forgottenpassword')}
                         </Button>
                     </Grid>
 

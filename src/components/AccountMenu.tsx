@@ -11,6 +11,7 @@
 // --- IMPORTS ---
 import React from 'react';
 import Router from 'next/router';
+import { withTranslation } from '../i18n';
 import {
     Button,
     Grow,
@@ -20,7 +21,6 @@ import {
     MenuList,
     ClickAwayListener,
 } from '@material-ui/core';
-import { withTranslation } from '../i18n';
 
 // --- COMPONENT ---
 const AccountMenu: React.FC = () => {

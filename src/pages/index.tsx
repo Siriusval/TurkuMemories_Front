@@ -17,7 +17,8 @@ import MemoryDetails from '../components/MemoryDetails';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
 
 // --- COMPONENT ---
-const Index = ({ t, memories, categories }) => {
+const Index = ({ t, memories, categories, isLogged }) => {
+    console.log('isLogged Index', isLogged);
     //Contexts
     const snackbarContext = useSnackbarContext();
 
@@ -104,7 +105,7 @@ Index.getInitialProps = async ({ req }) => {
 
             console.log('Memories fetched: ', memories.count);
         })
-        .catch(err => console.error('Error fetching memories'));
+        .catch(err => console.error('Error fetching memories', err));
 
     let categories: Categories;
     await apis.categories

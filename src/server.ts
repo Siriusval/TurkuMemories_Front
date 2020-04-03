@@ -11,6 +11,12 @@ import next from 'next';
 import nextI18NextMiddleware from 'next-i18next/middleware';
 import nextI18next from './i18n';
 import dotenv from 'dotenv';
+import {
+    createProxyMiddleware,
+    Filter,
+    Options,
+    RequestHandler,
+} from 'http-proxy-middleware';
 
 // --- CONFIG ---
 dotenv.config();
@@ -25,6 +31,14 @@ app.prepare()
         const server = express();
 
         //Middlewares
+        server.use(
+            '/api',
+            createProxyMiddleware({
+                target: 'https://localhost:4500',
+                changeOrigin: true,
+                secure: false,
+            }),
+        );
         server.use(nextI18NextMiddleware(nextI18next));
         server.use(compression());
 

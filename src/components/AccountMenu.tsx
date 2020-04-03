@@ -21,6 +21,7 @@ import {
     MenuList,
     ClickAwayListener,
 } from '@material-ui/core';
+import { apis } from '../services/apis';
 
 // --- COMPONENT ---
 const AccountMenu: React.FC = () => {
@@ -81,16 +82,9 @@ const AccountMenu: React.FC = () => {
     };
     const handleAdminClick = (event: React.MouseEvent<EventTarget>) => {
         handleClose(event);
-        Router.push('/admin'); //TODO : logout
+        Router.push('/admin');
     };
-    const handleLoginClick = (event: React.MouseEvent<EventTarget>) => {
-        handleClose(event);
-        Router.push('/login');
-    };
-    const handleLogoutClick = (event: React.MouseEvent<EventTarget>) => {
-        handleClose(event);
-        Router.push('/'); //TODO : logout
-    };
+
     return (
         <div id="account-menu">
             {/* Account button */}
@@ -139,10 +133,10 @@ const AccountMenu: React.FC = () => {
                                     <MenuItem onClick={handleSettingsClick}>
                                         Settings
                                     </MenuItem>
-                                    <MenuItem onClick={handleLoginClick}>
-                                        Login
-                                    </MenuItem>
-                                    <MenuItem onClick={handleLogoutClick}>
+                                    <MenuItem
+                                        component="a"
+                                        href={process.env.LOGOUT_URL}
+                                    >
                                         Logout
                                     </MenuItem>
                                 </MenuList>

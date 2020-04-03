@@ -23,7 +23,6 @@ import {
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-import { useAuthContext } from '../contexts/AuthContext';
 import AccountMenu from './AccountMenu';
 import LanguageMenu from './LanguageMenu';
 
@@ -54,13 +53,14 @@ const useStyles = makeStyles((theme: Theme) =>
 // --- PROPS ---
 interface ICustomAppBar {
     t(key, opts?): Function;
+    isLogged: boolean;
 }
 
 // --- COMPONENT ---
-const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
+const CustomAppBar: React.FC<ICustomAppBar> = ({ t, isLogged }) => {
+    console.log('isLogged CustomAppBar', isLogged);
     //Contexts
     const classes = useStyles();
-    const authContext = useAuthContext();
 
     //Vars
     const logo = '/images/logo192.png';
@@ -116,18 +116,18 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
 
                 {/* Login / Account */}
                 <Typography variant="h6">
-                    {!authContext.isLogged ? (
+                    {isLogged ? (
+                        <Box className={classes.nav}>
+                            <AccountMenu />
+                        </Box>
+                    ) : (
                         <Button
                             component="a"
-                            href="https://localhost:4500/api/auth-management/login"
+                            href={process.env.LOGIN_URL}
                             className={classes.nav}
                         >
                             {t('menubar.login')}
                         </Button>
-                    ) : (
-                        <Box className={classes.nav}>
-                            <AccountMenu />
-                        </Box>
                     )}
                 </Typography>
 

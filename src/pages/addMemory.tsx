@@ -24,6 +24,8 @@ import PinpointMap from '../components/PinpointMap';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
 import Router from 'next/router';
+import CategorySelect from '../components/CategorySelect';
+import { Categories } from '../types';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // --- COMPONENTS ---
-const AddMemory = ({ t }) => {
+const AddMemory = ({ t, categories, isLogged, userId }) => {
     // TODO:replace formsy with formik
     //Contexts
     const classes = useStyles();
@@ -67,7 +69,13 @@ const AddMemory = ({ t }) => {
         setMarkerPosition(position);
     };
 
+    const handleCategoryFilterChange = (categoryId: string) => {
+        setCategory(categoryId);
+    };
+
     const handleSubmit = (): void => {
+        const anonymousUserId = -1;
+
         const data = {
             title: title,
             category: category,
@@ -76,7 +84,7 @@ const AddMemory = ({ t }) => {
                 type: 'Point',
                 coordinates: [markerPosition[1], markerPosition[0]],
             },
-            userId: 2,
+            userId: isLogged ? userId : anonymousUserId, //TODO : set userId for anonymous
         };
 
         apis.memories
@@ -88,7 +96,7 @@ const AddMemory = ({ t }) => {
             .catch((err: AxiosError) => {
                 snackbarContext.displayErrorSnackbar('Error');
                 console.log(err);
-            });
+            }); //TODO: fix call when not logged in
     };
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,6 +117,15 @@ const AddMemory = ({ t }) => {
             {/* --- TITLE --- */}
             <Typography variant="h3">{t('addmemory.title')}</Typography>
             <div style={{ height: '5vh' }} />
+
+            {/* Disclaimer if not logged in */}
+            {!isLogged ? (
+                <Typography variant="body1">
+                    Warning : You're not logged, your memory will be published
+                    as "Anonymous"
+                </Typography>
+            ) : null}
+
             {/* MAIN GRID */}
             <Grid
                 container
@@ -149,6 +166,7 @@ const AddMemory = ({ t }) => {
                                         value={title}
                                         onChange={handleTitleChange}
                                     />
+                                    {/* 
                                     <TextField
                                         className={classes.item}
                                         required
@@ -160,6 +178,23 @@ const AddMemory = ({ t }) => {
                                         value={category}
                                         onChange={handleCategoryChange}
                                     />
+                                    */}
+                                    <CategorySelect
+                                        categories={categories}
+                                        handleCategoryFilterChange={
+                                            handleCategoryFilterChange
+                                        }
+                                        required={true}
+                                        fullWidth={true}
+                                    />
+                                    <div
+                                        style={{
+                                            margin: '0px',
+                                            padding: '0px',
+                                            paddingBottom: '16px',
+                                        }}
+                                    ></div>
+
                                     <TextField
                                         id="outlined-multiline"
                                         label="Description"
@@ -214,8 +249,22 @@ const AddMemory = ({ t }) => {
     );
 };
 
-AddMemory.getInitialProps = async () => ({
-    namespacesRequired: ['common', 'addMem'],
-});
+AddMemory.getInitialProps = async () => {
+    
+    let categories: Categories;
+    await apis.categories
+        .getAllCategories()
+        .then(res => {
+            categories = res.data.categories;
+
+            console.log('Categories fetched: ', categories.length);
+        })
+        .catch(err => console.error('Error fetching categories'));
+
+    return {
+        namespacesRequired: ['common', 'addMem'],
+        categories: categories,
+    };
+};
 
 export default withTranslation('addMem')(AddMemory as any); //TODO : create namespace for each page

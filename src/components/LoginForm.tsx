@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { apis } from '../services/apis';
 import { AxiosResponse, AxiosError } from 'axios';
 import { withTranslation } from '../i18n';
-import { useAuthContext } from '../contexts/AuthContext';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -58,7 +57,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const LoginForm = ({ t }) => {
     //Contexts
     const classes = useStyles();
-    const authContext = useAuthContext();
     const snackbarContext = useSnackbarContext();
 
     //States

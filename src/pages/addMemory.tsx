@@ -21,7 +21,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PinpointMap from '../components/PinpointMap';
-import { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
 import Router from 'next/router';
 import CategorySelect from '../components/CategorySelect';
@@ -30,6 +30,11 @@ import { Categories } from '../types';
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        root: {
+            '& > *': {
+                margin: theme.spacing(1),
+            },
+        },
         box: {
             paddingTop: '16px',
             paddingLeft: '16px',
@@ -42,6 +47,9 @@ const useStyles = makeStyles((theme: Theme) =>
         paper: {
             borderRadius: '8px',
             backgroundColor: theme.palette.background.paper,
+        },
+        input: {
+            display: 'none',
         },
     }),
 );
@@ -62,7 +70,42 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
 
     //Vars
     const center = [60.455, 22.26];
+    
+    //Image upload
+    /*const [file, setFile] = useState('');
+    const [filename, setFilename] = useState('');
+    const [uploadedFile, setUploadedFile] = useState({});
 
+    const onChange = e => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0]);
+    };
+
+
+    const onSubmit = async e => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const res = await axios.post('/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            const { fileName, filePath } = res.data;
+
+            setUploadedFile({ fileName, filePath});
+        }catch(err){
+            if(err.response.status == 500) {
+                console.log('There was a problem with the server');
+            } else {
+                console.log(err.response.data.msg);
+            }
+        }
+    };*/
+    
     //Functions
     const handleClickPositionCallback = (position: number[]): void => {
         console.log(position);
@@ -206,7 +249,25 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                                         value={description}
                                         onChange={handleDescriptionChange}
                                         required
-                                    />
+                                    />                   
+                                    <div className={classes.root}>
+                                        <input 
+                                            accept="image/*"
+                                            className={classes.input}
+                                            id="contained-button-file"
+                                            multiple
+                                            type="file"
+                                        /> 
+                                        <label htmlFor="contained-button-file">
+                                           <Button
+                                                variant="contained"                                         
+                                                color="primary" 
+                                                component="span"
+                                            >
+                                                Upload Image
+                                            </Button>
+                                        </label>
+                                    </div>
                                 </form>
                             </Box>
                         </Paper>

@@ -6,7 +6,7 @@
  */
 
 // --- IMPORTS ---
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withTranslation } from '../i18n';
 import {
     Typography,
@@ -27,6 +27,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import SimpleCard from '../components/SimpleCard';
 import { Categories, Category } from '../types';
 import { NextPage } from 'next';
+import Head from 'next/head';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,7 +46,12 @@ interface IAdmin {
     categories: Categories;
 }
 
-const Admin: NextPage<IAdmin & any> = ({ t, categories }) => {
+const Admin: NextPage<IAdmin & any> = ({
+    t,
+    categories,
+    isLogged,
+    isAdmin,
+}) => {
     //Contexts
     const classes = useStyles();
     const snackbarContext = useSnackbarContext();
@@ -53,6 +59,12 @@ const Admin: NextPage<IAdmin & any> = ({ t, categories }) => {
     const [categoryName, setCategoryName] = useState<string>('');
     const [categoryDescription, setCategoryDescription] = useState<string>('');
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
+
+    useEffect(() => {
+        if (!isLogged || !isAdmin) {
+            window.location.href = process.env.LOGIN_URL;
+        }
+    });
 
     const handleCategoryNameChange = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -93,7 +105,7 @@ const Admin: NextPage<IAdmin & any> = ({ t, categories }) => {
                 <ListItem
                     button
                     selected={selectedIndex === index}
-                    onClick={event => handleListItemClick(event, index)}
+                    onClick={(event) => handleListItemClick(event, index)}
                 >
                     <ListItemText primary={category.name} />
                 </ListItem>
@@ -120,115 +132,133 @@ const Admin: NextPage<IAdmin & any> = ({ t, categories }) => {
 
     return (
         <div>
-            <Layout>
-                <Typography variant="h3">Admin</Typography>
-                <Typography variant="body1">Work in progress</Typography>
-                <div style={{ height: '5vh' }} />
+            {isLogged && isAdmin ? (
+                <div>
+                    <Head>
+                        <title>Admin</title>
+                    </Head>
 
-                {/* Add Category */}
-                <Grid container spacing={6}>
-                    <Grid item xs={4}>
-                        <Typography variant="h6" gutterBottom>
-                            Add new category
+                    <Layout>
+                        <Typography variant="h3" gutterBottom>
+                            Admin
                         </Typography>
-                        <form noValidate autoComplete="false">
-                            <div>
-                                <TextField
-                                    variant="outlined"
-                                    label="Category Name"
-                                    onChange={handleCategoryNameChange}
-                                    value={categoryName}
-                                ></TextField>
-                            </div>
-                            <br />
-                            <div>
-                                <TextField
-                                    variant="outlined"
-                                    multiline
-                                    rows={4}
-                                    label="Category Description"
-                                    value={categoryDescription}
-                                    onChange={handleCategoryDescriptionChange}
-                                ></TextField>
-                            </div>
-                            <br />
-                            <div>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={handleSubmit}
-                                >
-                                    Add category
-                                </Button>
-                            </div>
-                        </form>
-                    </Grid>
 
-                    {/* CategoryList */}
-                    <Grid container item xs={8}>
-                        <Grid item xs={12}>
-                            <Typography variant="h6">
-                                Current categories
-                            </Typography>
-                        </Grid>
-                        <Grid container item xs={12} spacing={3}>
+                        {/* Add Category */}
+                        <Grid container spacing={6}>
                             <Grid item xs={4}>
-                                <div className={classes.categoryList}>
-                                    <List
-                                        component="nav"
-                                        aria-label="main mailbox folders"
-                                    >
-                                        {categories
-                                            ? generateCategories()
-                                            : null}
-                                    </List>
-                                </div>
+                                <Typography variant="h6" gutterBottom>
+                                    Add new category
+                                </Typography>
+                                <form noValidate autoComplete="false">
+                                    <div>
+                                        <TextField
+                                            variant="outlined"
+                                            label="Category Name"
+                                            onChange={handleCategoryNameChange}
+                                            value={categoryName}
+                                        ></TextField>
+                                    </div>
+                                    <br />
+                                    <div>
+                                        <TextField
+                                            variant="outlined"
+                                            multiline
+                                            rows={4}
+                                            label="Category Description"
+                                            value={categoryDescription}
+                                            onChange={
+                                                handleCategoryDescriptionChange
+                                            }
+                                        ></TextField>
+                                    </div>
+                                    <br />
+                                    <div>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={handleSubmit}
+                                        >
+                                            Add category
+                                        </Button>
+                                    </div>
+                                </form>
                             </Grid>
-                            <Grid item xs={8}>
-                                {categories ? generateCategoryDetails() : null}
+
+                            {/* CategoryList */}
+                            <Grid container item xs={8}>
+                                <Grid item xs={12}>
+                                    <Typography variant="h6">
+                                        Current categories
+                                    </Typography>
+                                </Grid>
+                                <Grid container item xs={12} spacing={3}>
+                                    <Grid item xs={4}>
+                                        <div className={classes.categoryList}>
+                                            <List
+                                                component="nav"
+                                                aria-label="main mailbox folders"
+                                            >
+                                                {categories
+                                                    ? generateCategories()
+                                                    : null}
+                                            </List>
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        {categories
+                                            ? generateCategoryDetails()
+                                            : null}
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-                </Grid>
 
-                <div style={{ height: '5vh' }} />
+                        <div style={{ height: '5vh' }} />
 
-                {/* Review Reports */}
-                <Typography variant="h6" gutterBottom>
-                    Review reports
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    //TODO, sort memories by reports, edit or delete options
-                </Typography>
+                        {/* Review Reports */}
+                        <Typography variant="h6" gutterBottom>
+                            Review reports
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                            //TODO, sort memories by reports, edit or delete
+                            options
+                        </Typography>
 
-                <form noValidate autoComplete="false">
-                    <Grid container spacing={3}>
-                        {[...Array(4).keys()].map(() => {
-                            return (
-                                <Grid item xs={4}>
-                                    <SimpleCard />
-                                </Grid>
-                            );
-                        })}
-                    </Grid>
-                </form>
-                <div style={{ height: '5vh' }} />
-            </Layout>
+                        <form noValidate autoComplete="false">
+                            <Grid container spacing={3}>
+                                {[...Array(4).keys()].map(() => {
+                                    return (
+                                        <Grid item xs={4}>
+                                            <SimpleCard />
+                                        </Grid>
+                                    );
+                                })}
+                            </Grid>
+                        </form>
+                        <div style={{ height: '5vh' }} />
+                    </Layout>
+                </div>
+            ) : null}
         </div>
     ); //TODO : edit or remove cat, display confirmation window with string to enter
 };
 
 // --- POPULATE PAGE ---
-Admin.getInitialProps = async ({ req }) => {
+Admin.getInitialProps = async (ctx: any) => {
     let categories: Categories;
-    await apis.categories
-        .getAllCategories()
-        .then(res => {
-            categories = res.data.categories;
 
-            console.log('Categories fetched: ', categories.length);
-        })
-        .catch(err => console.error('Error fetching categories'));
+    if (ctx.isLogged && ctx.isAdmin) {
+        await apis.categories
+            .getAllCategories()
+            .then((res) => {
+                categories = res.data.categories;
+
+                console.log('Categories fetched: ', categories.length);
+            })
+            .catch((err) => console.error('Error fetching categories'));
+    } else {
+        console.log('Data not fetched because user not logged');
+    }
 
     return {
         namespacesRequired: ['common'],

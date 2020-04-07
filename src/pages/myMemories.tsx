@@ -16,6 +16,7 @@ import { Memories } from '../types';
 import { apis } from '../services/apis';
 import { NextPage } from 'next';
 import { getRedirectStatus } from 'next/dist/lib/check-custom-routes';
+import Head from 'next/head';
 
 // --- COMPONENT ---
 interface IMyMemories {
@@ -29,42 +30,60 @@ const MyMemories: NextPage<IMyMemories & any> = ({
     isLogged,
 }) => {
     useEffect(() => {
-        window.location.href = process.env.LOGIN_URL;
+        if (!isLogged) {
+            window.location.href = process.env.LOGIN_URL;
+        }
     });
 
-    return isLogged ? (
-        <Layout>
-            <Typography variant="h3">{t('memorypage.myMemories')}</Typography>
-            <div style={{ height: '5vh' }} />
+    return (
+        <div>
+            {isLogged ? (
+                <div>
+                    <Head>
+                        <title>My Memories</title>
+                    </Head>
+                    <Layout>
+                        <Typography variant="h3">
+                            {t('memorypage.myMemories')}
+                        </Typography>
+                        <div style={{ height: '5vh' }} />
 
-            <Grid container spacing={3}>
-                {myMemories
-                    ? myMemories.rows.map((memory, index) => {
-                          return (
-                              <Grid key={index} item xs={4}>
-                                  <MemoryCard memory={memory} />
-                              </Grid>
-                          );
-                      })
-                    : null}
-            </Grid>
-        </Layout>
-    ) : null;
+                        <Grid container spacing={3}>
+                            {myMemories
+                                ? myMemories.rows.map((memory, index) => {
+                                      return (
+                                          <Grid key={index} item xs={4}>
+                                              <MemoryCard memory={memory} />
+                                          </Grid>
+                                      );
+                                  })
+                                : null}
+                        </Grid>
+                    </Layout>
+                </div>
+            ) : null}
+        </div>
+    );
 };
 
 // --- POPULATE PAGE ---
-MyMemories.getInitialProps = async () => {
+MyMemories.getInitialProps = async (ctx: any) => {
     let myMemories: Memories;
-    await apis.memories
-        .getUserMemories()
-        .then(res => {
-            myMemories = res.data;
+    console.log(ctx);
+    if (ctx.isLogged) {
+        await apis.memories
+            .getUserMemories()
+            .then((res) => {
+                myMemories = res.data;
 
-            console.log('memories fetched: ', myMemories.count);
-        })
-        .catch(err => {
-            console.error('Error fetching memories');
-        });
+                console.log('memories fetched: ', myMemories.count);
+            })
+            .catch((err) => {
+                console.error('Error fetching memories');
+            });
+    } else {
+        console.log('Data not fetched because user not logged');
+    }
 
     return {
         namespacesRequired: ['common'],

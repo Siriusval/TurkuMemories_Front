@@ -11,34 +11,46 @@ import { withTranslation } from '../i18n';
 import Link from 'next/link';
 import { Button, TextField, Typography } from '@material-ui/core';
 import Layout from '../components/Layout';
+import Head from 'next/head';
 
 // --- COMPONENT ---
-const Settings = ({ t }) => {
+const Settings = ({ t, isLogged }) => {
     return (
         <div id="settings-page">
-            <Layout>
-                <Typography variant="h3">{t('settingspage.stitle')}</Typography>
-                <div style={{ height: '5vh' }} />
-                <TextField
-                    disabled
-                    id="outlined-disabled"
-                    label="Username"
-                    defaultValue="Bob"
-                    variant="outlined"
-                />
-                <div style={{ height: '5vh' }} />
-                <TextField
-                    disabled
-                    id="outlined-disabled"
-                    label="Email"
-                    defaultValue="bob@bob.fi"
-                    variant="outlined"
-                />
-                <div style={{ height: '5vh' }} />
-                <Link href="#" passHref>
-                    <Button component="a">{t('settingspage.passchange')}</Button>
-                </Link>
-            </Layout>
+            {isLogged ? (
+                <div>
+                    <Head>
+                        <title>Settings</title>
+                    </Head>
+                    <Layout>
+                        <Typography variant="h3">
+                            {t('settingspage.stitle')}
+                        </Typography>
+                        <div style={{ height: '5vh' }} />
+                        <TextField
+                            disabled
+                            id="outlined-disabled"
+                            label="Username"
+                            defaultValue="Bob"
+                            variant="outlined"
+                        />
+                        <div style={{ height: '5vh' }} />
+                        <TextField
+                            disabled
+                            id="outlined-disabled"
+                            label="Email"
+                            defaultValue="bob@bob.fi"
+                            variant="outlined"
+                        />
+                        <div style={{ height: '5vh' }} />
+                        <Link href="#" passHref>
+                            <Button component="a">
+                                {t('settingspage.passchange')}
+                            </Button>
+                        </Link>
+                    </Layout>
+                </div>
+            ) : null}
         </div>
     );
 };

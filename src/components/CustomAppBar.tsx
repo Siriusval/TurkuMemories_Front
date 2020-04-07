@@ -58,7 +58,6 @@ interface ICustomAppBar {
 
 // --- COMPONENT ---
 const CustomAppBar: React.FC<ICustomAppBar> = ({ t, isLogged }) => {
-    console.log('isLogged CustomAppBar', isLogged);
     //Contexts
     const classes = useStyles();
 

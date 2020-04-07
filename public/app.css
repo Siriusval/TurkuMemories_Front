@@ -2,7 +2,8 @@
     box-sizing: border-box;
 }
 body {
-    background: url('/images/grid.png');
+    /* background: url('/images/grid.png'); */
+    background-color: white;
     font-family: Helvetica, Arial, sans-serif;
 }
 

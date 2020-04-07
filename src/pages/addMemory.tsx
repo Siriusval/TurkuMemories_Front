@@ -26,6 +26,7 @@ import { useSnackbarContext } from '../contexts/SnackbarContext';
 import Router from 'next/router';
 import CategorySelect from '../components/CategorySelect';
 import { Categories } from '../types';
+import Head from 'next/head';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -70,7 +71,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
 
     //Vars
     const center = [60.455, 22.26];
-    
+
     //Image upload
     /*const [file, setFile] = useState('');
     const [filename, setFilename] = useState('');
@@ -105,7 +106,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
             }
         }
     };*/
-    
+
     //Functions
     const handleClickPositionCallback = (position: number[]): void => {
         console.log(position);
@@ -117,8 +118,6 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
     };
 
     const handleSubmit = (): void => {
-        const anonymousUserId = -1;
-
         const data = {
             title: title,
             category: category,
@@ -127,7 +126,6 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                 type: 'Point',
                 coordinates: [markerPosition[1], markerPosition[0]],
             },
-            userId: isLogged ? userId : anonymousUserId, //TODO : set userId for anonymous
         };
 
         apis.memories
@@ -138,8 +136,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
             })
             .catch((err: AxiosError) => {
                 snackbarContext.displayErrorSnackbar('Error');
-                console.log(err);
-            }); //TODO: fix call when not logged in
+            });
     };
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -156,60 +153,69 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
         setDescription(event.target.value);
     };
     return (
-        <Layout>
-            {/* --- TITLE --- */}
-            <Typography variant="h3">{t('addmemory.title')}</Typography>
-            <div style={{ height: '5vh' }} />
+        <div>
+            <Head>
+                <title>Add Memory</title>
+            </Head>
 
-            {/* Disclaimer if not logged in */}
-            {!isLogged ? (
-                <Typography variant="body1">
-                    Warning : You're not logged, your memory will be published
-                    as "Anonymous"
+            <Layout>
+                {/* --- TITLE --- */}
+                <Typography variant="h3" gutterBottom>
+                    {t('addmemory.title')}
                 </Typography>
-            ) : null}
 
-            {/* MAIN GRID */}
-            <Grid
-                container
-                direction="column"
-                spacing={2}
-                justify="flex-start"
-                alignItems="center"
-            >
-                {/* FIRST ROW */}
+                {/* Disclaimer if not logged in */}
+                {!isLogged ? (
+                    <div>
+                        <Typography variant="body1" gutterBottom>
+                            Warning : You're not logged, your memory will be
+                            published as "Anonymous"
+                        </Typography>
+                        <br />
+                    </div>
+                ) : null}
+
+                {/* MAIN GRID */}
                 <Grid
                     container
-                    item
-                    direction="row"
-                    justify="space-between"
-                    alignItems="center"
+                    direction="column"
                     spacing={2}
+                    justify="flex-start"
+                    alignItems="center"
                 >
-                    {/* LEFT ELEMENT */}
-                    <Grid item xs={6}>
-                        <Paper className={classes.paper} elevation={4}>
-                            <Box className={classes.box}>
-                                <Typography
-                                    variant="body1"
-                                    className={classes.item}
-                                >
-                                    {t('addmemory.info_title')}
-                                </Typography>
-
-                                <form noValidate autoComplete="off">
-                                    <TextField
+                    {/* FIRST ROW */}
+                    <Grid
+                        container
+                        item
+                        direction="row"
+                        justify="space-between"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        {/* LEFT ELEMENT */}
+                        <Grid item xs={6}>
+                            <Paper className={classes.paper} elevation={4}>
+                                <Box className={classes.box}>
+                                    <Typography
+                                        variant="body1"
                                         className={classes.item}
-                                        required
-                                        id="outlined-basic"
-                                        label="Title"
-                                        variant="outlined"
-                                        size="small"
-                                        fullWidth
-                                        value={title}
-                                        onChange={handleTitleChange}
-                                    />
-                                    {/* 
+                                    >
+                                        {t('addmemory.info_title')}
+                                    </Typography>
+
+                                    <form noValidate autoComplete="off">
+                                        <TextField
+                                            className={classes.item}
+                                            required
+                                            id="outlined-basic"
+                                            label="Title"
+                                            variant="outlined"
+                                            size="small"
+                                            fullWidth
+                                            value={title}
+                                            onChange={handleTitleChange}
+                                        />
+                                        {/* 
                                     <TextField
                                         className={classes.item}
                                         required
@@ -222,105 +228,105 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                                         onChange={handleCategoryChange}
                                     />
                                     */}
-                                    <CategorySelect
-                                        categories={categories}
-                                        handleCategoryFilterChange={
-                                            handleCategoryFilterChange
+                                        <CategorySelect
+                                            categories={categories}
+                                            handleCategoryFilterChange={
+                                                handleCategoryFilterChange
+                                            }
+                                            required={true}
+                                            fullWidth={true}
+                                        />
+                                        <div
+                                            style={{
+                                                margin: '0px',
+                                                padding: '0px',
+                                                paddingBottom: '16px',
+                                            }}
+                                        ></div>
+
+                                        <TextField
+                                            id="outlined-multiline"
+                                            label="Description"
+                                            multiline
+                                            rows="8"
+                                            variant="outlined"
+                                            size="small"
+                                            fullWidth
+                                            value={description}
+                                            onChange={handleDescriptionChange}
+                                            required
+                                        />
+                                        <div className={classes.root}>
+                                            <input
+                                                accept="image/*"
+                                                className={classes.input}
+                                                id="contained-button-file"
+                                                multiple
+                                                type="file"
+                                            />
+                                            <label htmlFor="contained-button-file">
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    component="span"
+                                                >
+                                                    Upload Image
+                                                </Button>
+                                            </label>
+                                        </div>
+                                    </form>
+                                </Box>
+                            </Paper>
+                        </Grid>
+
+                        {/* RIGHT ELEMENT */}
+                        <Grid container item xs={6}>
+                            <Paper className={classes.paper} elevation={4}>
+                                <Box className={classes.box}>
+                                    <Typography
+                                        variant="body1"
+                                        className={classes.item}
+                                    >
+                                        {t('addmemory.map_title')}
+                                    </Typography>
+                                    <PinpointMap
+                                        handleClickPositionCallback={
+                                            handleClickPositionCallback
                                         }
-                                        required={true}
-                                        fullWidth={true}
                                     />
-                                    <div
-                                        style={{
-                                            margin: '0px',
-                                            padding: '0px',
-                                            paddingBottom: '16px',
-                                        }}
-                                    ></div>
-
-                                    <TextField
-                                        id="outlined-multiline"
-                                        label="Description"
-                                        multiline
-                                        rows="8"
-                                        variant="outlined"
-                                        size="small"
-                                        fullWidth
-                                        value={description}
-                                        onChange={handleDescriptionChange}
-                                        required
-                                    />                   
-                                    <div className={classes.root}>
-                                        <input 
-                                            accept="image/*"
-                                            className={classes.input}
-                                            id="contained-button-file"
-                                            multiple
-                                            type="file"
-                                        /> 
-                                        <label htmlFor="contained-button-file">
-                                           <Button
-                                                variant="contained"                                         
-                                                color="primary" 
-                                                component="span"
-                                            >
-                                                Upload Image
-                                            </Button>
-                                        </label>
-                                    </div>
-                                </form>
-                            </Box>
-                        </Paper>
+                                </Box>
+                            </Paper>
+                        </Grid>
                     </Grid>
 
-                    {/* RIGHT ELEMENT */}
-                    <Grid container item xs={6}>
-                        <Paper className={classes.paper} elevation={4}>
-                            <Box className={classes.box}>
-                                <Typography
-                                    variant="body1"
-                                    className={classes.item}
-                                >
-                                    {t('addmemory.map_title')}
-                                </Typography>
-                                <PinpointMap
-                                    handleClickPositionCallback={
-                                        handleClickPositionCallback
-                                    }
-                                />
-                            </Box>
-                        </Paper>
+                    {/* SECOND ROW */}
+                    <Grid container item xs={12} justify="center">
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleSubmit}
+                            >
+                                {t('addmemory.continue_button')}
+                            </Button>
+                        </Grid>
                     </Grid>
                 </Grid>
-
-                {/* SECOND ROW */}
-                <Grid container item xs={12} justify="center">
-                    <Grid item>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleSubmit}
-                        >
-                            {t('addmemory.continue_button')}
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Layout>
+            </Layout>
+        </div>
     );
 };
 
 AddMemory.getInitialProps = async () => {
-    
     let categories: Categories;
     await apis.categories
         .getAllCategories()
-        .then(res => {
+        .then((res) => {
             categories = res.data.categories;
 
             console.log('Categories fetched: ', categories.length);
         })
-        .catch(err => console.error('Error fetching categories'));
+        .catch((err) => console.error('Error fetching categories'));
 
     return {
         namespacesRequired: ['common', 'addMem'],

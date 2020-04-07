@@ -12,11 +12,15 @@ import Layout from '../components/Layout';
 import { Typography, Button } from '@material-ui/core';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
 import { NextPage, NextPageContext } from 'next';
+import Head from 'next/head';
 
 // --- COMPONENT ---
 const About: NextPage<any> = ({ t }) => {
     return (
         <div>
+            <Head>
+                <title>About</title>
+            </Head>
             <Layout>
                 {/* Title */}
                 <Typography variant="h3">{t('title')}</Typography>

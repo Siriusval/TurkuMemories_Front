@@ -21,10 +21,12 @@ import {
     MenuList,
     ClickAwayListener,
 } from '@material-ui/core';
-import { apis } from '../services/apis';
 
+interface IAccountMenu {
+    isAdmin: boolean;
+}
 // --- COMPONENT ---
-const AccountMenu: React.FC = () => {
+const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
     //State
     const [open, setOpen] = React.useState(false);
 
@@ -127,9 +129,12 @@ const AccountMenu: React.FC = () => {
                                     <MenuItem onClick={handleMymemoriesClick}>
                                         My Memories
                                     </MenuItem>
-                                    <MenuItem onClick={handleAdminClick}>
-                                        Admin
-                                    </MenuItem>
+                                    {isAdmin ? (
+                                        <MenuItem onClick={handleAdminClick}>
+                                            Admin
+                                        </MenuItem>
+                                    ) : null}
+
                                     <MenuItem onClick={handleSettingsClick}>
                                         Settings
                                     </MenuItem>
@@ -149,4 +154,4 @@ const AccountMenu: React.FC = () => {
     );
 };
 
-export default withTranslation('common')(AccountMenu);
+export default withTranslation('common')(AccountMenu as any);

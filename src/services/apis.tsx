@@ -16,7 +16,7 @@ const api = axios.create({
     httpsAgent: agent,
 });
 
-export const setCookies = cookie => {
+export const setCookies = (cookie) => {
     api.defaults.headers.common.Cookie = cookie;
 };
 

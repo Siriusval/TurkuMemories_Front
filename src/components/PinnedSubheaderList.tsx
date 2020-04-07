@@ -80,7 +80,7 @@ const PinnedSubheaderList: React.FC<IPinnedSubheaderList> = ({
                 <ListItem
                     button
                     key={memory.id}
-                    onClick={event => handleClickListItem(event, index)}
+                    onClick={(event) => handleClickListItem(event, index)}
                 >
                     <ListItemText primary={memory.title} secondary={content} />
                 </ListItem>
@@ -91,7 +91,7 @@ const PinnedSubheaderList: React.FC<IPinnedSubheaderList> = ({
         <Paper elevation={4} className={classes.root}>
             {/* Header */}
             <List subheader={<li />}>
-                {[0].map(sectionId => (
+                {[0].map((sectionId) => (
                     <li
                         key={`section-${sectionId}`}
                         className={classes.listSection}

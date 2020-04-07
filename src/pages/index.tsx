@@ -15,10 +15,10 @@ import MapboxContainer from '../components/MapboxContainer';
 import PinnedSubheaderList from '../components/PinnedSubheaderList';
 import MemoryDetails from '../components/MemoryDetails';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
+import Head from 'next/head';
 
 // --- COMPONENT ---
 const Index = ({ t, memories, categories, isLogged }) => {
-    console.log('isLogged Index', isLogged);
     //Contexts
     const snackbarContext = useSnackbarContext();
 
@@ -65,6 +65,10 @@ const Index = ({ t, memories, categories, isLogged }) => {
     };
     return (
         <div>
+            <Head>
+                <title>Home</title>
+            </Head>
+
             {/* Only rendered client side */}
             <NoSsr>
                 <MapboxContainer

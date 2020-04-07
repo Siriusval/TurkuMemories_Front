@@ -11,46 +11,58 @@ import { withTranslation } from '../i18n';
 import RegisterForm from '../components/RegisterForm';
 import backgrounds from '../backgrounds.json';
 import { Background } from '../types';
+import Head from 'next/head';
 
 // --- COMPONENT ---
 const Register = ({ t, randomImage }) => {
     return (
-        <div
-            style={{
-                display: 'flex',
-                position: 'absolute',
-                top: '64px',
-                right: 0,
-                left: 0,
-                bottom: 0,
-            }}
-        >
+        <div>
+            <Head>
+                <title>Register</title>
+            </Head>
+
             <div
+                id="flex-container-register"
                 style={{
-                    flexGrow: 1,
-                    width: '50%',
-                    backgroundImage: `url(/bg/${randomImage.id}.jpg)`,
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
+                    display: 'flex',
+                    position: 'absolute',
+                    top: '64px',
+                    right: 0,
+                    left: 0,
+                    bottom: 0,
                 }}
             >
+                {/* RIGHT */}
                 <div
+                    id="flex-item-left-register"
                     style={{
-                        position: 'absolute',
-                        bottom: '0',
-                        left: '0',
-                        fontSize: '0.8rem',
-                        color: 'white',
-                        textShadow:
-                            '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+                        flexGrow: 1,
+                        width: '50%',
+                        backgroundImage: `url(/bg/${randomImage.id}.jpg)`,
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
                     }}
                 >
-                    {randomImage.credit}
+                    <div
+                        id="image-register"
+                        style={{
+                            position: 'absolute',
+                            bottom: '0',
+                            left: '0',
+                            fontSize: '0.8rem',
+                            color: 'white',
+                            textShadow:
+                                '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
+                        }}
+                    >
+                        {randomImage.credit}
+                    </div>
                 </div>
-            </div>
-            <div style={{ flexGrow: 1, width: '50%' }}>
-                <RegisterForm />
+                {/* RIGHT */}
+                <div style={{ flexGrow: 1, width: '50%' }}>
+                    <RegisterForm />
+                </div>
             </div>
         </div>
     );

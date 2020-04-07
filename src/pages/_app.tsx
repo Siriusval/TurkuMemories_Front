@@ -1,6 +1,6 @@
 /**
  * Custom App component
- * Initialize any page
+ * Initialize once when website is reached
  *
  * Allows to do things such as :
  * - Persisting layout between page changes
@@ -20,43 +20,62 @@ import theme from '../theme';
 import { SnackbarProvider } from '../contexts/SnackbarContext';
 import CustomAppBar from '../components/CustomAppBar';
 import { apis, setCookies } from '../services/apis';
-import nextCookie from 'next-cookies';
+import { AuthProvider } from '../contexts/AuthContext';
 
 // --- COMPONENT ---
 const MyApp = ({ Component, pageProps }) => {
     return (
         <React.Fragment>
             <ThemeProvider theme={theme}>
-                <SnackbarProvider>
-                    <CustomAppBar {...pageProps} />
-                    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                    <CssBaseline />
-                    <Component {...pageProps} />
-                </SnackbarProvider>
+                <AuthProvider
+                    isLogged={pageProps.isLogged}
+                    isAdmin={pageProps.isAdmin}
+                >
+                    {/* Allow global snackbar */}
+                    <SnackbarProvider>
+                        {/* Menu appbar */}
+                        <CustomAppBar {...pageProps} />
+                        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                        <CssBaseline />
+                        {/* Page Component */}
+                        <Component {...pageProps} />
+                    </SnackbarProvider>
+                </AuthProvider>
             </ThemeProvider>
         </React.Fragment>
     );
 };
 
 // --- INITIAL DATA POPULATION ---
-MyApp.getInitialProps = async appContext => {
+MyApp.getInitialProps = async (appContext) => {
+    //Get context
     const appProps = await App.getInitialProps(appContext);
     const ctx = appContext.ctx;
 
+    //get cookies and set them in axios headers
     const cookie = ctx.req ? ctx.req.headers.cookie : undefined;
     setCookies(cookie);
+    console.log('Cookie:', cookie);
 
+    //Check if user is logged and admin
     let isLogged: boolean = false;
+    let isAdmin: boolean = false;
 
     await apis.auth
         .isLogged()
-        .then(res => {
-            isLogged = res.data.logged;
+        .then((res) => {
+            isLogged = res.data.isLogged;
+            isAdmin = res.data.isAdmin;
             console.log('User logged : ', isLogged);
+            console.log('User admin : ', isAdmin);
         })
-        .catch(err => console.error('Error getting user isLogged'));
+        .catch((err) => console.error('Error getting user permissions', err));
 
+    //TODO : check if admin
+
+    //Adding variable to props
     appProps.pageProps['isLogged'] = isLogged;
+    appProps.pageProps['isAdmin'] = isAdmin;
 
     return { ...appProps };
 };

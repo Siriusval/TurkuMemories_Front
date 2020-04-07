@@ -26,6 +26,10 @@ import FavoriteSharpIcon from '@material-ui/icons/FavoriteSharp';
 import { Memory } from '../types';
 import { red, blue } from '@material-ui/core/colors';
 
+import Popup from "reactjs-popup"
+import {EmailIcon, FacebookIcon, TwitterIcon, WhatsappIcon, EmailShareButton, FacebookShareButton, TwitterShareButton, WhatsappShareButton} from 'react-share';
+
+
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -109,13 +113,15 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                         </Grid>
                         <Grid item>
                             <MuiThemeProvider theme={blueTheme}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    startIcon={<ShareSharpIcon />}
-                                >
-                                    Share
-                                </Button>
+                              <Popup trigger={<Button variant="contained" color="primary" startIcon={<ShareSharpIcon />}>Share</Button>} modal>
+                              <div>
+                                <h2 style={{textAlign: 'center', borderBottomStyle:'solid', borderBottomColor:'grey'}}>Share this memory on social media</h2>
+                                <EmailShareButton url='http://localhost:3000/mymemories' body='Yo check out this memory at My Turku Memories'><EmailIcon size={50} round /></EmailShareButton>
+                                <WhatsappShareButton url='http://localhost:3000/mymemories' title='Yo check out this memory at My Turku Memories'><WhatsappIcon size={50} round /></WhatsappShareButton>
+                                <FacebookShareButton url='http://localhost:3000/mymemories' quote='Yo check out this memory at My Turku Memories'><FacebookIcon size={50} round /></FacebookShareButton>
+                                <TwitterShareButton url='http://localhost:3000/mymemories' title='Yo check out this memory at My Turku Memories'><TwitterIcon size={50} round /></TwitterShareButton>
+                                </div>
+                              </Popup>
                             </MuiThemeProvider>
                         </Grid>
                     </Grid>

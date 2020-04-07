@@ -12,6 +12,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import Popup from "reactjs-popup"
+import {EmailIcon, FacebookIcon, TwitterIcon, WhatsappIcon, EmailShareButton, FacebookShareButton, TwitterShareButton, WhatsappShareButton} from 'react-share';
+
+
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
@@ -48,9 +52,15 @@ export default function MediaCard() {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
-                    Share
-                </Button>
+            <Popup trigger={<Button size="small" color="primary">Share</Button>} modal>
+                <div>
+                <h2 style={{textAlign: 'center', borderBottomStyle:'solid', borderBottomColor:'grey'}}>Share this memory on social media</h2>
+                <EmailShareButton url='http://localhost:3000/mymemories' body='Yo check out this memory at My Turku Memories'><EmailIcon size={50} round /></EmailShareButton>
+                <WhatsappShareButton url='http://localhost:3000/mymemories' title='Yo check out this memory at My Turku Memories'><WhatsappIcon size={50} round /></WhatsappShareButton>
+                <FacebookShareButton url='http://localhost:3000/mymemories' quote='Yo check out this memory at My Turku Memories'><FacebookIcon size={50} round /></FacebookShareButton>
+                <TwitterShareButton url='http://localhost:3000/mymemories' title='Yo check out this memory at My Turku Memories'><TwitterIcon size={50} round /></TwitterShareButton>
+                </div>
+            </Popup>
                 <Button size="small" color="secondary">
                     Delete
                 </Button>

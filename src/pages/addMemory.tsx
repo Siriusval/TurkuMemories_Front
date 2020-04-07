@@ -73,17 +73,17 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
     const center = [60.455, 22.26];
 
     //Image upload
-    /*const [file, setFile] = useState('');
+    const [file, setFile] = useState('');
     const [filename, setFilename] = useState('');
     const [uploadedFile, setUploadedFile] = useState({});
 
     const onChange = e => {
         setFile(e.target.files[0]);
-        setFileName(e.target.files[0]);
+        setFilename(e.target.files[0].name);
     };
 
 
-    const onSubmit = async e => {
+    /*const onSubmit = async e => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('file', file);
@@ -122,6 +122,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
             title: title,
             category: category,
             description: description,
+            file: file,
             position: {
                 type: 'Point',
                 coordinates: [markerPosition[1], markerPosition[0]],
@@ -261,8 +262,8 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                                                 accept="image/*"
                                                 className={classes.input}
                                                 id="contained-button-file"
-                                                multiple
                                                 type="file"
+                                                onChange={onChange}
                                             />
                                             <label htmlFor="contained-button-file">
                                                 <Button
@@ -272,6 +273,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                                                 >
                                                     Upload Image
                                                 </Button>
+                                                    {filename}
                                             </label>
                                         </div>
                                     </form>

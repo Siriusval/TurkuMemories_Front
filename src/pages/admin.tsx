@@ -64,7 +64,7 @@ const Admin: NextPage<IAdmin & any> = ({
         if (!isLogged || !isAdmin) {
             window.location.href = process.env.BACK_URL + process.env.LOGIN_URL;
         }
-    });
+    }, []);
 
     const handleCategoryNameChange = (
         event: React.ChangeEvent<HTMLInputElement>,

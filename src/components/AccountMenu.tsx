@@ -9,7 +9,7 @@
  */
 
 // --- IMPORTS ---
-import React from 'react';
+import React, { useEffect } from 'react';
 import Router from 'next/router';
 import { withTranslation } from '../i18n';
 import {
@@ -66,7 +66,7 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
 
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+    useEffect(() => {
         if (prevOpen.current === true && open === false) {
             anchorRef.current!.focus();
         }

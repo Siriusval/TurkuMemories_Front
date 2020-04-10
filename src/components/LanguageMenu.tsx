@@ -6,7 +6,7 @@
  */
 
 // --- IMPORTS ---
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -33,10 +33,10 @@ const LanguageMenu = ({ t, i18n }) => {
     const anchorRef = React.useRef<HTMLButtonElement>(null);
 
     const handleToggle = () => {
-        setOpen(prevOpen => !prevOpen);
+        setOpen((prevOpen) => !prevOpen);
     };
 
-    const handleChangeLanguage = option => {
+    const handleChangeLanguage = (option) => {
         i18n.changeLanguage(option.key);
         setSelectedIndex(option.key);
         handleToggle();
@@ -61,7 +61,7 @@ const LanguageMenu = ({ t, i18n }) => {
 
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+    useEffect(() => {
         if (prevOpen.current === true && open === false) {
             anchorRef.current!.focus();
         }
@@ -106,7 +106,7 @@ const LanguageMenu = ({ t, i18n }) => {
                                     id="menu-list-grow"
                                     onKeyDown={handleListKeyDown}
                                 >
-                                    {options.map(option => (
+                                    {options.map((option) => (
                                         <MenuItem
                                             key={option.key}
                                             selected={

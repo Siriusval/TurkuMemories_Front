@@ -128,7 +128,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                 coordinates: [markerPosition[1], markerPosition[0]],
             },
         };
-
+        console.log(data);
         apis.memories
             .createMemory(data)
             .then((res: AxiosResponse) => {
@@ -169,8 +169,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                 {!isLogged ? (
                     <div>
                         <Typography variant="body1" gutterBottom>
-                            Warning : You're not logged, your memory will be
-                            published as "Anonymous"
+                            { t("addmemory.warning") }
                         </Typography>
                         <br />
                     </div>

@@ -8,9 +8,15 @@
         "title": "How it works",
         "p1": "Log in with e-mail or Facebook/Google account.",
         "p2": "Tap \"Add memory\" to create a new post.",
-        "p3": "Write your story, make a title.",
-        "p4": "Tag a place connected with your memory on the map.",
-        "p5": "Publish a post."
+        "p3": "Write your story, add a title.",
+        "p4": "If you want, you can add a picture that is related to your memory",
+        "p5": "Tag a place connected with your memory on the map.",
+        "p6": "Publish a post."
+    },
+    "notice": {
+        "p1": "",
+        "p2": "",
+        "p3": ""
     },
     "opportunity": {
         "title": "Good opportunity",
@@ -22,8 +28,15 @@
         "title": "Who are we?",
         "p1": "The website is created by Turku City Museums, which is responsible for the city’s cultural, art and natural history museums. Accumulated material may be a part of museum’s collections and can be used in research and exhibitions."
     },
+    "rights": {
+        "title": "",
+        "p1": "",
+        "p2": "",
+        "p3": ""
+    },
     "what": {
         "title": "What kinds of memories are there?",
-        "p1": "Here you can add any memory from such categories as sport, culture or school. Also there is possible to write about stories linked to special events."
+        "p1": "Here you can add any memory from such categories as sport, culture or school. Also there is possible to write about stories linked to special events.",
+        "p2": ""
     }
 }

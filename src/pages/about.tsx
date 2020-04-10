@@ -63,7 +63,33 @@ const About: NextPage<any> = ({ t }) => {
                             {t('how.p5')}
                         </Typography>
                     </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('how.p6')}
+                        </Typography>
+                    </li>
                 </ul>
+                <div style={{ height: '5vh' }} />
+
+                {/* Notice */}
+                <ul>
+                    <li>
+                        <Typography variant= "body1" gutterBottom>
+                            {t('notice.p1')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant= "body1" gutterBottom>
+                            {t('notice.p2')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant= "body1" gutterBottom>
+                            {t('notice.p3')}
+                        </Typography>
+                    </li>
+                </ul>
+
                 <div style={{ height: '5vh' }} />
 
                 {/* Good opportunity */}
@@ -96,6 +122,21 @@ const About: NextPage<any> = ({ t }) => {
                 </Typography>
                 <Typography variant="body1" gutterBottom>
                     {t('who.p1')}
+                </Typography>
+                <div style={{ height: '5vh' }} />
+
+                {/* Rights to content */}
+                <Typography variant="h5" gutterBottom>
+                    {t('rights.title')}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {t('rights.p1')}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {t('rights.p2')}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {t('rights.p3')}
                 </Typography>
                 <div style={{ height: '5vh' }} />
 

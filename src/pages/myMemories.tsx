@@ -98,6 +98,7 @@ const MyMemories: NextPage<IMyMemories & any> = ({ t, isLogged }) => {
                                 handleDeleteMemory(index, memory.id)
                             }
                             memory={memory}
+                            controls={true}
                         />
                     </Grid>
                 );

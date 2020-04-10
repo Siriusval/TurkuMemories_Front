@@ -122,7 +122,7 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t, isLogged }) => {
                     ) : (
                         <Button
                             component="a"
-                            href={process.env.LOGIN_URL}
+                            href={process.env.BACK_URL + process.env.LOGIN_URL}
                             className={classes.nav}
                         >
                             {t('menubar.login')}

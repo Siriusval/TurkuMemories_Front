@@ -38,7 +38,7 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
      * Toggle menu on or off
      */
     const handleToggle = () => {
-        setOpen(prevOpen => !prevOpen);
+        setOpen((prevOpen) => !prevOpen);
     };
 
     /**
@@ -140,7 +140,10 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
                                     </MenuItem>
                                     <MenuItem
                                         component="a"
-                                        href={process.env.LOGOUT_URL}
+                                        href={
+                                            process.env.BACK_URL +
+                                            process.env.LOGOUT_URL
+                                        }
                                     >
                                         Logout
                                     </MenuItem>

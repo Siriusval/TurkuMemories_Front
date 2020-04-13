@@ -5,10 +5,12 @@
  */
 
 // --- IMPORTS ---
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { withTranslation } from '../i18n';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Card } from '@material-ui/core';
+import CardContent from '@material-ui/core/CardContent';
+
 import Layout from '../components/Layout';
 import MemoryCard from '../components/MemoryCard';
 
@@ -17,23 +19,99 @@ import { apis } from '../services/apis';
 import { NextPage } from 'next';
 import { getRedirectStatus } from 'next/dist/lib/check-custom-routes';
 import Head from 'next/head';
+import { useSnackbarContext } from '../contexts/SnackbarContext';
 
 // --- COMPONENT ---
 interface IMyMemories {
     t(key: string, opts?): string;
-    myMemories: Memories;
     isLogged: boolean;
 }
-const MyMemories: NextPage<IMyMemories & any> = ({
-    t,
-    myMemories,
-    isLogged,
-}) => {
+const MyMemories: NextPage<IMyMemories & any> = ({ t, isLogged }) => {
+    const snackbarContext = useSnackbarContext();
+
+    const [userMemories, setUserMemories] = useState<Memories | null>(null);
+
+    const getUserMemories = async () => {
+        let tempMemories: Memories;
+        await apis.memories
+            .getUserMemories()
+            .then((res) => {
+                tempMemories = res.data;
+                console.log('memories fetched: ', tempMemories.count);
+                setUserMemories(tempMemories);
+            })
+            .catch((err) => {
+                console.error('Error fetching memories', err);
+            });
+    };
+
+    const handleDeleteMemory = (index: number, memoryId: number) => {
+        apis.memories
+            .deleteMemoryById(memoryId)
+            .then((res) => {
+                const newMemories = userMemories;
+                newMemories.rows.splice(index, 1);
+                setUserMemories(newMemories);
+                snackbarContext.displaySuccessSnackbar('memoryDeleted');
+            })
+            .catch((err) => {
+                snackbarContext.displayErrorSnackbar('Error deleting memory');
+            });
+    };
+
+    const displayMemories = () => {
+        let component;
+
+        if (userMemories === null || userMemories.count === 0) {
+            component = (
+                <Grid item xs={4}>
+                    <Card style={{ minWidth: '200px' }}>
+                        <CardContent>
+                            <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="h2"
+                            >
+                                Error
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                color="textSecondary"
+                                component="p"
+                            >
+                                No memories to display.
+                                <br />
+                                Try adding one with
+                                <br />
+                                "+ ADD MEMORY" button
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            );
+        } else {
+            component = userMemories.rows.map((memory, index) => {
+                return (
+                    <Grid key={index} item xs={4}>
+                        <MemoryCard
+                            handleDeleteMemory={() =>
+                                handleDeleteMemory(index, memory.id)
+                            }
+                            memory={memory}
+                        />
+                    </Grid>
+                );
+            });
+        }
+        return component;
+    };
     useEffect(() => {
         if (!isLogged) {
-            window.location.href = process.env.LOGIN_URL;
+            window.location.href = process.env.BACK_URL + process.env.LOGIN_URL;
+        } else {
+            getUserMemories();
         }
-    });
+    }, []);
 
     return (
         <div>
@@ -49,15 +127,7 @@ const MyMemories: NextPage<IMyMemories & any> = ({
                         <div style={{ height: '5vh' }} />
 
                         <Grid container spacing={3}>
-                            {myMemories
-                                ? myMemories.rows.map((memory, index) => {
-                                      return (
-                                          <Grid key={index} item xs={4}>
-                                              <MemoryCard memory={memory} />
-                                          </Grid>
-                                      );
-                                  })
-                                : null}
+                            {displayMemories()}
                         </Grid>
                     </Layout>
                 </div>
@@ -68,26 +138,8 @@ const MyMemories: NextPage<IMyMemories & any> = ({
 
 // --- POPULATE PAGE ---
 MyMemories.getInitialProps = async (ctx: any) => {
-    let myMemories: Memories;
-    console.log(ctx);
-    if (ctx.isLogged) {
-        await apis.memories
-            .getUserMemories()
-            .then((res) => {
-                myMemories = res.data;
-
-                console.log('memories fetched: ', myMemories.count);
-            })
-            .catch((err) => {
-                console.error('Error fetching memories');
-            });
-    } else {
-        console.log('Data not fetched because user not logged');
-    }
-
     return {
         namespacesRequired: ['common'],
-        myMemories: myMemories,
     };
 };
 

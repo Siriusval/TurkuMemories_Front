@@ -62,9 +62,9 @@ const Admin: NextPage<IAdmin & any> = ({
 
     useEffect(() => {
         if (!isLogged || !isAdmin) {
-            window.location.href = process.env.LOGIN_URL;
+            window.location.href = process.env.BACK_URL + process.env.LOGIN_URL;
         }
-    });
+    }, []);
 
     const handleCategoryNameChange = (
         event: React.ChangeEvent<HTMLInputElement>,

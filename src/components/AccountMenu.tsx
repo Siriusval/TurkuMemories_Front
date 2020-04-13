@@ -9,7 +9,7 @@
  */
 
 // --- IMPORTS ---
-import React from 'react';
+import React, { useEffect } from 'react';
 import Router from 'next/router';
 import { withTranslation } from '../i18n';
 import {
@@ -38,7 +38,7 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
      * Toggle menu on or off
      */
     const handleToggle = () => {
-        setOpen(prevOpen => !prevOpen);
+        setOpen((prevOpen) => !prevOpen);
     };
 
     /**
@@ -66,7 +66,7 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
 
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+    useEffect(() => {
         if (prevOpen.current === true && open === false) {
             anchorRef.current!.focus();
         }
@@ -140,7 +140,10 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
                                     </MenuItem>
                                     <MenuItem
                                         component="a"
-                                        href={process.env.LOGOUT_URL}
+                                        href={
+                                            process.env.BACK_URL +
+                                            process.env.LOGOUT_URL
+                                        }
                                     >
                                         Logout
                                     </MenuItem>

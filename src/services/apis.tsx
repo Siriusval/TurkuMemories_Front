@@ -12,7 +12,7 @@ const agent = new https.Agent({
 });
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: `${process.env.FRONT_URL}/api`,
     httpsAgent: agent,
 });
 

@@ -34,7 +34,7 @@ app.prepare()
         server.use(
             '/api',
             createProxyMiddleware({
-                target: 'https://localhost:4500',
+                target: process.env.BACK_URL,
                 changeOrigin: true,
                 secure: false,
             }),
@@ -48,11 +48,11 @@ app.prepare()
             handle(req, res);
         });
 
-        server.listen(process.env.PORT, err => {
+        server.listen(process.env.PORT, (err) => {
             console.log(`> Ready on port ${process.env.PORT}`);
         });
     })
-    .catch(err => {
+    .catch((err) => {
         console.log(err);
         process.exit(1);
     });

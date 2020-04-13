@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Memory } from '../types';
 import { NextPage } from 'next';
+import DeleteMemoryDialog from './DeleteMemoryDialog';
 
 const useStyles = makeStyles({
     root: {
@@ -25,8 +26,9 @@ const useStyles = makeStyles({
 
 interface IMemoryCard {
     memory: Memory;
+    handleDeleteMemory(): void;
 }
-const MemoryCard: React.FC<IMemoryCard> = ({ memory }) => {
+const MemoryCard: React.FC<IMemoryCard> = ({ memory, handleDeleteMemory }) => {
     const classes = useStyles();
 
     return (
@@ -54,9 +56,10 @@ const MemoryCard: React.FC<IMemoryCard> = ({ memory }) => {
                 <Button size="small" color="primary">
                     Share
                 </Button>
-                <Button size="small" color="secondary">
-                    Delete
-                </Button>
+                <DeleteMemoryDialog
+                    handleDeleteMemory={handleDeleteMemory}
+                    memoryId={memory.id}
+                />
             </CardActions>
         </Card>
     );

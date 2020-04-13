@@ -37,7 +37,7 @@ const CategorySelect: React.FC<ICategorySelect> = ({
     //States
     const [category, setCategory] = React.useState('');
 
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleChange = (event: React.ChangeEvent<any>) => {
         const categoryId: string = event.target.value as string;
         setCategory(categoryId);
         handleCategoryFilterChange(categoryId);

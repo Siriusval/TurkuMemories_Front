@@ -77,11 +77,10 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
     const [filename, setFilename] = useState('');
     const [uploadedFile, setUploadedFile] = useState({});
 
-    const onChange = e => {
+    const onChange = (e) => {
         setFile(e.target.files[0]);
         setFilename(e.target.files[0].name);
     };
-
 
     /*const onSubmit = async e => {
         e.preventDefault();
@@ -109,7 +108,6 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
 
     //Functions
     const handleClickPositionCallback = (position: number[]): void => {
-        console.log(position);
         setMarkerPosition(position);
     };
 
@@ -118,26 +116,44 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
     };
 
     const handleSubmit = (): void => {
-        const data = {
-            title: title,
-            category: category,
-            description: description,
-            file: file,
-            position: {
-                type: 'Point',
-                coordinates: [markerPosition[1], markerPosition[0]],
-            },
-        };
-        console.log(data);
-        apis.memories
-            .createMemory(data)
-            .then((res: AxiosResponse) => {
-                snackbarContext.displaySuccessSnackbar('Memory Added');
-                Router.push('/');
-            })
-            .catch((err: AxiosError) => {
-                snackbarContext.displayErrorSnackbar('Error');
-            });
+
+        if (markerPosition === undefined) {
+            snackbarContext.displayWarningSnackbar(
+                'Please select a position on the map',
+            );
+        } else if (title === '') {
+            snackbarContext.displayWarningSnackbar(
+                'Please enter a title for your memory',
+            );
+        } else if (category === '') {
+            snackbarContext.displayWarningSnackbar(
+                'Please select a category for your memory',
+            );
+        } else if (description === '') {
+            snackbarContext.displayWarningSnackbar(
+                'Please enter a description for your memory',
+            );
+        } else {
+            const data = {
+                title: title,
+                categoryId: category,
+                description: description,
+                position: {
+                    type: 'Point',
+                    coordinates: [markerPosition[1], markerPosition[0]],
+                },
+            };
+
+            apis.memories
+                .createMemory(data)
+                .then((res: AxiosResponse) => {
+                    snackbarContext.displaySuccessSnackbar('Memory Added');
+                    Router.push('/');
+                })
+                .catch((err: AxiosError) => {
+                    snackbarContext.displayErrorSnackbar('Error');
+                });
+        }
     };
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -256,7 +272,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                                             onChange={handleDescriptionChange}
                                             required
                                         />
-                                        <div className={classes.root}>
+                                        {/* <div className={classes.root}>
                                             <input
                                                 accept="image/*"
                                                 className={classes.input}
@@ -274,7 +290,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                                                 </Button>
                                                     {filename}
                                             </label>
-                                        </div>
+                                        </div> */}
                                     </form>
                                 </Box>
                             </Paper>

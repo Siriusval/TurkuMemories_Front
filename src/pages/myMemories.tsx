@@ -6,7 +6,6 @@
 
 // --- IMPORTS ---
 import React, { useEffect, useState } from 'react';
-import Router from 'next/router';
 import { withTranslation } from '../i18n';
 import { Typography, Grid, Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,7 +16,6 @@ import MemoryCard from '../components/MemoryCard';
 import { Memories } from '../types';
 import { apis } from '../services/apis';
 import { NextPage } from 'next';
-import { getRedirectStatus } from 'next/dist/lib/check-custom-routes';
 import Head from 'next/head';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
 
@@ -123,10 +121,10 @@ const MyMemories: NextPage<IMyMemories & any> = ({ t, isLogged }) => {
                     </Head>
                     <Layout>
                         <Typography variant="h3" gutterBottom>
-                            {t('memorypage.myMemories')}
+                            {t('title')}
                         </Typography>
                         <div>
-                            <Typography variant="h5" gutterBottom>
+                            <Typography variant="body1" gutterBottom>
                                 Here you can see all the memories you have
                                 published.
                             </Typography>
@@ -146,8 +144,8 @@ const MyMemories: NextPage<IMyMemories & any> = ({ t, isLogged }) => {
 // --- POPULATE PAGE ---
 MyMemories.getInitialProps = async (ctx: any) => {
     return {
-        namespacesRequired: ['common'],
+        namespacesRequired: ['common', 'myMemories'],
     };
 };
 
-export default withTranslation('common')(MyMemories as any);
+export default withTranslation('myMemories')(MyMemories as any);

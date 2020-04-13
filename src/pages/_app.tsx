@@ -12,7 +12,7 @@
 
 // --- IMPORTS ---
 import React from 'react';
-import App from 'next/app';
+import App, { AppContext } from 'next/app';
 import { appWithTranslation } from '../i18n';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -48,7 +48,7 @@ const MyApp = ({ Component, pageProps }) => {
 };
 
 // --- INITIAL DATA POPULATION ---
-MyApp.getInitialProps = async (appContext) => {
+MyApp.getInitialProps = async (appContext: AppContext) => {
     //Get context
     const appProps = await App.getInitialProps(appContext);
     const ctx = appContext.ctx;

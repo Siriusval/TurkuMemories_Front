@@ -24,7 +24,6 @@ import Layout from '../components/Layout';
 import { apis } from '../services/apis';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
 import { AxiosError, AxiosResponse } from 'axios';
-import SimpleCard from '../components/SimpleCard';
 import { Categories, Category } from '../types';
 import { NextPage } from 'next';
 import Head from 'next/head';
@@ -42,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 // --- COMPONENT ---
 interface IAdmin {
-    t(key: string, opts?): string;
+    t(key: string, opts?: any): string;
     categories: Categories;
 }
 
@@ -62,7 +61,8 @@ const Admin: NextPage<IAdmin & any> = ({
 
     useEffect(() => {
         if (!isLogged || !isAdmin) {
-            window.location.href = process.env.BACK_URL + process.env.LOGIN_URL;
+            window.location.href =
+                process.env.BACK_URL! + process.env.LOGIN_URL!;
         }
     }, []);
 
@@ -229,7 +229,13 @@ const Admin: NextPage<IAdmin & any> = ({
                                 {[...Array(4).keys()].map(() => {
                                     return (
                                         <Grid item xs={4}>
-                                            <SimpleCard />
+                                            <div
+                                                style={{
+                                                    backgroundColor: 'grey',
+                                                    height: '100px',
+                                                    width: '100px',
+                                                }}
+                                            ></div>
                                         </Grid>
                                     );
                                 })}
@@ -245,7 +251,7 @@ const Admin: NextPage<IAdmin & any> = ({
 
 // --- POPULATE PAGE ---
 Admin.getInitialProps = async (ctx: any) => {
-    let categories: Categories;
+    let categories: Categories = null;
 
     if (ctx.isLogged && ctx.isAdmin) {
         await apis.categories
@@ -261,9 +267,9 @@ Admin.getInitialProps = async (ctx: any) => {
     }
 
     return {
-        namespacesRequired: ['common'],
+        namespacesRequired: ['common', 'admin'],
         categories,
     };
 };
 
-export default withTranslation('common')(Admin as any);
+export default withTranslation('admin')(Admin as any);

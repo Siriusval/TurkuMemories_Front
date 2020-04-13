@@ -7,23 +7,7 @@
         "login": "Login",
         "logout": "Logout"
     },
-    "form": {
-        "login": "Login",
-        "username": "Username",
-        "email": "Email",
-        "password": "Password",
-        "register": "Register",
-        "forgottenpassword": "Forgotten your password?",
-        "notRegistered": "Not registered yet?",
-        "alreadyRegistered": "Already have an account?"
-    },
-    "error": {
-        "err": "Error",
-        "notfound": "Memories not found",
-        "404": "404, Page not found.",
-        "404_param": "This page does not exist.",
-        "memory_creation_error": "Error creating memory"
-    },
+
     "accountmenu": {
         "navbar": "Account",
         "memories": "My Memories",
@@ -31,12 +15,5 @@
         "settings": "Settings",
         "log": "Login",
         "logt": "LogOut"
-    },
-    "settingspage": {
-        "stitle": "Settings",
-        "passchange": "Change Password"
-    },
-    "memorypage": {
-        "myMemories": "My Memories"
     }
 }

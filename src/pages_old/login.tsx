@@ -8,7 +8,7 @@
 // ---IMPORT ---
 import React from 'react';
 import { withTranslation } from '../i18n';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components_old/LoginForm';
 import backgrounds from '../backgrounds.json';
 import { Background } from '../types';
 import Head from 'next/head';
@@ -79,7 +79,7 @@ Login.getInitialProps = async () => {
     const randomImage: Background = backgrounds['data'][randomNumber];
 
     return {
-        namespacesRequired: ['common'],
+        namespacesRequired: ['common', 'form'],
         randomImage,
     };
 };

@@ -21,12 +21,13 @@ import {
 } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PinpointMap from '../components/PinpointMap';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
 import Router from 'next/router';
 import CategorySelect from '../components/CategorySelect';
 import { Categories } from '../types';
 import Head from 'next/head';
+import { NextPage } from 'next';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,8 +56,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+interface IAddMemory {
+    t(key: string, opts?: any): string;
+    categories: Categories;
+    isLogged: boolean;
+}
 // --- COMPONENTS ---
-const AddMemory = ({ t, categories, isLogged, userId }) => {
+const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
     // TODO:replace formsy with formik
     //Contexts
     const classes = useStyles();
@@ -77,10 +83,10 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
     const [filename, setFilename] = useState('');
     const [uploadedFile, setUploadedFile] = useState({});
 
-    const onChange = (e) => {
-        setFile(e.target.files[0]);
-        setFilename(e.target.files[0].name);
-    };
+    // const onChange = (e) => {
+    //     setFile(e.target.files[0]);
+    //     setFilename(e.target.files[0].name);
+    // };
 
     /*const onSubmit = async e => {
         e.preventDefault();
@@ -177,14 +183,14 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
             <Layout>
                 {/* --- TITLE --- */}
                 <Typography variant="h3" gutterBottom>
-                    {t('addmemory.title')}
+                    {t('title')}
                 </Typography>
 
                 {/* Disclaimer if not logged in */}
                 {!isLogged ? (
                     <div>
-                        <Typography variant="h5" gutterBottom>
-                            {t('addmemory.warning')}
+                        <Typography variant="body1" gutterBottom>
+                            {t('warning')}
                         </Typography>
                         <br />
                     </div>
@@ -216,7 +222,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                                         variant="h6"
                                         className={classes.item}
                                     >
-                                        {t('addmemory.info_title')}
+                                        {t('info_title')}
                                     </Typography>
 
                                     <form noValidate autoComplete="off">
@@ -305,7 +311,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                                         variant="h6"
                                         className={classes.item}
                                     >
-                                        {t('addmemory.map_title')}
+                                        {t('map_title')}
                                     </Typography>
                                     <PinpointMap
                                         handleClickPositionCallback={
@@ -325,7 +331,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                                 color="primary"
                                 onClick={handleSubmit}
                             >
-                                {t('addmemory.continue_button')}
+                                {t('continue_button')}
                             </Button>
                         </Grid>
                     </Grid>
@@ -336,7 +342,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
 };
 
 AddMemory.getInitialProps = async () => {
-    let categories: Categories;
+    let categories: Categories = null;
     await apis.categories
         .getAllCategories()
         .then((res) => {
@@ -347,9 +353,9 @@ AddMemory.getInitialProps = async () => {
         .catch((err) => console.error('Error fetching categories'));
 
     return {
-        namespacesRequired: ['common', 'addMem'],
+        namespacesRequired: ['common', 'addMemory'],
         categories: categories,
     };
 };
 
-export default withTranslation('addMem')(AddMemory as any); //TODO : create namespace for each page
+export default withTranslation('addMemory')(AddMemory as any); //TODO : create namespace for each page

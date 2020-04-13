@@ -8,7 +8,7 @@
 // --- IMPORTS ---
 import React from 'react';
 import { withTranslation } from '../i18n';
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../components_old/RegisterForm';
 import backgrounds from '../backgrounds.json';
 import { Background } from '../types';
 import Head from 'next/head';
@@ -74,7 +74,7 @@ Register.getInitialProps = async () => {
     const randomImage: Background = backgrounds['data'][randomNumber];
 
     return {
-        namespacesRequired: ['common'],
+        namespacesRequired: ['common', 'form'],
         randomImage,
     };
 };

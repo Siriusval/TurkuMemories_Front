@@ -6,7 +6,6 @@
 
 // --- IMPORTS ---
 import React from 'react';
-import CustomAppBar from '../components/CustomAppBar';
 import { withTranslation } from '../i18n';
 import Link from 'next/link';
 import { Button, TextField, Typography } from '@material-ui/core';
@@ -23,9 +22,7 @@ const Settings = ({ t, isLogged }) => {
                         <title>Settings</title>
                     </Head>
                     <Layout>
-                        <Typography variant="h3">
-                            {t('settingspage.stitle')}
-                        </Typography>
+                        <Typography variant="h3">{t('title')}</Typography>
                         <div style={{ height: '5vh' }} />
                         <TextField
                             disabled
@@ -44,9 +41,7 @@ const Settings = ({ t, isLogged }) => {
                         />
                         <div style={{ height: '5vh' }} />
                         <Link href="#" passHref>
-                            <Button component="a">
-                                {t('settingspage.passchange')}
-                            </Button>
+                            <Button component="a">{t('passchange')}</Button>
                         </Link>
                     </Layout>
                 </div>
@@ -58,8 +53,8 @@ const Settings = ({ t, isLogged }) => {
 // --- POPULATE PAGE ---
 Settings.getInitialProps = async ({ req }) => {
     return {
-        namespacesRequired: ['common'],
+        namespacesRequired: ['common', 'settings'],
     };
 };
 
-export default withTranslation('common')(Settings as any);
+export default withTranslation('settings')(Settings as any);

@@ -73,7 +73,8 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t, isLogged }) => {
                     <img src={turkuLogo} height="44px" />
                 </ButtonBase>
                 <ButtonBase href="/" className={classes.homeButton}>
-                    <img src={logo} height="44px" />
+                    {/* <img src={logo} height="44px" /> */}
+                    <div id="logo">Prikka</div>
                 </ButtonBase>
 
                 {/* Space */}

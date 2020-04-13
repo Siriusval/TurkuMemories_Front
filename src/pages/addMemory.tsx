@@ -116,7 +116,6 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
     };
 
     const handleSubmit = (): void => {
-
         if (markerPosition === undefined) {
             snackbarContext.displayWarningSnackbar(
                 'Please select a position on the map',
@@ -184,8 +183,8 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                 {/* Disclaimer if not logged in */}
                 {!isLogged ? (
                     <div>
-                        <Typography variant="body1" gutterBottom>
-                            { t("addmemory.warning") }
+                        <Typography variant="h5" gutterBottom>
+                            {t('addmemory.warning')}
                         </Typography>
                         <br />
                     </div>
@@ -212,8 +211,9 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                         <Grid item xs={6}>
                             <Paper className={classes.paper} elevation={4}>
                                 <Box className={classes.box}>
+                                    {/* Informations */}
                                     <Typography
-                                        variant="body1"
+                                        variant="h6"
                                         className={classes.item}
                                     >
                                         {t('addmemory.info_title')}
@@ -300,8 +300,9 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                         <Grid container item xs={6}>
                             <Paper className={classes.paper} elevation={4}>
                                 <Box className={classes.box}>
+                                    {/* position */}
                                     <Typography
-                                        variant="body1"
+                                        variant="h6"
                                         className={classes.item}
                                     >
                                         {t('addmemory.map_title')}

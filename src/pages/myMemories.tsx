@@ -122,10 +122,16 @@ const MyMemories: NextPage<IMyMemories & any> = ({ t, isLogged }) => {
                         <title>My Memories</title>
                     </Head>
                     <Layout>
-                        <Typography variant="h3">
+                        <Typography variant="h3" gutterBottom>
                             {t('memorypage.myMemories')}
                         </Typography>
-                        <div style={{ height: '5vh' }} />
+                        <div>
+                            <Typography variant="h5" gutterBottom>
+                                Here you can see all the memories you have
+                                published.
+                            </Typography>
+                            <br />
+                        </div>
 
                         <Grid container spacing={3}>
                             {displayMemories()}

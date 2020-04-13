@@ -21,6 +21,7 @@ import { SnackbarProvider } from '../contexts/SnackbarContext';
 import CustomAppBar from '../components/CustomAppBar';
 import { apis, setCookies } from '../services/apis';
 import { AuthProvider } from '../contexts/AuthContext';
+import '../styles.css';
 
 // --- COMPONENT ---
 const MyApp = ({ Component, pageProps }) => {
@@ -53,9 +54,11 @@ MyApp.getInitialProps = async (appContext) => {
     const ctx = appContext.ctx;
 
     //get cookies and set them in axios headers
-    const cookie = ctx.req ? ctx.req.headers.cookie : undefined;
-    setCookies(cookie);
-    console.log('Cookie:', cookie);
+    if (ctx.req) {
+        const cookie = ctx.req.headers.cookie;
+        setCookies(cookie);
+        console.log('Cookie:', cookie);
+    }
 
     //Check if user is logged and admin
     let isLogged: boolean = false;
@@ -66,8 +69,8 @@ MyApp.getInitialProps = async (appContext) => {
         .then((res) => {
             isLogged = res.data.isLogged;
             isAdmin = res.data.isAdmin;
-            console.log('User logged : ', isLogged);
-            console.log('User admin : ', isAdmin);
+            //console.log('User logged : ', isLogged);
+            //console.log('User admin : ', isAdmin);
         })
         .catch((err) => console.error('Error getting user permissions', err));
 

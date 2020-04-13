@@ -6,7 +6,8 @@
 
 // --- IMPORTS ---
 import React, { ReactNode } from 'react';
-
+import Footer from './Footer';
+import { Divider } from '@material-ui/core';
 // --- STYLES ---
 const pageStyle = {
     width: '80%',
@@ -17,9 +18,15 @@ const pageStyle = {
 // --- COMPONENTS ---
 const Layout: React.FC<ReactNode> = ({ children }) => {
     return (
-        <div className="wrapper" style={pageStyle}>
-            {/* Component to nest */}
-            {children}
+        <div>
+            <div className="wrapper" style={pageStyle}>
+                {/* Component to nest */}
+                {children}
+            </div>
+
+            <div style={{ height: '5vh' }} />
+            <Divider />
+            <Footer />
         </div>
     );
 };

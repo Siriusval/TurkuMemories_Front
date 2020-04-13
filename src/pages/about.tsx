@@ -9,13 +9,30 @@
 import React from 'react';
 import { withTranslation } from '../i18n';
 import Layout from '../components/Layout';
-import { Typography, Button } from '@material-ui/core';
-import { useSnackbarContext } from '../contexts/SnackbarContext';
+import {
+    Typography,
+    Paper,
+    makeStyles,
+    createStyles,
+    Theme,
+} from '@material-ui/core';
 import { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        paper: {
+            padding: '1.5rem',
+            borderRadius: '8px',
+            backgroundColor: theme.palette.background.paper,
+        },
+    }),
+);
+
 // --- COMPONENT ---
 const About: NextPage<any> = ({ t }) => {
+    const classes = useStyles();
+
     return (
         <div>
             <Head>
@@ -23,131 +40,141 @@ const About: NextPage<any> = ({ t }) => {
             </Head>
             <Layout>
                 {/* Title */}
-                <Typography variant="h3">{t('title')}</Typography>
-                <div style={{ height: '5vh' }} />
+                <Typography variant="h3" gutterBottom>
+                    {t('title')}
+                </Typography>
 
                 {/* Intro */}
-                <Typography variant="body1">{t('intro.p1')}</Typography>
-                <br />
+                <Paper elevation={3} className={classes.paper}>
+                    <Typography variant="body1">{t('intro.p1')}</Typography>
+                    <br />
 
-                <Typography variant="body1">{t('intro.p2')}</Typography>
+                    <Typography variant="body1">{t('intro.p2')}</Typography>
+                </Paper>
+
                 <div style={{ height: '5vh' }} />
 
                 {/* How it works */}
-                <Typography variant="h5" gutterBottom>
-                    {t('how.title')}
-                </Typography>
-                <ul>
-                    <li>
-                        <Typography variant="body1" gutterBottom>
-                            {t('how.p1')}
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1" gutterBottom>
-                            {t('how.p2')}
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1" gutterBottom>
-                            {t('how.p3')}
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1" gutterBottom>
-                            {t('how.p4')}
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1" gutterBottom>
-                            {t('how.p5')}
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1" gutterBottom>
-                            {t('how.p6')}
-                        </Typography>
-                    </li>
-                </ul>
+                <Paper elevation={3} className={classes.paper}>
+                    <Typography variant="h5" gutterBottom>
+                        {t('how.title')}
+                    </Typography>
+                    <ul>
+                        <li>
+                            <Typography variant="body1" gutterBottom>
+                                {t('how.p1')}
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="body1" gutterBottom>
+                                {t('how.p2')}
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="body1" gutterBottom>
+                                {t('how.p3')}
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="body1" gutterBottom>
+                                {t('how.p4')}
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="body1" gutterBottom>
+                                {t('how.p5')}
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="body1" gutterBottom>
+                                {t('how.p6')}
+                            </Typography>
+                        </li>
+                    </ul>
+                </Paper>
                 <div style={{ height: '5vh' }} />
 
                 {/* Notice */}
-                <ul>
+                {/* <ul>
                     <li>
-                        <Typography variant= "body1" gutterBottom>
+                        <Typography variant="body1" gutterBottom>
                             {t('notice.p1')}
                         </Typography>
                     </li>
                     <li>
-                        <Typography variant= "body1" gutterBottom>
+                        <Typography variant="body1" gutterBottom>
                             {t('notice.p2')}
                         </Typography>
                     </li>
                     <li>
-                        <Typography variant= "body1" gutterBottom>
+                        <Typography variant="body1" gutterBottom>
                             {t('notice.p3')}
                         </Typography>
                     </li>
-                </ul>
-
-                <div style={{ height: '5vh' }} />
+                </ul> 
+                <div style={{ height: '5vh' }} />*/}
 
                 {/* Good opportunity */}
-                <Typography variant="h5" gutterBottom>
-                    {t('opportunity.title')}
-                </Typography>
-                <ul>
-                    <li>
-                        <Typography variant="body1" gutterBottom>
-                            {t('opportunity.p1')}
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1" gutterBottom>
-                            {t('opportunity.p2')}
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography variant="body1" gutterBottom>
-                            {t('opportunity.p3')}
-                        </Typography>
-                    </li>
-                </ul>
+                <Paper elevation={3} className={classes.paper}>
+                    <Typography variant="h5" gutterBottom>
+                        {t('opportunity.title')}
+                    </Typography>
+                    <ul>
+                        <li>
+                            <Typography variant="body1" gutterBottom>
+                                {t('opportunity.p1')}
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="body1" gutterBottom>
+                                {t('opportunity.p2')}
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="body1" gutterBottom>
+                                {t('opportunity.p3')}
+                            </Typography>
+                        </li>
+                    </ul>
+                </Paper>
 
                 <div style={{ height: '5vh' }} />
 
                 {/* Who are we */}
-                <Typography variant="h5" gutterBottom>
-                    {t('who.title')}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    {t('who.p1')}
-                </Typography>
-                <div style={{ height: '5vh' }} />
+                <Paper elevation={3} className={classes.paper}>
+                    <Typography variant="h5" gutterBottom>
+                        {t('who.title')}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                        {t('who.p1')}
+                    </Typography>
+                    <div style={{ height: '5vh' }} />
 
-                {/* Rights to content */}
-                <Typography variant="h5" gutterBottom>
-                    {t('rights.title')}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    {t('rights.p1')}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    {t('rights.p2')}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    {t('rights.p3')}
-                </Typography>
+                    {/* Rights to content */}
+                    <Typography variant="h5" gutterBottom>
+                        {t('rights.title')}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                        {t('rights.p1')}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                        {t('rights.p2')}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                        {t('rights.p3')}
+                    </Typography>
+                </Paper>
                 <div style={{ height: '5vh' }} />
 
                 {/* What kind of memories */}
-                <Typography variant="h5" gutterBottom>
-                    {t('what.title')}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                    {t('what.p1')}
-                </Typography>
-                <div style={{ height: '5vh' }} />
+                <Paper elevation={3} className={classes.paper}>
+                    <Typography variant="h5" gutterBottom>
+                        {t('what.title')}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                        {t('what.p1')}
+                    </Typography>
+                </Paper>
             </Layout>
         </div>
     );

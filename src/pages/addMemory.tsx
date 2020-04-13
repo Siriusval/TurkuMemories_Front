@@ -116,6 +116,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
     };
 
     const handleSubmit = (): void => {
+
         if (markerPosition === undefined) {
             snackbarContext.displayWarningSnackbar(
                 'Please select a position on the map',
@@ -184,8 +185,7 @@ const AddMemory = ({ t, categories, isLogged, userId }) => {
                 {!isLogged ? (
                     <div>
                         <Typography variant="body1" gutterBottom>
-                            Warning : You're not logged, your memory will be
-                            published as "Anonymous"
+                            { t("addmemory.warning") }
                         </Typography>
                         <br />
                     </div>

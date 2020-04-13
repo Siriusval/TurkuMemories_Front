@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { Memory } from '../types';
 import { NextPage } from 'next';
 import DeleteMemoryDialog from './DeleteMemoryDialog';
+import Moment from 'react-moment';
 
 const useStyles = makeStyles({
     root: {
@@ -26,9 +27,14 @@ const useStyles = makeStyles({
 
 interface IMemoryCard {
     memory: Memory;
-    handleDeleteMemory(): void;
+    controls?: boolean;
+    handleDeleteMemory?(): void;
 }
-const MemoryCard: React.FC<IMemoryCard> = ({ memory, handleDeleteMemory }) => {
+const MemoryCard: React.FC<IMemoryCard> = ({
+    memory,
+    controls,
+    handleDeleteMemory,
+}) => {
     const classes = useStyles();
 
     return (
@@ -40,11 +46,32 @@ const MemoryCard: React.FC<IMemoryCard> = ({ memory, handleDeleteMemory }) => {
                     title="Memory Picture"
                 />
                 <CardContent>
+                    {/* Title */}
                     <Typography gutterBottom variant="h5" component="h2">
                         {memory.title}
                     </Typography>
+
+                    {/* Category */}
                     <Typography
                         variant="body2"
+                        color="textSecondary"
+                        component="p"
+                    >
+                        {memory.categoryId}
+                    </Typography>
+
+                    {/* Date */}
+                    <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                    >
+                        <Moment format="YYYY/MM/DD">{memory.createdAt}</Moment>
+                    </Typography>
+
+                    {/* Description */}
+                    <Typography
+                        variant="body1"
                         color="textSecondary"
                         component="p"
                     >
@@ -52,15 +79,17 @@ const MemoryCard: React.FC<IMemoryCard> = ({ memory, handleDeleteMemory }) => {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                    Share
-                </Button>
-                <DeleteMemoryDialog
-                    handleDeleteMemory={handleDeleteMemory}
-                    memoryId={memory.id}
-                />
-            </CardActions>
+            {controls ? (
+                <CardActions>
+                    <Button size="small" color="primary">
+                        Share
+                    </Button>
+                    <DeleteMemoryDialog
+                        handleDeleteMemory={handleDeleteMemory}
+                        memoryId={memory.id}
+                    />
+                </CardActions>
+            ) : null}
         </Card>
     );
 };

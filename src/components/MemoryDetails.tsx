@@ -28,9 +28,17 @@ import { Memory } from '../types';
 import { red, blue } from '@material-ui/core/colors';
 import ReportDialog from './ReportDialog';
 
-import Popup from "reactjs-popup"
-import {EmailIcon, FacebookIcon, TwitterIcon, WhatsappIcon, EmailShareButton, FacebookShareButton, TwitterShareButton, WhatsappShareButton} from 'react-share';
-
+import Popup from 'reactjs-popup';
+import {
+    EmailIcon,
+    FacebookIcon,
+    TwitterIcon,
+    WhatsappIcon,
+    EmailShareButton,
+    FacebookShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+} from 'react-share';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -114,17 +122,54 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                             </MuiThemeProvider>
                         </Grid>
                         <Grid item>
-                            <MuiThemeProvider theme={blueTheme}>
-                              <Popup trigger={<Button variant="contained" color="primary" startIcon={<ShareSharpIcon />}>Share</Button>} modal>
-                              <div>
-                                <h2 style={{textAlign: 'center', borderBottomStyle:'solid', borderBottomColor:'grey'}}>Share this memory on social media</h2>
-                                <EmailShareButton url={'http://localhost:3000/mymemories/p:'+ selectedMemory.id } body='Check out this memory at Prikka'><EmailIcon size={50} round /></EmailShareButton>
-                                <WhatsappShareButton url={'http://localhost:3000/mymemories/p:'+ selectedMemory.id } title='Check out this memory at Prikka'><WhatsappIcon size={50} round /></WhatsappShareButton>
-                                <FacebookShareButton url={'http://localhost:3000/mymemories/p:'+ selectedMemory.id } quote='Check out this memory at Prikka'><FacebookIcon size={50} round /></FacebookShareButton>
-                                <TwitterShareButton url={'http://localhost:3000/mymemories/p:'+ selectedMemory.id } title='Check out this memory at Prikka'><TwitterIcon size={50} round /></TwitterShareButton>
+                            <Popup
+                                trigger={
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        startIcon={<ShareSharpIcon />}
+                                    >
+                                        Share
+                                    </Button>
+                                }
+                                modal
+                            >
+                                <div>
+                                    <h2
+                                        style={{
+                                            textAlign: 'center',
+                                            borderBottomStyle: 'solid',
+                                            borderBottomColor: 'grey',
+                                        }}
+                                    >
+                                        Share this memory on social media
+                                    </h2>
+                                    <EmailShareButton
+                                        url={`http://localhost:3000/?memory=${selectedMemory.id}`}
+                                        body="Check out this memory at Prikka"
+                                    >
+                                        <EmailIcon size={50} round />
+                                    </EmailShareButton>
+                                    <WhatsappShareButton
+                                        url={`http://localhost:3000/?memory=${selectedMemory.id}`}
+                                        title="Check out this memory at Prikka"
+                                    >
+                                        <WhatsappIcon size={50} round />
+                                    </WhatsappShareButton>
+                                    <FacebookShareButton
+                                        url={`http://localhost:3000/?memory=${selectedMemory.id}`}
+                                        quote="Check out this memory at Prikka"
+                                    >
+                                        <FacebookIcon size={50} round />
+                                    </FacebookShareButton>
+                                    <TwitterShareButton
+                                        url={`http://localhost:3000/?memory=${selectedMemory.id}`}
+                                        title="Check out this memory at Prikka"
+                                    >
+                                        <TwitterIcon size={50} round />
+                                    </TwitterShareButton>
                                 </div>
-                              </Popup>
-                            </MuiThemeProvider>
+                            </Popup>
                         </Grid>
                     </Grid>
                     <ReportDialog memory={selectedMemory} />

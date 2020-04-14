@@ -116,10 +116,10 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                               <Popup trigger={<Button variant="contained" color="primary" startIcon={<ShareSharpIcon />}>Share</Button>} modal>
                               <div>
                                 <h2 style={{textAlign: 'center', borderBottomStyle:'solid', borderBottomColor:'grey'}}>Share this memory on social media</h2>
-                                <EmailShareButton url='http://localhost:3000/mymemories' body='Yo check out this memory at My Turku Memories'><EmailIcon size={50} round /></EmailShareButton>
-                                <WhatsappShareButton url='http://localhost:3000/mymemories' title='Yo check out this memory at My Turku Memories'><WhatsappIcon size={50} round /></WhatsappShareButton>
-                                <FacebookShareButton url='http://localhost:3000/mymemories' quote='Yo check out this memory at My Turku Memories'><FacebookIcon size={50} round /></FacebookShareButton>
-                                <TwitterShareButton url='http://localhost:3000/mymemories' title='Yo check out this memory at My Turku Memories'><TwitterIcon size={50} round /></TwitterShareButton>
+                                <EmailShareButton url={'http://localhost:3000/mymemories/p:'+ selectedMemory.id } body='Check out this memory at Prikka'><EmailIcon size={50} round /></EmailShareButton>
+                                <WhatsappShareButton url={'http://localhost:3000/mymemories/p:'+ selectedMemory.id } title='Check out this memory at Prikka'><WhatsappIcon size={50} round /></WhatsappShareButton>
+                                <FacebookShareButton url={'http://localhost:3000/mymemories/p:'+ selectedMemory.id } quote='Check out this memory at Prikka'><FacebookIcon size={50} round /></FacebookShareButton>
+                                <TwitterShareButton url={'http://localhost:3000/mymemories/p:'+ selectedMemory.id } title='Check out this memory at Prikka'><TwitterIcon size={50} round /></TwitterShareButton>
                                 </div>
                               </Popup>
                             </MuiThemeProvider>

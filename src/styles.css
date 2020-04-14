@@ -2,7 +2,8 @@
     box-sizing: border-box;
 }
 body {
-    background: url('/images/grid.png');
+    /* background: url('/images/grid.png'); */
+    background-color: white;
     font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -12,4 +13,10 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+#logo {
+    color: black;
+    font-family: 'Grand Hotel', cursive;
+    font-size: 2.5rem;
 }

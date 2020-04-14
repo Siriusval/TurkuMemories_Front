@@ -2,20 +2,25 @@ import Head from 'next/head';
 import React from 'react';
 
 import { withTranslation } from '../i18n';
+import { NextPage } from 'next';
 
-const Page = ({ t }) => {
+interface IError {
+    t(key: string, opts?: any): string;
+}
+
+const Error: NextPage<IError & any> = ({ t }) => {
     return (
         <div>
             <Head>
-                <title>{t('_error:title')}</title>
+                <title>{t('title')}</title>
             </Head>
-            Error
+            {t('err')}
         </div>
     );
 };
 
-Page.getInitialProps = async () => ({
-    namespacesRequired: ['common'],
+Error.getInitialProps = async () => ({
+    namespacesRequired: ['common', 'error'],
 });
 
-export default withTranslation('common')(Page as any);
+export default withTranslation('error')(Error as any);

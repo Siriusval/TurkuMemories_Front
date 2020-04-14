@@ -7,14 +7,13 @@
         "login": "Login",
         "logout": "Logout"
     },
-    "form": {
-        "login": "Login",
-        "username": "Username",
-        "email": "Email",
-        "password": "Password",
-        "register": "Register",
-        "forgottenPassword": "Forgotten your password ?",
-        "notRegistered": "Not registered yet ?",
-        "alreadyRegistered": "Already have an account ?"
+
+    "accountmenu": {
+        "navbar": "Account",
+        "memories": "My Memories",
+        "admin": "Admin",
+        "settings": "Settings",
+        "log": "Login",
+        "logt": "LogOut"
     }
 }

@@ -23,7 +23,6 @@ import {
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-import { useAuthContext } from '../contexts/AuthContext';
 import AccountMenu from './AccountMenu';
 import LanguageMenu from './LanguageMenu';
 
@@ -54,13 +53,13 @@ const useStyles = makeStyles((theme: Theme) =>
 // --- PROPS ---
 interface ICustomAppBar {
     t(key, opts?): Function;
+    isLogged: boolean;
 }
 
 // --- COMPONENT ---
-const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
+const CustomAppBar: React.FC<ICustomAppBar> = ({ t, isLogged }) => {
     //Contexts
     const classes = useStyles();
-    const authContext = useAuthContext();
 
     //Vars
     const logo = '/images/logo192.png';
@@ -74,7 +73,8 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
                     <img src={turkuLogo} height="44px" />
                 </ButtonBase>
                 <ButtonBase href="/" className={classes.homeButton}>
-                    <img src={logo} height="44px" />
+                    {/* <img src={logo} height="44px" /> */}
+                    <div id="logo">Prikka</div>
                 </ButtonBase>
 
                 {/* Space */}
@@ -82,7 +82,7 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
 
                 {/* Add memory */}
 
-                <Link href="/addmemory" passHref>
+                <Link href="/add_memory" passHref>
                     <Button
                         component="a"
                         variant="contained"
@@ -92,7 +92,7 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
                         aria-label="Add a new memory"
                         startIcon={<AddIcon />}
                     >
-                        Add Memory
+                        {t('menubar.addmemory')}
                     </Button>
                 </Link>
 
@@ -116,16 +116,18 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t }) => {
 
                 {/* Login / Account */}
                 <Typography variant="h6">
-                    {!authContext.isLogged ? (
-                        <Link href="/login" passHref>
-                            <Button component="a" className={classes.nav}>
-                                {t('menubar.login')}
-                            </Button>
-                        </Link>
-                    ) : (
+                    {isLogged ? (
                         <Box className={classes.nav}>
                             <AccountMenu />
                         </Box>
+                    ) : (
+                        <Button
+                            component="a"
+                            href={process.env.BACK_URL + process.env.LOGIN_URL}
+                            className={classes.nav}
+                        >
+                            {t('menubar.login')}
+                        </Button>
                     )}
                 </Typography>
 

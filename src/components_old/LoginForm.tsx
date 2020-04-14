@@ -1,19 +1,21 @@
 /**
- * Register form
- * May not be used if switched to auth0 authentication
- *
+ * Login form
+ * Maybe not use if we switch to Auth0 authentication
  */
 
 // --- IMPORTS ---
 import React from 'react';
+import Link from 'next/link';
 
 import { apis } from '../services/apis';
-import Link from 'next/link';
-import { withTranslation } from '../i18n';
-import { Button, TextField, Grid, Typography } from '@material-ui/core';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { AxiosResponse, AxiosError } from 'axios';
+import { withTranslation } from '../i18n';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
+
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Button, TextField, Grid, Typography } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 // --- STYLES ---
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,27 +53,18 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-interface IRegisterForm {
-    t(key: string, opts?): Function;
-}
 // --- COMPONENT ---
-const RegisterForm: React.FC<IRegisterForm> = ({ t }) => {
+const LoginForm = ({ t }) => {
     //Contexts
     const classes = useStyles();
     const snackbarContext = useSnackbarContext();
 
     //States
     const [email, setEmail] = React.useState<string>('');
-    const [username, setUsername] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
-    };
-    const handleUsernameChange = (
-        event: React.ChangeEvent<HTMLInputElement>,
-    ) => {
-        setUsername(event.target.value);
     };
 
     const handlePasswordChange = (
@@ -81,14 +74,14 @@ const RegisterForm: React.FC<IRegisterForm> = ({ t }) => {
     };
     //Functions
     const handleSubmit = () => {
-        const model = { email: email, username: username, password: password };
+        const model = { email: email, password: password };
         //MODEL SENT
         console.log('REQUEST: MODEL SENT:');
         console.log(model);
         apis.auth
-            .localRegister(model)
+            .localLogin(model)
             .then((res: AxiosResponse) => {
-                snackbarContext.displaySuccessSnackbar('Registered');
+                snackbarContext.displaySuccessSnackbar('Logged In');
             })
             .catch((err: AxiosError) => {
                 snackbarContext.displayErrorSnackbar('Error');
@@ -106,13 +99,38 @@ const RegisterForm: React.FC<IRegisterForm> = ({ t }) => {
                             className={classes.logo}
                         />
                     </Grid>
+
+                    {/* Titre */}
                     <Grid item xs={12}>
-                        <Typography variant="h4">
-                            {t('form.register')}
-                        </Typography>
+                        <Typography variant="h4">{t('form.login')}</Typography>
+                    </Grid>
+                    <Grid item xs={2} />
+
+                    {/* Facebook button */}
+                    <Grid item xs={4}>
+                        <Button
+                            variant="outlined"
+                            className={classes.facebookButton}
+                            startIcon={<FontAwesomeIcon icon={faFacebook} />}
+                        >
+                            Facebook
+                        </Button>
                     </Grid>
 
+                    {/* Google Button */}
+                    <Grid item xs={4}>
+                        <Button
+                            variant="outlined"
+                            className={classes.googleButton}
+                            startIcon={<FontAwesomeIcon icon={faGoogle} />}
+                        >
+                            Google
+                        </Button>
+                    </Grid>
+                    <Grid item xs={2} />
+
                     {/* --- FORM --- */}
+                    {/* Email */}
                     <Grid item xs={12}>
                         <form noValidate autoComplete="off">
                             <div>
@@ -125,18 +143,9 @@ const RegisterForm: React.FC<IRegisterForm> = ({ t }) => {
                                     onChange={handleEmailChange}
                                 />
                             </div>
+                            <br />
 
-                            <div>
-                                <TextField
-                                    required
-                                    id="outlined-basic"
-                                    label="Username"
-                                    variant="outlined"
-                                    value={username}
-                                    onChange={handleUsernameChange}
-                                />
-                            </div>
-
+                            {/* Password */}
                             <div>
                                 <TextField
                                     required
@@ -150,24 +159,32 @@ const RegisterForm: React.FC<IRegisterForm> = ({ t }) => {
                             </div>
                         </form>
                     </Grid>
-
+                    {/* Submit button */}
                     <Grid item xs={12}>
                         <Button
                             variant="outlined"
                             color="primary"
                             onClick={handleSubmit}
                         >
-                            {t('form.register')}
+                            {t('form.login')}
                         </Button>
                     </Grid>
 
+                    {/* Forgotten password button */}
+                    <Grid item xs={12}>
+                        <Button variant="text">
+                            {t('form.forgottenpassword')}
+                        </Button>
+                    </Grid>
+
+                    {/* Register button */}
                     <Grid item xs={12}>
                         <Typography variant="body1">
-                            {t('form.alreadyRegistered')}
+                            {t('form.notRegistered')}
                         </Typography>
-                        <Link href="/login" passHref>
+                        <Link href="/register" passHref>
                             <Button component="a" className={classes.button}>
-                                {t('form.login')}
+                                {t('form.register')}
                             </Button>
                         </Link>
                     </Grid>
@@ -177,4 +194,4 @@ const RegisterForm: React.FC<IRegisterForm> = ({ t }) => {
     );
 };
 
-export default withTranslation('common')(RegisterForm as any);
+export default withTranslation('form')(LoginForm as any);

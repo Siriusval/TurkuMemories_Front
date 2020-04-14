@@ -15,9 +15,23 @@ import MapboxContainer from '../components/MapboxContainer';
 import PinnedSubheaderList from '../components/PinnedSubheaderList';
 import MemoryDetails from '../components/MemoryDetails';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
+import Head from 'next/head';
+import { NextPage } from 'next';
 
 // --- COMPONENT ---
-const Index = ({ t, memories, categories }) => {
+interface IIndex {
+    t(key: string, opts?: any): string;
+    memorie: Memories;
+    categories: Categories;
+    isLogged: boolean;
+}
+
+const Index: NextPage<IIndex & any> = ({
+    t,
+    memories,
+    categories,
+    isLogged,
+}) => {
     //Contexts
     const snackbarContext = useSnackbarContext();
 
@@ -45,11 +59,11 @@ const Index = ({ t, memories, categories }) => {
         } else {
             apis.memories
                 .getMemoriesByCategory(categoryId)
-                .then(res => {
+                .then((res) => {
                     setFilteredMemories(res.data);
                     snackbarContext.displaySuccessSnackbar('Filter Applied');
                 })
-                .catch(err => {
+                .catch((err) => {
                     snackbarContext.displayWarningSnackbar(
                         'No memories in this category',
                     );
@@ -64,6 +78,10 @@ const Index = ({ t, memories, categories }) => {
     };
     return (
         <div>
+            <Head>
+                <title>Home</title>
+            </Head>
+
             {/* Only rendered client side */}
             <NoSsr>
                 <MapboxContainer
@@ -94,34 +112,31 @@ const Index = ({ t, memories, categories }) => {
  * Fetch memories from back
  */
 Index.getInitialProps = async ({ req }) => {
-    const currentLanguage: string = req ? req.language : i18n.language;
-
     let memories: Memories;
     await apis.memories
         .getAllMemories()
-        .then(res => {
+        .then((res) => {
             memories = res.data;
 
             console.log('Memories fetched: ', memories.count);
         })
-        .catch(err => console.error('Error fetching memories'));
+        .catch((err) => console.error('Error fetching memories', err));
 
     let categories: Categories;
     await apis.categories
         .getAllCategories()
-        .then(res => {
+        .then((res) => {
             categories = res.data.categories;
 
             console.log('Categories fetched: ', categories.length);
         })
-        .catch(err => console.error('Error fetching categories'));
+        .catch((err) => console.error('Error fetching categories'));
 
     return {
-        namespacesRequired: ['common'],
-        currentLanguage,
+        namespacesRequired: ['common', 'index'],
         memories,
         categories,
     };
 };
 
-export default withTranslation('common')(Index as any);
+export default withTranslation('index')(Index as any);

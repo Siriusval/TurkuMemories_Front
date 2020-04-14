@@ -25,8 +25,12 @@ export default class MyDocument extends Document {
                         name="viewport"
                         content="width=device-width, initial-scale=1.0"
                     />
-                    <link rel="stylesheet" href="app.css" />
                     <meta name="theme-color" content="#ffffff" />
+                    {/* Logo font */}
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap"
+                        rel="stylesheet"
+                    />
                     {/* Material-ui : Roboto Font */}
                     <link
                         rel="stylesheet"
@@ -47,7 +51,7 @@ export default class MyDocument extends Document {
     }
 }
 
-MyDocument.getInitialProps = async ctx => {
+MyDocument.getInitialProps = async (ctx) => {
     // Resolution order
     //
     // On the server:
@@ -76,7 +80,7 @@ MyDocument.getInitialProps = async ctx => {
 
     ctx.renderPage = () =>
         originalRenderPage({
-            enhanceApp: App => props => sheets.collect(<App {...props} />),
+            enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
         });
 
     const initialProps = await Document.getInitialProps(ctx);

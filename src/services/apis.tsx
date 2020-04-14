@@ -5,10 +5,21 @@
  * Naming convention : https://restfulapi.net/resource-naming/
  */
 import axios, { AxiosResponse } from 'axios';
+import https from 'https';
+
+const agent = new https.Agent({
+    rejectUnauthorized: false,
+});
 
 const api = axios.create({
-    baseURL: 'http://localhost:4500/api',
+    baseURL: `${process.env.FRONT_URL}/api`,
+    httpsAgent: agent,
 });
+
+export const setCookies = (cookie) => {
+    api.defaults.headers.common.Cookie = cookie;
+};
+
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 /* --- MEMORIES MANAGEMENT ---
@@ -48,10 +59,18 @@ const deleteMemoryById = (id: any) =>
  */
 const getAllMemories = () => api.get(`${basePathMemories}/memories`);
 
+/**
+ * GET : get all memories from a specific category
+ */
 const getMemoriesByCategory = (categoryId: any) =>
     api.get(`${basePathMemories}/memories`, {
         params: { categoryId: categoryId },
     });
+
+/**
+ * GET : get all memories from one user
+ */
+const getUserMemories = () => api.get(`${basePathMemories}/mymemories`);
 
 /**
  * POST : create a report for a memory
@@ -113,6 +132,13 @@ const facebookLogin = (payload: any) =>
 const facebookRedirect = (payload: any) =>
     api.post(`${basePathAuth}/redirect`, payload);
 
+/**
+ * GET : get if user is logged
+ */
+const isLogged = () => {
+    return api.get(`${basePathAuth}/logged`);
+};
+
 /* --- CATEGORIES MANAGEMENT ---
  *  api : /category-management
  */
@@ -140,6 +166,7 @@ export const apis = {
         updateMemoryById,
         deleteMemoryById,
         getAllMemories,
+        getUserMemories,
         createMemoryReport,
         getMemoryReportsById,
     },
@@ -151,6 +178,7 @@ export const apis = {
         googleRedirect,
         facebookLogin,
         facebookRedirect,
+        isLogged,
     },
     categories: {
         createCategory,

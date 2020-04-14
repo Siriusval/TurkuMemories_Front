@@ -6,39 +6,46 @@
 
 // --- IMPORTS ---
 import React from 'react';
-import CustomAppBar from '../components/CustomAppBar';
 import { withTranslation } from '../i18n';
 import Link from 'next/link';
 import { Button, TextField, Typography } from '@material-ui/core';
 import Layout from '../components/Layout';
+import Head from 'next/head';
 
 // --- COMPONENT ---
-const Settings = ({ t }) => {
+const Settings = ({ t, isLogged }) => {
     return (
         <div id="settings-page">
-            <Layout>
-                <Typography variant="h3">Settings</Typography>
-                <div style={{ height: '5vh' }} />
-                <TextField
-                    disabled
-                    id="outlined-disabled"
-                    label="Username"
-                    defaultValue="Bob"
-                    variant="outlined"
-                />
-                <div style={{ height: '5vh' }} />
-                <TextField
-                    disabled
-                    id="outlined-disabled"
-                    label="Email"
-                    defaultValue="bob@bob.fi"
-                    variant="outlined"
-                />
-                <div style={{ height: '5vh' }} />
-                <Link href="#" passHref>
-                    <Button component="a">Change password</Button>
-                </Link>
-            </Layout>
+            {isLogged ? (
+                <div>
+                    <Head>
+                        <title>Settings</title>
+                    </Head>
+                    <Layout>
+                        <Typography variant="h3">{t('title')}</Typography>
+                        <div style={{ height: '5vh' }} />
+                        <TextField
+                            disabled
+                            id="outlined-disabled"
+                            label="Username"
+                            defaultValue="Bob"
+                            variant="outlined"
+                        />
+                        <div style={{ height: '5vh' }} />
+                        <TextField
+                            disabled
+                            id="outlined-disabled"
+                            label="Email"
+                            defaultValue="bob@bob.fi"
+                            variant="outlined"
+                        />
+                        <div style={{ height: '5vh' }} />
+                        <Link href="#" passHref>
+                            <Button component="a">{t('passchange')}</Button>
+                        </Link>
+                    </Layout>
+                </div>
+            ) : null}
         </div>
     );
 };
@@ -46,8 +53,8 @@ const Settings = ({ t }) => {
 // --- POPULATE PAGE ---
 Settings.getInitialProps = async ({ req }) => {
     return {
-        namespacesRequired: ['common'],
+        namespacesRequired: ['common', 'settings'],
     };
 };
 
-export default withTranslation('common')(Settings as any);
+export default withTranslation('settings')(Settings as any);

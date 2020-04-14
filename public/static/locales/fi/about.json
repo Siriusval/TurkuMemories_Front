@@ -1,0 +1,42 @@
+{
+    "title": "Tietoa meistä",
+    "intro": {
+        "p1": "\tOnko sinulla muisto tai kiinnostava tarina, jonka haluaisit jakaa muille? Tällä verkkosivusolla voit kertoa omia Turkuun liittyviä muistojasi, tapahtumia ja kaupunkitarinoita. Halutessasi voit myös jakaa muistoosi tai tarinaasi liittyvän kuvan. Jakamasi materiaali on muiden nähtävillä ja tutustuttavana. Kaikki materiaali tallennetaan Turun musekeskuksen arkistokoelmaan, osaksi meidän yhteistä kulttuuriperintöämme.",
+        "p2": "Tänne voit tallentaa muistojasi ja liittää ne tapahtumien paikkoihin. Muistosi auttavat meitä syventymään Turun lähihistoriaan ja kokemaan miltä kaupungissa on aiemmin näyttänyt."
+    },
+    "how": {
+        "title": "Kuinka toimia",
+        "p1": "Kirjaudu sisään sähköpostilla tai Facebook/Google-tunnuksilla",
+        "p2": "Klikkaa \"lisää muisto\" -painiketta luodaksesi muiston",
+        "p3": "Kirjoita tarinasi, lisää otsikko",
+        "p4": "Halutessasi lisää yksi muistoon liittyvä kuva",
+        "p5": "Merkitse paikka kartalla, johon muisto liittyy ",
+        "p6": "Julkaise muisto"
+    },
+    "notice": {
+        "p1": "Ihmisten yksityisyyttä tulee suojella. Jos muistoosi liittyy muita ihmisiä, älä kerro heidän koko nimiään, vaan käytä lempinimiä tai etunimiä. Poikkeuksen muodostaa julkisuuden henkilö, josta voit käyttää kokonimeä.",
+        "p2": "Mikäli lisäät muistoon valokuvan, niin varmista, että sinulla on oikeus sen julkaisuun.",
+        "p3": "Museokeskuksella on oikeus poistaa sivustolta materiaali, joka on ilmoitettu epäasialliseksi."
+    },
+    "opportunity": {
+        "title": "Hyvä mahdollisuus",
+        "p1": "muistella menneitä ja lueskella muiden jakamia tarinoita.",
+        "p2": "ottaa selvää oman lähialueen historiasta.",
+        "p3": "Tutustua Turkuun ja nähdä kaupunki uusin silmin."
+    },
+    "who": {
+        "title": "Lisätietoa meistä",
+        "p1": "Turun museokeskus vastaa Turun kaupungin kulttuuri-, taide- ja luonnonhistoriallisesta museotoiminnasta. Se muodostaa ja ylläpitää esine- ja taidekokoelmia sekä edistää kulttuuriympäristön säilymistä. Museokeskus välittää kulttuuriperintöä sekä visuaalista kulttuuria: tutkimustyö ja tiedon jakaminen näyttelyiden ja julkaisujen kautta ovat museotoiminnan perusta."
+    },
+    "rights": {
+        "title": "Oikeudet tallennettuun materiaaliin",
+        "p1": "Tallentamalla materiaalia verkkosivustolle tallentaja antaa Turun muesokeskukselle täydet oikeudet materiaaliin. Turun museokeskus käyttää materiaalia omassa toiminassaan sekä mahdollistaa sen käytettävyyden muille CC by nd 4.0 mukaisesti.",
+        "p2": "CC by 4.0 tarkoittaa sitä, että materiaalia saa jakaa avoimesti, ts kopioida ja levittää sitä edelleen missä tahansa välineessä ja muodossa ja myös kaupallisesti.",
+        "p3": "Turun museokeskus käsittelee henkilötietoja Tietosuojalaki 4 § (art 6e) ja 6§ (art 9) mukaisin perustein. "
+    },
+    "what": {
+        "title": "Minkälaisia muistoja voit lisätä sivustolle?",
+        "p1": "Voit lisätä sivustolle minkä tahansa Turkuun liittyvän henkilökohtaisen muistosi ja kiinnnittää sen tapahtumapaikkaansa. Voit myös jakaa sivustolla kokoemasi tai kuulemasi mielenkiintoiset kaupunitarinat.",
+        "p2": "Kaikki prikka.fi-verkkosivustolle talletettu materiaali liitetään osaksi Museokeskuksen arkistokokelmaa. Tallentamalla materiaalia hyväksyt sen tutkimus- ja esityskäytön sekä muun käytön CC by 4.0 mukaisesti."
+    }
+}

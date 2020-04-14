@@ -9,27 +9,44 @@
 import React from 'react';
 import { withTranslation } from '../i18n';
 import Layout from '../components/Layout';
-import { Typography, Button } from '@material-ui/core';
-import { useSnackbarContext } from '../contexts/SnackbarContext';
+import {
+    Typography,
+    Paper,
+    makeStyles,
+    createStyles,
+    Theme,
+} from '@material-ui/core';
 import { NextPage, NextPageContext } from 'next';
+import Head from 'next/head';
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        paper: {
+            padding: '1.5rem',
+            borderRadius: '8px',
+            backgroundColor: theme.palette.background.paper,
+        },
+    }),
+);
 
 // --- COMPONENT ---
 const About: NextPage<any> = ({ t }) => {
-    return (
-        <div>
-            <Layout>
-                {/* Title */}
-                <Typography variant="h3">{t('title')}</Typography>
-                <div style={{ height: '5vh' }} />
+    const classes = useStyles();
 
-                {/* Intro */}
+    const Intro = () => {
+        return (
+            <Paper elevation={3} className={classes.paper}>
                 <Typography variant="body1">{t('intro.p1')}</Typography>
                 <br />
 
                 <Typography variant="body1">{t('intro.p2')}</Typography>
-                <div style={{ height: '5vh' }} />
+            </Paper>
+        );
+    };
 
-                {/* How it works */}
+    const HowItWorks = () => {
+        return (
+            <Paper elevation={3} className={classes.paper}>
                 <Typography variant="h5" gutterBottom>
                     {t('how.title')}
                 </Typography>
@@ -59,10 +76,41 @@ const About: NextPage<any> = ({ t }) => {
                             {t('how.p5')}
                         </Typography>
                     </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('how.p6')}
+                        </Typography>
+                    </li>
                 </ul>
-                <div style={{ height: '5vh' }} />
+            </Paper>
+        );
+    };
 
-                {/* Good opportunity */}
+    const Notice = () => {
+        return (
+            <ul>
+                <li>
+                    <Typography variant="body1" gutterBottom>
+                        {t('notice.p1')}
+                    </Typography>
+                </li>
+                <li>
+                    <Typography variant="body1" gutterBottom>
+                        {t('notice.p2')}
+                    </Typography>
+                </li>
+                <li>
+                    <Typography variant="body1" gutterBottom>
+                        {t('notice.p3')}
+                    </Typography>
+                </li>
+            </ul>
+        );
+    };
+
+    const GoodOpportunity = () => {
+        return (
+            <Paper elevation={3} className={classes.paper}>
                 <Typography variant="h5" gutterBottom>
                     {t('opportunity.title')}
                 </Typography>
@@ -83,10 +131,13 @@ const About: NextPage<any> = ({ t }) => {
                         </Typography>
                     </li>
                 </ul>
+            </Paper>
+        );
+    };
 
-                <div style={{ height: '5vh' }} />
-
-                {/* Who are we */}
+    const WhoAreWe = () => {
+        return (
+            <Paper elevation={3} className={classes.paper}>
                 <Typography variant="h5" gutterBottom>
                     {t('who.title')}
                 </Typography>
@@ -95,14 +146,57 @@ const About: NextPage<any> = ({ t }) => {
                 </Typography>
                 <div style={{ height: '5vh' }} />
 
-                {/* What kind of memories */}
+                {/* Rights to content */}
+                <Typography variant="h5" gutterBottom>
+                    {t('rights.title')}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {t('rights.p1')}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {t('rights.p2')}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    {t('rights.p3')}
+                </Typography>
+            </Paper>
+        );
+    };
+
+    const WhatKindOfMemory = () => {
+        return (
+            <Paper elevation={3} className={classes.paper}>
                 <Typography variant="h5" gutterBottom>
                     {t('what.title')}
                 </Typography>
                 <Typography variant="body1" gutterBottom>
                     {t('what.p1')}
                 </Typography>
+            </Paper>
+        );
+    };
+
+    return (
+        <div>
+            <Head>
+                <title>About</title>
+            </Head>
+            <Layout>
+                {/* Title */}
+                <Typography variant="h3" gutterBottom>
+                    {t('title')}
+                </Typography>
+                <Intro />
                 <div style={{ height: '5vh' }} />
+                <HowItWorks />
+                <div style={{ height: '5vh' }} />
+                {/*<Notice />*/}
+                {/* <div style={{ height: '5vh' }} />*/}
+                <GoodOpportunity />
+                <div style={{ height: '5vh' }} />
+                <WhoAreWe />>
+                <div style={{ height: '5vh' }} />
+                <WhatKindOfMemory />
             </Layout>
         </div>
     );

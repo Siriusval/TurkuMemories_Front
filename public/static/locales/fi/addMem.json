@@ -1,0 +1,13 @@
+{
+    "addmemory": {
+        "title": "Lisää uusi muisto",
+        "warning":"Varoitus: Et ole kirjautunut sisään, muistosi tullaan julkaisemaan \"Nimettömänä\"",
+        "info_title": "Tiedot",
+        "title_PH": "Otsikko",
+        "category_PH": "Kategoria",
+        "description_PH": "Kuvaus",
+        "map_title": "Sijainti",
+        "continue_button": "Lähetä",
+        "success": "Muisto luotu"
+    }
+}

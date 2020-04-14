@@ -81,7 +81,7 @@ const PinpointMap: React.FC<IPinpointMap> = ({
                     bottom: 30,
                 }}
             >
-                <NavigationControl />
+                <NavigationControl showCompass={false} />
             </div>
             {/* Marker */}
             {marker !== null ? (

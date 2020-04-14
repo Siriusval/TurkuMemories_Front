@@ -81,7 +81,7 @@ const MapboxContainer: React.FC<IMapboxContainer> = ({
     };
 
     const renderMarkers = () => {
-        return memories['rows'].map(memory => {
+        return memories['rows'].map((memory) => {
             const markerClass =
                 memory === selectedMemory
                     ? classes.selectedMarker
@@ -94,7 +94,7 @@ const MapboxContainer: React.FC<IMapboxContainer> = ({
                 >
                     <div
                         className={markerClass}
-                        onClick={e => {
+                        onClick={(e) => {
                             handleMarkerClick(e, memory);
                         }}
                     />
@@ -140,7 +140,7 @@ const MapboxContainer: React.FC<IMapboxContainer> = ({
                     bottom: 30,
                 }}
             >
-                <NavigationControl />
+                <NavigationControl showCompass={false} />
             </div>
 
             {/* Render markers */}

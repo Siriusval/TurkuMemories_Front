@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
         formControl: {
             margin: theme.spacing(1),
             minWidth: 120,
+            verticalAlign: 'middle',
         },
         selectEmpty: {
             marginTop: theme.spacing(2),
@@ -20,11 +21,15 @@ const useStyles = makeStyles((theme: Theme) =>
 interface ICategorySelect {
     categories: Categories;
     handleCategoryFilterChange(categoryId: string): void;
+    required?: boolean;
+    fullWidth?: boolean;
 }
 
 const CategorySelect: React.FC<ICategorySelect> = ({
     categories,
     handleCategoryFilterChange,
+    required = false,
+    fullWidth = false,
 }) => {
     //Contexts
     const classes = useStyles();
@@ -32,43 +37,42 @@ const CategorySelect: React.FC<ICategorySelect> = ({
     //States
     const [category, setCategory] = React.useState('');
 
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleChange = (event: React.ChangeEvent<any>) => {
         const categoryId: string = event.target.value as string;
         setCategory(categoryId);
         handleCategoryFilterChange(categoryId);
     };
     return (
-        <div>
-            <FormControl
-                variant="outlined"
-                className={classes.formControl}
-                size="small"
+        <FormControl
+            variant="outlined"
+            className={classes.formControl}
+            size="small"
+            fullWidth={fullWidth}
+            style={{ margin: '0px' }}
+            required={required}
+        >
+            <InputLabel id="demo-simple-select-outlined-label">
+                Category
+            </InputLabel>
+            <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={category}
+                onChange={handleChange}
+                label="Category"
             >
-                <InputLabel id="demo-simple-select-outlined-label">
-                    Category
-                </InputLabel>
-                <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value={category}
-                    onChange={handleChange}
-                    label="Category"
-                >
-                    <MenuItem value="">All</MenuItem>
-                    {categories
-                        ? categories.map(
-                              (category: Category, index: number) => {
-                                  return (
-                                      <MenuItem key={index} value={category.id}>
-                                          {category.name}
-                                      </MenuItem>
-                                  );
-                              },
-                          )
-                        : null}
-                </Select>
-            </FormControl>
-        </div>
+                <MenuItem value="">All</MenuItem>
+                {categories
+                    ? categories.map((category: Category, index: number) => {
+                          return (
+                              <MenuItem key={index} value={category.id}>
+                                  {category.name}
+                              </MenuItem>
+                          );
+                      })
+                    : null}
+            </Select>
+        </FormControl>
     );
 };
 

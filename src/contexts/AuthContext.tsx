@@ -1,41 +1,51 @@
 /**
- * Auth context
- * contain info if user is logged or not
- * USED FOR TESTING, WILL BE DELETED
+ * Auth Context
+ * User status:
+ * isLogged : if user is logged in
+ * isAdmin : if user is an administrator
  */
 
-import React, { ReactNode, useState } from 'react';
-interface IAuthContext {
+// --- IMPORTS ---
+import React, { useState, ReactNode } from 'react';
+
+interface AuthContextInterface {
     isLogged: boolean;
-    login(): void;
-    logout(): void;
+    isAdmin: boolean;
+    setIsLogged(newStatus: boolean): void;
+    setIsAdmin(newStatus: boolean): void;
 }
+// --- CONTEXT ---
+const AuthContext = React.createContext<AuthContextInterface | undefined>(
+    undefined,
+);
 
-const AuthContext = React.createContext<IAuthContext | undefined>(undefined);
-
+// --- HOOK ---
 export const useAuthContext = () => {
     const c = React.useContext(AuthContext);
-    if (!c) throw new Error('useCtx must be inside a Provider with a value');
+    if (!c)
+        throw new Error(
+            'useAuthContext must be inside a Provider with a value',
+        );
     return c;
 };
 
-export const AuthProvider: React.FC<ReactNode | any> = props => {
-    const [isLogged, setIsLogged] = useState<boolean>(props.isLogged);
-
-    const login = () => {
-        setIsLogged(true);
-    };
-
-    const logout = () => {
-        setIsLogged(false);
-    };
+// --- PROVIDER ---
+interface IAuthProvider {
+    isLogged: boolean;
+    isAdmin: boolean;
+}
+export const AuthProvider: React.FC<ReactNode & IAuthProvider> = (props) => {
+    //States
+    const [isLogged, setIsLogged] = useState<boolean>(props.isLogged || false);
+    const [isAdmin, setIsAdmin] = useState<boolean>(props.isAdmin || false);
 
     return (
         <AuthContext.Provider
             value={{
                 isLogged,
-                login,
-                logout,
+                setIsLogged,
+                isAdmin,
+                setIsAdmin,
             }}
         >
             {props.children}

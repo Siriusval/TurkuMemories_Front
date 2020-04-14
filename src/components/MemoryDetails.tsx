@@ -23,8 +23,10 @@ import {
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ShareSharpIcon from '@material-ui/icons/ShareSharp';
 import FavoriteSharpIcon from '@material-ui/icons/FavoriteSharp';
+
 import { Memory } from '../types';
 import { red, blue } from '@material-ui/core/colors';
+import ReportDialog from './ReportDialog';
 
 import Popup from "reactjs-popup"
 import {EmailIcon, FacebookIcon, TwitterIcon, WhatsappIcon, EmailShareButton, FacebookShareButton, TwitterShareButton, WhatsappShareButton} from 'react-share';
@@ -125,6 +127,7 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                             </MuiThemeProvider>
                         </Grid>
                     </Grid>
+                    <ReportDialog memory={selectedMemory} />
                 </ListItem>
             </List>
         </Paper>

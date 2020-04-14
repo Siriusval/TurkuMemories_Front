@@ -9,8 +9,9 @@
  */
 
 // --- IMPORTS ---
-import React from 'react';
+import React, { useEffect } from 'react';
 import Router from 'next/router';
+import { withTranslation } from '../i18n';
 import {
     Button,
     Grow,
@@ -20,10 +21,12 @@ import {
     MenuList,
     ClickAwayListener,
 } from '@material-ui/core';
-import { withTranslation } from '../i18n';
 
+interface IAccountMenu {
+    isAdmin: boolean;
+}
 // --- COMPONENT ---
-const AccountMenu: React.FC = () => {
+const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
     //State
     const [open, setOpen] = React.useState(false);
 
@@ -35,7 +38,7 @@ const AccountMenu: React.FC = () => {
      * Toggle menu on or off
      */
     const handleToggle = () => {
-        setOpen(prevOpen => !prevOpen);
+        setOpen((prevOpen) => !prevOpen);
     };
 
     /**
@@ -63,7 +66,7 @@ const AccountMenu: React.FC = () => {
 
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+    useEffect(() => {
         if (prevOpen.current === true && open === false) {
             anchorRef.current!.focus();
         }
@@ -77,20 +80,13 @@ const AccountMenu: React.FC = () => {
     };
     const handleMymemoriesClick = (event: React.MouseEvent<EventTarget>) => {
         handleClose(event);
-        Router.push('/mymemories');
+        Router.push('/my_memories');
     };
     const handleAdminClick = (event: React.MouseEvent<EventTarget>) => {
         handleClose(event);
-        Router.push('/admin'); //TODO : logout
+        Router.push('/admin');
     };
-    const handleLoginClick = (event: React.MouseEvent<EventTarget>) => {
-        handleClose(event);
-        Router.push('/login');
-    };
-    const handleLogoutClick = (event: React.MouseEvent<EventTarget>) => {
-        handleClose(event);
-        Router.push('/'); //TODO : logout
-    };
+
     return (
         <div id="account-menu">
             {/* Account button */}
@@ -133,16 +129,22 @@ const AccountMenu: React.FC = () => {
                                     <MenuItem onClick={handleMymemoriesClick}>
                                         My Memories
                                     </MenuItem>
-                                    <MenuItem onClick={handleAdminClick}>
-                                        Admin
-                                    </MenuItem>
+                                    {isAdmin ? (
+                                        <MenuItem onClick={handleAdminClick}>
+                                            Admin
+                                        </MenuItem>
+                                    ) : null}
+
                                     <MenuItem onClick={handleSettingsClick}>
                                         Settings
                                     </MenuItem>
-                                    <MenuItem onClick={handleLoginClick}>
-                                        Login
-                                    </MenuItem>
-                                    <MenuItem onClick={handleLogoutClick}>
+                                    <MenuItem
+                                        component="a"
+                                        href={
+                                            process.env.BACK_URL +
+                                            process.env.LOGOUT_URL
+                                        }
+                                    >
                                         Logout
                                     </MenuItem>
                                 </MenuList>
@@ -155,4 +157,4 @@ const AccountMenu: React.FC = () => {
     );
 };
 
-export default withTranslation('common')(AccountMenu);
+export default withTranslation('common')(AccountMenu as any);

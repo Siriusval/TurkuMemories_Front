@@ -82,7 +82,7 @@ const CustomAppBar: React.FC<ICustomAppBar> = ({ t, isLogged }) => {
 
                 {/* Add memory */}
 
-                <Link href="/addmemory" passHref>
+                <Link href="/add_memory" passHref>
                     <Button
                         component="a"
                         variant="contained"

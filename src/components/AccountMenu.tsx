@@ -80,7 +80,7 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
     };
     const handleMymemoriesClick = (event: React.MouseEvent<EventTarget>) => {
         handleClose(event);
-        Router.push('/mymemories');
+        Router.push('/my_memories');
     };
     const handleAdminClick = (event: React.MouseEvent<EventTarget>) => {
         handleClose(event);

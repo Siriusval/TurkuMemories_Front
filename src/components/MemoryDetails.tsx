@@ -76,6 +76,9 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
 }) => {
     const classes = useStyles();
 
+    const shareUrl = `${process.env.FRONT_URL}/?memory=${selectedMemory.id}`;
+    const shareTitle = 'Check out this memory at Prikka';
+
     return (
         <Paper elevation={4} className={classes.root}>
             <List>
@@ -135,39 +138,50 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                                 modal
                             >
                                 <div>
-                                    <h2
-                                        style={{
-                                            textAlign: 'center',
-                                            borderBottomStyle: 'solid',
-                                            borderBottomColor: 'grey',
-                                        }}
-                                    >
+                                    <Typography variant="h4">
                                         Share this memory on social media
-                                    </h2>
-                                    <EmailShareButton
-                                        url={`http://localhost:3000/?memory=${selectedMemory.id}`}
-                                        body="Check out this memory at Prikka"
+                                    </Typography>
+                                    <Divider />
+
+                                    <Grid
+                                        container
+                                        direction="row"
+                                        justify="space-evenly"
+                                        alignItems="center"
                                     >
-                                        <EmailIcon size={50} round />
-                                    </EmailShareButton>
-                                    <WhatsappShareButton
-                                        url={`http://localhost:3000/?memory=${selectedMemory.id}`}
-                                        title="Check out this memory at Prikka"
-                                    >
-                                        <WhatsappIcon size={50} round />
-                                    </WhatsappShareButton>
-                                    <FacebookShareButton
-                                        url={`http://localhost:3000/?memory=${selectedMemory.id}`}
-                                        quote="Check out this memory at Prikka"
-                                    >
-                                        <FacebookIcon size={50} round />
-                                    </FacebookShareButton>
-                                    <TwitterShareButton
-                                        url={`http://localhost:3000/?memory=${selectedMemory.id}`}
-                                        title="Check out this memory at Prikka"
-                                    >
-                                        <TwitterIcon size={50} round />
-                                    </TwitterShareButton>
+                                        <Grid item>
+                                            <EmailShareButton
+                                                url={shareUrl}
+                                                body={shareTitle}
+                                            >
+                                                <EmailIcon size={50} round />
+                                            </EmailShareButton>
+                                        </Grid>
+                                        <Grid item>
+                                            <WhatsappShareButton
+                                                url={shareUrl}
+                                                title={shareTitle}
+                                            >
+                                                <WhatsappIcon size={50} round />
+                                            </WhatsappShareButton>
+                                        </Grid>
+                                        <Grid item>
+                                            <FacebookShareButton
+                                                url={shareUrl}
+                                                quote={shareTitle}
+                                            >
+                                                <FacebookIcon size={50} round />
+                                            </FacebookShareButton>
+                                        </Grid>
+                                        <Grid item>
+                                            <TwitterShareButton
+                                                url={shareUrl}
+                                                title={shareTitle}
+                                            >
+                                                <TwitterIcon size={50} round />
+                                            </TwitterShareButton>
+                                        </Grid>
+                                    </Grid>
                                 </div>
                             </Popup>
                         </Grid>

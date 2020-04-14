@@ -175,116 +175,6 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
         setDescription(event.target.value);
     };
 
-    //Child Components
-    const AddMemoryForm = () => {
-        return (
-            <Grid item xs={6}>
-                <Paper className={classes.paper} elevation={4}>
-                    <Box className={classes.box}>
-                        {/* Informations */}
-                        <Typography variant="h6" className={classes.item}>
-                            {t('info_title')}
-                        </Typography>
-
-                        <form noValidate autoComplete="off">
-                            <TextField
-                                className={classes.item}
-                                required
-                                id="outlined-basic"
-                                label="Title"
-                                variant="outlined"
-                                size="small"
-                                fullWidth
-                                value={title}
-                                onChange={handleTitleChange}
-                            />
-                            {/* 
-                    <TextField
-                        className={classes.item}
-                        required
-                        id="outlined-basic"
-                        label="Category"
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        value={category}
-                        onChange={handleCategoryChange}
-                    />
-                    */}
-                            <CategorySelect
-                                categories={categories}
-                                handleCategoryFilterChange={
-                                    handleCategoryFilterChange
-                                }
-                                required={true}
-                                fullWidth={true}
-                            />
-                            <div
-                                style={{
-                                    margin: '0px',
-                                    padding: '0px',
-                                    paddingBottom: '16px',
-                                }}
-                            ></div>
-
-                            <TextField
-                                id="outlined-multiline"
-                                label="Description"
-                                multiline
-                                rows="8"
-                                variant="outlined"
-                                size="small"
-                                fullWidth
-                                value={description}
-                                onChange={handleDescriptionChange}
-                                required
-                            />
-                            {/* <div className={classes.root}>
-                            <input
-                                accept="image/*"
-                                className={classes.input}
-                                id="contained-button-file"
-                                type="file"
-                                onChange={onChange}
-                            />
-                            <label htmlFor="contained-button-file">
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    component="span"
-                                >
-                                    Upload Image
-                                </Button>
-                                    {filename}
-                            </label>
-                        </div> */}
-                        </form>
-                    </Box>
-                </Paper>
-            </Grid>
-        );
-    };
-
-    const MapForm = () => {
-        return (
-            <Grid container item xs={6}>
-                <Paper className={classes.paper} elevation={4}>
-                    <Box className={classes.box}>
-                        {/* position */}
-                        <Typography variant="h6" className={classes.item}>
-                            {t('map_title')}
-                        </Typography>
-                        <PinpointMap
-                            handleClickPositionCallback={
-                                handleClickPositionCallback
-                            }
-                        />
-                    </Box>
-                </Paper>
-            </Grid>
-        );
-    };
-
     return (
         <div>
             <Head>
@@ -325,10 +215,115 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
                         spacing={2}
                     >
                         {/* LEFT ELEMENT */}
-                        <AddMemoryForm />
+                        {/* AddMemoryForm */}
+                        <Grid item xs={6}>
+                            <Paper className={classes.paper} elevation={4}>
+                                <Box className={classes.box}>
+                                    {/* Informations */}
+                                    <Typography
+                                        variant="h6"
+                                        className={classes.item}
+                                    >
+                                        {t('info_title')}
+                                    </Typography>
+
+                                    <form noValidate autoComplete="off">
+                                        <TextField
+                                            className={classes.item}
+                                            required
+                                            id="outlined-basic"
+                                            label="Title"
+                                            variant="outlined"
+                                            size="small"
+                                            fullWidth
+                                            value={title}
+                                            onChange={handleTitleChange}
+                                        />
+                                        {/* 
+                    <TextField
+                        className={classes.item}
+                        required
+                        id="outlined-basic"
+                        label="Category"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
+                        value={category}
+                        onChange={handleCategoryChange}
+                    />
+                    */}
+                                        <CategorySelect
+                                            categories={categories}
+                                            handleCategoryFilterChange={
+                                                handleCategoryFilterChange
+                                            }
+                                            required={true}
+                                            fullWidth={true}
+                                        />
+                                        <div
+                                            style={{
+                                                margin: '0px',
+                                                padding: '0px',
+                                                paddingBottom: '16px',
+                                            }}
+                                        ></div>
+
+                                        <TextField
+                                            id="outlined-multiline"
+                                            label="Description"
+                                            multiline
+                                            rows="8"
+                                            variant="outlined"
+                                            size="small"
+                                            fullWidth
+                                            value={description}
+                                            onChange={handleDescriptionChange}
+                                            required
+                                        />
+                                        {/* <div className={classes.root}>
+                            <input
+                                accept="image/*"
+                                className={classes.input}
+                                id="contained-button-file"
+                                type="file"
+                                onChange={onChange}
+                            />
+                            <label htmlFor="contained-button-file">
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    component="span"
+                                >
+                                    Upload Image
+                                </Button>
+                                    {filename}
+                            </label>
+                        </div> */}
+                                    </form>
+                                </Box>
+                            </Paper>
+                        </Grid>
 
                         {/* RIGHT ELEMENT */}
-                        <MapForm />
+                        {/* Map Form */}
+                        <Grid container item xs={6}>
+                            <Paper className={classes.paper} elevation={4}>
+                                <Box className={classes.box}>
+                                    {/* position */}
+                                    <Typography
+                                        variant="h6"
+                                        className={classes.item}
+                                    >
+                                        {t('map_title')}
+                                    </Typography>
+                                    <PinpointMap
+                                        handleClickPositionCallback={
+                                            handleClickPositionCallback
+                                        }
+                                    />
+                                </Box>
+                            </Paper>
+                        </Grid>
                     </Grid>
 
                     {/* SECOND ROW */}

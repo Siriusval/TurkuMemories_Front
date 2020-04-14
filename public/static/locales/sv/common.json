@@ -1,20 +1,18 @@
 {
-    "about": {
-        "title": "Välkommen",
-        "intro": "Här är flera information",
-        "who": "Vilka är vi",
-        "who_param1": "Vi är Åbo museum",
-        "who_param2": "balbalbal svenska balaa",
-        "what": "Vilken typ av minnen är här ?",
-        "what_param": "blalalalaball 6-1",
-        "how": "Hur lägger jag in ett minne ?",
-        "how_param": " - Google translate 2020"
-    },
     "menubar": {
         "home": "Hem",
-        "memories": "My Memories",
+        "memories": "Mina minnen",
         "about": "Om oss",
-        "addmemory": "Lägga till",
-        "login": "Logga In"
+        "addmemory": "Lägg till minnen",
+        "login": "Logga in",
+        "logout": "Logga ut"
+    },
+    "accountmenu": {
+        "navbar": "Konto",
+        "memories": "Mina minnen",
+        "admin": "Admin",
+        "settings": "Inställningar",
+        "log": "Logga in",
+        "logt": "Logga ut"
     }
 }

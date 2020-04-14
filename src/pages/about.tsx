@@ -88,23 +88,28 @@ const About: NextPage<any> = ({ t }) => {
 
     const Notice = () => {
         return (
-            <ul>
-                <li>
-                    <Typography variant="body1" gutterBottom>
-                        {t('notice.p1')}
-                    </Typography>
-                </li>
-                <li>
-                    <Typography variant="body1" gutterBottom>
-                        {t('notice.p2')}
-                    </Typography>
-                </li>
-                <li>
-                    <Typography variant="body1" gutterBottom>
-                        {t('notice.p3')}
-                    </Typography>
-                </li>
-            </ul>
+            <Paper elevation={3} className={classes.paper}>
+                <Typography variant="h5" gutterBottom>
+                    {t('notice.title')}
+                </Typography>
+                <ul>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('notice.p1')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('notice.p2')}
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography variant="body1" gutterBottom>
+                            {t('notice.p3')}
+                        </Typography>
+                    </li>
+                </ul>
+            </Paper>
         );
     };
 
@@ -190,11 +195,11 @@ const About: NextPage<any> = ({ t }) => {
                 <div style={{ height: '5vh' }} />
                 <HowItWorks />
                 <div style={{ height: '5vh' }} />
-                {/*<Notice />*/}
-                {/* <div style={{ height: '5vh' }} />*/}
+                <Notice />
+                <div style={{ height: '5vh' }} />
                 <GoodOpportunity />
                 <div style={{ height: '5vh' }} />
-                <WhoAreWe />>
+                <WhoAreWe />
                 <div style={{ height: '5vh' }} />
                 <WhatKindOfMemory />
             </Layout>

@@ -1,6 +1,7 @@
 {
     "title": "Tietoa meistä",
     "intro": {
+        "headliner":"Jaa muistojasi ja tarinoitas muille!",
         "p1": "\tOnko sinulla muisto tai kiinnostava tarina, jonka haluaisit jakaa muille? Tällä verkkosivusolla voit kertoa omia Turkuun liittyviä muistojasi, tapahtumia ja kaupunkitarinoita. Halutessasi voit myös jakaa muistoosi tai tarinaasi liittyvän kuvan. Jakamasi materiaali on muiden nähtävillä ja tutustuttavana. Kaikki materiaali tallennetaan Turun musekeskuksen arkistokoelmaan, osaksi meidän yhteistä kulttuuriperintöämme.",
         "p2": "Tänne voit tallentaa muistojasi ja liittää ne tapahtumien paikkoihin. Muistosi auttavat meitä syventymään Turun lähihistoriaan ja kokemaan miltä kaupungissa on aiemmin näyttänyt."
     },
@@ -14,6 +15,7 @@
         "p6": "Julkaise muisto"
     },
     "notice": {
+        "title": "Otathan huomioon että:",
         "p1": "Ihmisten yksityisyyttä tulee suojella. Jos muistoosi liittyy muita ihmisiä, älä kerro heidän koko nimiään, vaan käytä lempinimiä tai etunimiä. Poikkeuksen muodostaa julkisuuden henkilö, josta voit käyttää kokonimeä.",
         "p2": "Mikäli lisäät muistoon valokuvan, niin varmista, että sinulla on oikeus sen julkaisuun.",
         "p3": "Museokeskuksella on oikeus poistaa sivustolta materiaali, joka on ilmoitettu epäasialliseksi."

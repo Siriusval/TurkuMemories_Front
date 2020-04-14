@@ -1,0 +1,12 @@
+{
+
+    "title": "Lägg till ett nytt minne",
+    "warning":"Varning: Du är inte inloggad, dina minnen publiceras \"Anonymt\"",
+    "info_title": "Information",
+    "title_PH": "Rubrik",
+    "category_PH": "Kategori",
+    "description_PH": "beskrivning",
+    "map_title": "Plats",
+    "continue_button": "Skick in",
+    "success": "Minne skapat"
+}

@@ -83,6 +83,7 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
     const [filename, setFilename] = useState('');
     const [uploadedFile, setUploadedFile] = useState({});
 
+    //Adds filename when file is added
     // const onChange = (e) => {
     //     setFile(e.target.files[0]);
     //     setFilename(e.target.files[0].name);
@@ -232,7 +233,7 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
                                             className={classes.item}
                                             required
                                             id="outlined-basic"
-                                            label="Title"
+                                            label={t("title_PH")}
                                             variant="outlined"
                                             size="small"
                                             fullWidth
@@ -270,7 +271,7 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
 
                                         <TextField
                                             id="outlined-multiline"
-                                            label="Description"
+                                            label={t("description_PH")}
                                             multiline
                                             rows="8"
                                             variant="outlined"
@@ -281,24 +282,24 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
                                             required
                                         />
                                         {/* <div className={classes.root}>
-                            <input
-                                accept="image/*"
-                                className={classes.input}
-                                id="contained-button-file"
-                                type="file"
-                                onChange={onChange}
-                            />
-                            <label htmlFor="contained-button-file">
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    component="span"
-                                >
-                                    Upload Image
-                                </Button>
-                                    {filename}
-                            </label>
-                        </div> */}
+                                            <input
+                                                accept="image/*"
+                                                className={classes.input}
+                                                id="contained-button-file"
+                                                type="file"
+                                                onChange={onChange}
+                                            />
+                                            <label htmlFor="contained-button-file">
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    component="span"
+                                                >
+                                                    Upload Image
+                                                </Button>
+                                                    {filename}
+                                            </label>
+                                        </div> */}
                                     </form>
                                 </Box>
                             </Paper>

@@ -7,23 +7,6 @@
         "login": "Kirjaudu",
         "logout": "kirjaudu ulos"
     },
-    "form": {
-        "login": "Kirjaudu",
-        "username": "Käyttäjä",
-        "email": "Sähköposti",
-        "password": "Salasana",
-        "register": "Rekisteröidy",
-        "forgottenpassword": "Unohditko salasanasi?",
-        "notRegistered": "Etkö ole rekisteröitynyt?",
-        "alreadyRegistered": "Onko sinulla jo tili?"
-    },
-    "error": {
-        "err": "Virhe on tpahatunut",
-        "notfound": "Muistoja ei löytynyt",
-        "404": "404, Sivua ei löydy.",
-        "404_param": "Sivua jota etsit ei ole olemassa.",
-        "memory_creation_error": "Muiston luonnissa tapahtui virhe"
-    },
     "accountmenu": {
         "navbar": "Tili",
         "memories": "Muistoni",
@@ -31,12 +14,5 @@
         "settings": "Asetukset",
         "log": "Kirjaudu",
         "logt": "Kirjaudu ulos"
-    },
-    "settingspage": {
-        "stitle": "Asetukset",
-        "passchange": "Vaihda Salasana"
-    },
-    "memorypage": {
-        "myMemories": "Muistoni"
     }
 }

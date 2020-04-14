@@ -6,7 +6,7 @@
  */
 
 // --- IMPORTS ---
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { apis } from '../services/apis';
 import { i18n, withTranslation } from '../i18n';
 import { Memories, Memory, Categories } from '../types';
@@ -17,6 +17,7 @@ import MemoryDetails from '../components/MemoryDetails';
 import { useSnackbarContext } from '../contexts/SnackbarContext';
 import Head from 'next/head';
 import { NextPage } from 'next';
+import { Router, useRouter } from 'next/router';
 
 // --- COMPONENT ---
 interface IIndex {
@@ -24,6 +25,7 @@ interface IIndex {
     memorie: Memories;
     categories: Categories;
     isLogged: boolean;
+    selectedMemoryId: string;
 }
 
 const Index: NextPage<IIndex & any> = ({
@@ -31,9 +33,11 @@ const Index: NextPage<IIndex & any> = ({
     memories,
     categories,
     isLogged,
+    selectedMemoryId,
 }) => {
     //Contexts
     const snackbarContext = useSnackbarContext();
+    const router = useRouter();
 
     //States
     const [selectedMemory, setSelectedMemory] = useState<Memory>(null);
@@ -45,12 +49,17 @@ const Index: NextPage<IIndex & any> = ({
     );
     const [filteredMemories, setFilteredMemories] = useState<Memories>(null);
 
+    let queryString = '';
+
     //functions
     const handleSelectMemory = (memory: Memory) => {
         setSelectedMemory(memory);
+        queryString = `/?memory=${memory.id}`;
+        router.replace(queryString, queryString, { shallow: true });
     };
     const handleUnselectMemory = () => {
         setSelectedMemory(null);
+        router.replace('/', '/', { shallow: true });
     };
 
     const handleCategoryFilterChange = (categoryId: string) => {
@@ -76,6 +85,21 @@ const Index: NextPage<IIndex & any> = ({
     const getMemories = () => {
         return isFiltered ? filteredMemories : unFilteredMemories;
     };
+
+    useEffect(() => {
+        if (selectedMemoryId) {
+            apis.memories
+                .getMemoryById(selectedMemoryId)
+                .then((res) => {
+                    setSelectedMemory(res.data);
+                    console.log('memory loaded');
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, []);
+
     return (
         <div>
             <Head>
@@ -111,7 +135,13 @@ const Index: NextPage<IIndex & any> = ({
 /**
  * Fetch memories from back
  */
-Index.getInitialProps = async ({ req }) => {
+Index.getInitialProps = async ({ req, query }) => {
+    let selectedMemoryId = null;
+
+    if (query) {
+        selectedMemoryId = query.memory ? query.memory : null;
+    }
+
     let memories: Memories;
     await apis.memories
         .getAllMemories()
@@ -136,6 +166,7 @@ Index.getInitialProps = async ({ req }) => {
         namespacesRequired: ['common', 'index'],
         memories,
         categories,
+        selectedMemoryId,
     };
 };
 

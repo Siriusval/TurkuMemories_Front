@@ -6,6 +6,7 @@
  */
 import axios, { AxiosResponse } from 'axios';
 import https from 'https';
+import { ApiError } from 'next/dist/next-server/server/api-utils';
 
 const agent = new https.Agent({
     rejectUnauthorized: false,
@@ -155,6 +156,42 @@ const createCategory = (payload: any) =>
  */
 const getAllCategories = () => api.get(`${basePathCategories}/categories`);
 
+
+/**
+ * --- ADMIN INTERFACE ---
+ */
+const basePathAdminInterface = '/admin';
+
+/**
+ * POST : create category
+ */
+const adminCreateCategory = (payload: any) =>
+    api.post(`${basePathAdminInterface}/${basePathCategories}/categories`, payload)
+
+/**
+ *  PUT : update category
+ */ 
+const adminUpdateCategory = (id: any, payload: any) => 
+    api.put(`${basePathAdminInterface}/${basePathCategories}/categories/${id}`, payload)
+
+/**
+ *  DELETE : admin delete category by id
+ */
+const adminDeleteCategoryById = (id: any) =>
+    api.delete(`${basePathAdminInterface}/${basePathCategories}/categories/${id}`)
+
+/**
+ *  DELETE : admin delete memory by id
+ */
+const adminDeleteMemoryById = (id: any) =>
+    api.delete(`${basePathAdminInterface}/${basePathMemories}/memories/${id}`)
+
+/**
+ * DELETE : admin delete user by id
+ */
+const adminDeleteUserById = (id: any) =>
+    api.delete(`${basePathAdminInterface}/${basePathAuth}/user/${id}`)
+
 /**
  * Axios object to export, contening all the APIs to call
  */
@@ -184,4 +221,10 @@ export const apis = {
         createCategory,
         getAllCategories,
     },
+    admin: {
+        adminCreateCategory,
+        adminUpdateCategory,
+        adminDeleteMemoryById,
+
+    }
 };

@@ -160,37 +160,36 @@ const getAllCategories = () => api.get(`${basePathCategories}/categories`);
 /**
  * --- ADMIN INTERFACE ---
  */
-const basePathAdminInterface = '/admin';
 
 /**
  * POST : create category
  */
 const adminCreateCategory = (payload: any) =>
-    api.post(`${basePathAdminInterface}/${basePathCategories}/categories`, payload)
+    api.post(`/admin/${basePathCategories}/categories`, payload)
 
 /**
  *  PUT : update category
  */ 
 const adminUpdateCategory = (id: any, payload: any) => 
-    api.put(`${basePathAdminInterface}/${basePathCategories}/categories/${id}`, payload)
+    api.put(`/admin/${basePathCategories}/categories/${id}`, payload)
 
 /**
  *  DELETE : admin delete category by id
  */
 const adminDeleteCategoryById = (id: any) =>
-    api.delete(`${basePathAdminInterface}/${basePathCategories}/categories/${id}`)
+    api.delete(`/admin/${basePathCategories}/categories/${id}`)
 
 /**
  *  DELETE : admin delete memory by id
  */
 const adminDeleteMemoryById = (id: any) =>
-    api.delete(`${basePathAdminInterface}/${basePathMemories}/memories/${id}`)
+    api.delete(`/admin/${basePathMemories}/memories/${id}`)
 
 /**
  * DELETE : admin delete user by id
  */
 const adminDeleteUserById = (id: any) =>
-    api.delete(`${basePathAdminInterface}/${basePathAuth}/user/${id}`)
+    api.delete(`/admin/${basePathAuth}/user/${id}`)
 
 /**
  * Axios object to export, contening all the APIs to call
@@ -224,7 +223,8 @@ export const apis = {
     admin: {
         adminCreateCategory,
         adminUpdateCategory,
+        adminDeleteCategoryById,
         adminDeleteMemoryById,
-
+        adminDeleteUserById,
     }
 };

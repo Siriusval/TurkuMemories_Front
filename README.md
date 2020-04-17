@@ -8,6 +8,9 @@ Some rework on my side :
 -   Added typescript to the stack, prevent easy mistakes and improve scalability
 -   Building pages My memories, settings, about, other...
 
+## Before you start 
+Be sure to have the backend server & database running.
+
 ## Available Scripts
 
 In the project directory, you can run:

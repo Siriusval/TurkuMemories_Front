@@ -82,8 +82,8 @@ const Admin: NextPage<IAdmin & any> = ({
             name: categoryName,
             description: categoryDescription,
         };
-        apis.categories
-            .createCategory(model)
+        apis.admin
+            .adminCreateCategory(model)
             .then((res: AxiosResponse) => {
                 snackbarContext.displaySuccessSnackbar('Category Added');
             })

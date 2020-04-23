@@ -11,12 +11,7 @@ import next from 'next';
 import nextI18NextMiddleware from 'next-i18next/middleware';
 import nextI18next from './i18n';
 import dotenv from 'dotenv';
-import {
-    createProxyMiddleware,
-    Filter,
-    Options,
-    RequestHandler,
-} from 'http-proxy-middleware';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 // --- CONFIG ---
 dotenv.config();

@@ -40,9 +40,10 @@ const Settings = ({ t, isLogged }) => {
                             variant="outlined"
                         />
                         <div style={{ height: '5vh' }} />
+                        {/*
                         <Link href="#" passHref>
                             <Button component="a">{t('passchange')}</Button>
-                        </Link>
+                        </Link> */}
                     </Layout>
                 </div>
             ) : null}

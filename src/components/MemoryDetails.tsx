@@ -112,8 +112,8 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
                 <ListItem>
-                    <Grid container justify="center" spacing={2}>
-                        <Grid item>
+                    <Grid container justify="flex-start" spacing={2}>
+                        {/* <Grid item>
                             <MuiThemeProvider theme={redTheme}>
                                 <Button
                                     variant="contained"
@@ -123,7 +123,7 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                                     Favorite
                                 </Button>
                             </MuiThemeProvider>
-                        </Grid>
+                        </Grid> */}
                         <Grid item>
                             <Popup
                                 trigger={

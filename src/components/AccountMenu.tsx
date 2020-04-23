@@ -78,7 +78,7 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
         handleClose(event);
         Router.push('/settings');
     };
-    const handleMymemoriesClick = (event: React.MouseEvent<EventTarget>) => {
+    const handleMyMemoriesClick = (event: React.MouseEvent<EventTarget>) => {
         handleClose(event);
         Router.push('/my_memories');
     };
@@ -117,8 +117,6 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
                                     : 'center bottom',
                         }}
                     >
-                        {/* Content */}
-
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList
@@ -126,7 +124,7 @@ const AccountMenu: React.FC<IAccountMenu> = ({ isAdmin }) => {
                                     id="menu-list-grow"
                                     onKeyDown={handleListKeyDown}
                                 >
-                                    <MenuItem onClick={handleMymemoriesClick}>
+                                    <MenuItem onClick={handleMyMemoriesClick}>
                                         My Memories
                                     </MenuItem>
                                     {isAdmin ? (

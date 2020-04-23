@@ -1,6 +1,6 @@
 /**
  * i18n Provider
- * Provide available tranlations and namespaces to pages and components
+ * Provide available translations and namespaces to pages and components
  */
 import NextI18Next from 'next-i18next';
 

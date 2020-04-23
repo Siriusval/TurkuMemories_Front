@@ -7,7 +7,7 @@
  */
 
 // --- IMPORTS ---
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { apis } from '../services/apis';
 import { withTranslation } from '../i18n';
@@ -62,12 +62,13 @@ interface IAddMemory {
     isLogged: boolean;
 }
 // --- COMPONENTS ---
-const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
-    // TODO:replace formsy with formik
+const AddMemory: NextPage<IAddMemory & any> = ({ t, isLogged }) => {
     //Contexts
     const classes = useStyles();
     const snackbarContext = useSnackbarContext();
     //States
+    const [categories, setCategories] = useState<Categories | null>(null);
+
     const [markerPosition, setMarkerPosition] = useState<number[] | undefined>(
         undefined,
     ); //Care, Mapbox use [lng,lat] and not [lat,lng]
@@ -78,10 +79,22 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
     //Vars
     const center = [60.455, 22.26];
 
+    //Component did mount
+    useEffect(() => {
+        apis.categories
+            .getAllCategories()
+            .then((res) => {
+                const tempCategories = res.data.categories;
+                setCategories(tempCategories);
+                console.log('Categories fetched: ', categories.length);
+            })
+            .catch((err) => console.error('Error fetching categories'));
+    }, []);
+
     //Image upload
-    const [file, setFile] = useState('');
-    const [filename, setFilename] = useState('');
-    const [uploadedFile, setUploadedFile] = useState({});
+    //const [file, setFile] = useState('');
+    //const [filename, setFilename] = useState('');
+    //const [uploadedFile, setUploadedFile] = useState({});
 
     //Adds filename when file is added
     // const onChange = (e) => {
@@ -233,26 +246,14 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
                                             className={classes.item}
                                             required
                                             id="outlined-basic"
-                                            label={t("title_PH")}
+                                            label={t('title_PH')}
                                             variant="outlined"
                                             size="small"
                                             fullWidth
                                             value={title}
                                             onChange={handleTitleChange}
                                         />
-                                        {/* 
-                    <TextField
-                        className={classes.item}
-                        required
-                        id="outlined-basic"
-                        label="Category"
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        value={category}
-                        onChange={handleCategoryChange}
-                    />
-                    */}
+
                                         <CategorySelect
                                             categories={categories}
                                             handleCategoryFilterChange={
@@ -271,7 +272,7 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
 
                                         <TextField
                                             id="outlined-multiline"
-                                            label={t("description_PH")}
+                                            label={t('description_PH')}
                                             multiline
                                             rows="8"
                                             variant="outlined"
@@ -346,19 +347,8 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
 };
 
 AddMemory.getInitialProps = async () => {
-    let categories: Categories = null;
-    await apis.categories
-        .getAllCategories()
-        .then((res) => {
-            categories = res.data.categories;
-
-            console.log('Categories fetched: ', categories.length);
-        })
-        .catch((err) => console.error('Error fetching categories'));
-
     return {
         namespacesRequired: ['common', 'addMemory'],
-        categories: categories,
     };
 };
 

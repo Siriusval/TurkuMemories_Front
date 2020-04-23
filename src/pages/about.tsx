@@ -16,7 +16,7 @@ import {
     createStyles,
     Theme,
 } from '@material-ui/core';
-import { NextPage, NextPageContext } from 'next';
+import { NextPage, NextPageContext, GetStaticProps } from 'next';
 import Head from 'next/head';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -208,8 +208,10 @@ const About: NextPage<any> = ({ t }) => {
 };
 
 //Populate page data
-About.getInitialProps = async (ctx: NextPageContext) => ({
-    namespacesRequired: ['common', 'about'],
-});
+export const getStaticProps: GetStaticProps = async (context) => {
+    return {
+        props: { namespacesRequired: ['common', 'about'] },
+    };
+};
 
 export default withTranslation('about')(About as any);

@@ -68,6 +68,21 @@ interface IMemoryDetails {
     handleUnselectMemory(): void;
     selectedMemory: Memory;
 }
+// component
+function Photo(props) {
+    console.log(props)
+    const photo = JSON.parse(props.photo);
+    if (photo) {
+        return (
+            <ListItem>
+                <img src={`${process.env.BACK_URL}/uploads/${photo.filename}`}/>
+            </ListItem>
+            )
+            
+    }
+    return null;
+}
+
 
 // --- COMPONENT ---
 const MemoryDetails: React.FC<IMemoryDetails> = ({
@@ -75,10 +90,8 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
     selectedMemory,
 }) => {
     const classes = useStyles();
-
     const shareUrl = `${process.env.FRONT_URL}/?memory=${selectedMemory.id}`;
     const shareTitle = 'Check out this memory at Prikka';
-
     return (
         <Paper elevation={4} className={classes.root}>
             <List>
@@ -111,7 +124,7 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                     </Typography>
                 </ListItem>
                 <ListItem>
-                    <img src={JSON.parse(selectedMemory.photo).path}/>
+                    <Photo photo={selectedMemory.photo}></Photo>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
                 <ListItem>

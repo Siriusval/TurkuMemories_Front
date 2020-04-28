@@ -302,9 +302,9 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
                                                     color="primary"
                                                     component="span"
                                                 >
-                                                    Upload Image
+                                                    {t("upload_button_text")}
                                                 </Button>
-                                                    {filename}
+                                                {t("image_info")} {filename}
                                             </label>
                                         </div> }
                                     </form>

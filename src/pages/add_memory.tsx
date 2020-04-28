@@ -84,12 +84,12 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
     const [uploadedFile, setUploadedFile] = useState({});
 
     //Adds filename when file is added
-    // const onChange = (e) => {
-    //     setFile(e.target.files[0]);
-    //     setFilename(e.target.files[0].name);
-    // };
+    const onChange = (e) => {
+        setFile(e.target.files[0]);
+        setFilename(e.target.files[0].name);
+    };
 
-    /*const onSubmit = async e => {
+/*     const onSubmit = async e => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('file', file);
@@ -111,7 +111,7 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
                 console.log(err.response.data.msg);
             }
         }
-    };*/
+    }; */
 
     //Functions
     const handleClickPositionCallback = (position: number[]): void => {
@@ -140,18 +140,25 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
                 'Please enter a description for your memory',
             );
         } else {
-            const data = {
+            // to do: data variable not that useful anymore
+            var formData = new FormData();
+            var data = {
                 title: title,
                 categoryId: category,
                 description: description,
+                photo: file,
                 position: {
                     type: 'Point',
                     coordinates: [markerPosition[1], markerPosition[0]],
                 },
             };
-
+            formData.append('title', title);
+            formData.append('categoryId', category);
+            formData.append('description', description);
+            formData.append('photo', file);
+            formData.append('position', JSON.stringify(data.position))
             apis.memories
-                .createMemory(data)
+                .createMemory(formData)
                 .then((res: AxiosResponse) => {
                     snackbarContext.displaySuccessSnackbar('Memory Added');
                     Router.push('/');
@@ -281,7 +288,7 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
                                             onChange={handleDescriptionChange}
                                             required
                                         />
-                                        {/* <div className={classes.root}>
+                                        { <div className={classes.root}>
                                             <input
                                                 accept="image/*"
                                                 className={classes.input}
@@ -299,7 +306,7 @@ const AddMemory: NextPage<IAddMemory & any> = ({ t, categories, isLogged }) => {
                                                 </Button>
                                                     {filename}
                                             </label>
-                                        </div> */}
+                                        </div> }
                                     </form>
                                 </Box>
                             </Paper>

@@ -110,6 +110,9 @@ const MemoryDetails: React.FC<IMemoryDetails> = ({
                         {selectedMemory.description}
                     </Typography>
                 </ListItem>
+                <ListItem>
+                    <img src={JSON.parse(selectedMemory.photo).path}/>
+                </ListItem>
                 <Divider variant="fullWidth" component="li" />
                 <ListItem>
                     <Grid container justify="center" spacing={2}>

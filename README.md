@@ -23,19 +23,19 @@ Project uses:
 ## Preview
 
 **Browsing memories 01**
-![alt-text](assets\gifs\browsingMemories.gif 'Browsing memories 01')
+![alt-text](./assets/gifs/browsingMemories.gif 'Browsing memories 01')
 
 **Browsing memories 02**
-![alt-text](assets\gifs\browsingMemories2.gif 'Browsing memories 02')
+![alt-text](./assets/gifs/browsingMemories2.gif 'Browsing memories 02')
 
 **Writing new memory 01**
-![alt-text](assets\gifs\writingNewMemory1.gif 'Writing new memory 01')
+![alt-text](./assets/gifs/writingNewMemory1.gif 'Writing new memory 01')
 
 **Writing new memory 02**
-![alt-text](assets\gifs\writingNewMemory2.gif 'Writing new memory 02')
+![alt-text](./assets/gifs/writingNewMemory2.gif 'Writing new memory 02')
 
 **Writing new memory 03**
-![alt-text](assets\gifs\writingNewMemory3.gif 'Writing new memory 03')
+![alt-text](./assets/gifs/writingNewMemory3.gif 'Writing new memory 03')
 
 ## Changelog
 

@@ -1,3 +1,42 @@
+---
+title: TurkuMemories_Front
+author: vhulot
+date: 2020-04
+---
+
+# Turku Memories - Front
+
+![alt-text](./assets/poster.jpg 'Poster for Turku Memories')
+Project realised for Capstone at Turku's University of Applied Sciences (2019-20).
+This is a web app that display an interactive map, used to gather stories of people around Turku.
+
+Done in partnership with the City of Turku.
+
+Project uses:
+
+-   Next.js
+-   TypeScript
+-   Auth0
+-   Material UI
+-   i18next
+
+## Preview
+
+**Browsing memories 01**
+![alt-text](assets\gifs\browsingMemories.gif 'Browsing memories 01')
+
+**Browsing memories 02**
+![alt-text](assets\gifs\browsingMemories2.gif 'Browsing memories 02')
+
+**Writing new memory 01**
+![alt-text](assets\gifs\writingNewMemory1.gif 'Writing new memory 01')
+
+**Writing new memory 02**
+![alt-text](assets\gifs\writingNewMemory2.gif 'Writing new memory 02')
+
+**Writing new memory 03**
+![alt-text](assets\gifs\writingNewMemory3.gif 'Writing new memory 03')
+
 ## Changelog
 
 Some rework on my side :
@@ -8,7 +47,8 @@ Some rework on my side :
 -   Added typescript to the stack, prevent easy mistakes and improve scalability
 -   Building pages My memories, settings, about, other...
 
-## Before you start 
+## Before you start
+
 Be sure to have the backend server & database running.
 
 ## Available Scripts
